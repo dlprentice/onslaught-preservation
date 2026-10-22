@@ -54,14 +54,14 @@ least:
 - measured gameplay outcomes rather than metadata-only participant slots; and
 - clear failure and recovery behavior in the user-facing app.
 
-None of those requirements is satisfied by the current split-screen preset,
+None of those requirements was satisfied by the retired WinUI app's split-screen preset,
 source inspection, same-host helpers, VM-only metadata, or a rebuild that agrees
 with itself.
 
 ## Claim boundary
 
-This file supports the current local split-screen label and the explicit online
-non-claim. It does not prove native retail netcode, LAN/public matchmaking,
+This file records the retired WinUI app's local split-screen label and its explicit
+online non-claim. It does not prove native retail netcode, LAN/public matchmaking,
 more than two active retail players, control quality, exact layouts, visual
 parity, or rebuild parity. Current corrected function names are those of the
 decompilation notes (not yet published).

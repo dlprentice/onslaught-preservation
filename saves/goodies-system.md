@@ -75,7 +75,7 @@ The checked PC install contains 232 matching Goodie archives for 233 displayable
 
 Every parsed archive's embedded Goodie index matched its filename index. Save index `232` is the only displayable slot without a matching `goodie_232_res_PC.aya` in that corpus.
 
-Goodies `71..73` have source data-table entries, unlock/instruction hooks, and shipped texture-only archives (`ca_be_final01`, `ca_be_final02`, and `ca_bea_battle_pic`). The wall can never show them. The retail wall mapper `get_goodie_number` (`0x0045cb80`) is identical to `FEPGoodies.cpp:393-437`: row 0 gives 0-7, 66-70 (`add eax,0x3a`) and 74-77; row 1 gives 8-65; row 2 gives 201-232; row 3 gives 78-200. No cell produces 71-73, which matches the copied-profile observation of top-row navigation (`66, 67, 68, 69, 70, 74`). `UpdateGoodieStates` can still mark them new, so they can be earned but never viewed. The WinUI catalog may preview those shipped artwork resources.
+Goodies `71..73` have source data-table entries, unlock/instruction hooks, and shipped texture-only archives (`ca_be_final01`, `ca_be_final02`, and `ca_bea_battle_pic`). The wall can never show them. The retail wall mapper `get_goodie_number` (`0x0045cb80`) is identical to `FEPGoodies.cpp:393-437`: row 0 gives 0-7, 66-70 (`add eax,0x3a`) and 74-77; row 1 gives 8-65; row 2 gives 201-232; row 3 gives 78-200. No cell produces 71-73, which matches the copied-profile observation of top-row navigation (`66, 67, 68, 69, 70, 74`). `UpdateGoodieStates` can still mark them new, so they can be earned but never viewed. The retired WinUI career editor could preview those shipped artwork resources.
 
 ## Bounded retail consumption
 
