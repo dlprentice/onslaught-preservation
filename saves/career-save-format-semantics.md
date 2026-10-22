@@ -1,7 +1,7 @@
 # `CCareer` released PC save-format semantics
 
 Status: active, bounded semantic recovery
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired tools no longer described as current)
 Evidence: MEASURED — complete pristine retail bodies and instruction streams,
 the supported 10,004-byte save specimen, retained `CCareer` source, typed
 frontend callers, and eight normalized-identical PC demo twins; UNKNOWN —
@@ -58,7 +58,7 @@ The released supported table has 16 active records, so the file is exactly
 `0x2714` (10,004) bytes and the tail begins at `0x26BE`. The active-record walk
 uses the current 0x20-stride option table and its linked/sentinel field; it does
 not serialize disabled rows. This formula describes the executable. It does
-not authorize AppCore to resize or synthesize saves for an unobserved table
+not authorize an editor to resize or synthesize saves for an unobserved table
 configuration.
 
 There are two serializer entry points. `CCareer::Save` leaves the in-memory

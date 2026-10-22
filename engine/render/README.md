@@ -1,7 +1,7 @@
 # Rendering
 
 Status: active — folder index
-Last updated: 2026-10-22
+Last updated: 2026-10-22 (summaries filled, titles in sentence case)
 Summary: Render resources, trees, patches, palettes, particles, view distance, LOD constants and the default Direct3D state.
 
 ## Folders
@@ -22,5 +22,5 @@ Summary: Render resources, trees, patches, palettes, particles, view distance, L
 | [The default render-state block — `0x004EB1E0`, re-derived from bytes](d3d-default-render-state-block.md) | what the default render-state block 0x004EB1E0 sets on the device, re-derived from bytes; it fixes the default state, not the state at any particular later d… |
 | [Mesh, resource, and render static contract](mesh-resource-render-static-contract.md) | specimen-bound rendering and collision contracts, with bounded corrections to arithmetic association, float stores and ordered admission. |
 | [The player camera, the cockpit attach, and what `HFOV` means](player-camera-attach-and-mesh-hfov.md) | original camera/projection findings, with a bounded recheck of position identities and aggregate result transport appended below. Other earlier claims were n… |
-| [Render/resource static bridge](render-resource-bridge-static-contract.md) |  |
-| [View distance, cull, and LOD constants — recovered from the retail binary](view-distance-and-lod-constants.md) |  |
+| [Render/resource static bridge](render-resource-bridge-static-contract.md) | Routes AYA `MESH` and `TEXT` vocabulary to the mesh, texture and render evidence; static only. |
+| [View distance, cull, and LOD constants — recovered from the retail binary](view-distance-and-lod-constants.md) | The world far plane (700), object, mesh and tree cull distances, fog defaults and LOD constants read from the retail binary. |

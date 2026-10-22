@@ -1,7 +1,7 @@
 # Control Bindings (Options Entries)
 
 Status: active bounded contract; complete remap/input acceptance pending
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections; neutral evidence wording)
 Summary: original preset execution establishes initialized-table replacement and device fallback; separate reconstruction comparisons bound remapping and key capture on authored runtime bindings.
 Source File: binary-derived contract; no exact partial-source body asserted. Binary: pristine `BEA.exe.original.backup`.
 Evidence: MEASURED — selected pristine instructions, direct/composed preset controls and the separately dated remap/key-capture comparisons below; historical UI mappings retain their original limits.
@@ -76,7 +76,7 @@ execute the career loader. Complete selected tables, guards and source
 immutability are compared. A separate control populates all 31 inactive
 secondary slots before execution and observes their field0 clearing while
 the adjacent eight bytes remain intact. Commands and exact pins are in
-`VALIDATION.md` in Onslaught-Career-Editor.
+[`VALIDATION.md`, "Original control preset behavior — September 19"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-control-preset-behavior--september-19).
 The subsequent
 [19-case Load/TailRead/ApplyPreset composition](save-options-startup-compatibility.md#original-loader-mutable-bindings-and-later-serialization)
 executes actual positional binding loading and later original Save. An incoming
@@ -101,7 +101,7 @@ The 1,968-byte reconstructed body is substantially shorter than retail's 3,089
 bytes; it still receives no exact-match credit.
 
 A frozen original-instruction comparison was independently inspected and rerun
-by the RE lead. **120 cases agree** on the complete authored binding table,
+by the maintainer. **120 cases agree** on the complete authored binding table,
 capture/preset state and selected dispatch/callback/preset event order. Cases
 exercise eight directional actions, six negative axis keys, both polarities,
 fallback actions, both valid input slots and duplicate-clear admission controls
@@ -134,14 +134,14 @@ Private owner relative to `<maintainer evidence>`:
 Script SHA-256:
 `b6fc88f060010dfb48584fb2d5c807cf7a4e3a007d38be19a3465b700de3a145`.
 The script requires pinned source/COFF/parser inputs and records specimen-bound
-relocations and helper/switch hashes. The lead's rerun is
+relocations and helper/switch hashes. The maintainer's rerun is
 `<maintainer evidence>/fepcontrols-remap-root-20260930/comparison.json`. Reproduce with the
 existing `<maintainer evidence>/venv/bin/python -B`, the owner's `probe.py`, and `--out`
 naming a new private directory whose parent already exists.
 
 ## Reconstructed key-capture comparison — October 1
 
-The lead re-derived `00456190` from the pristine instructions and compared it with a fresh reconstruction
+The maintainer re-derived `00456190` from the pristine instructions and compared it with a fresh reconstruction
 of `RemapKeyTrap`. **482 authored cases agree** on the complete binding/capture/preset state, release flag,
 key-sink pointer, low-byte true return and selected callback/preset/key-sink/sound event order. The cases
 include both valid input slots, mouse actions 58–77 with buttons 0–5, key-down admission, matched/unmatched

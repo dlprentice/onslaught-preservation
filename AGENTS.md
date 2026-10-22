@@ -1,7 +1,7 @@
 # Onslaught preservation: agent guide
 
 Status: active — the single instruction file for this repository; `CLAUDE.md` only points here
-Last updated: 2026-10-22
+Last updated: 2026-10-22 (public related projects are linked by URL)
 Summary: what this repository is, the document header convention, and the evidence and content rules for edits.
 
 ## What this is
@@ -38,7 +38,7 @@ documents link to its anchors.
 
 - No machine paths, home directories, drive letters or private repository paths. Private receipts are written
   `<maintainer evidence>/…`.
-- No links to private repositories. Name related projects in plain text.
+- No links to private repositories. Link the public related projects (listed in the README) by full URL.
 - No game files, screenshots, string dumps or links to disc images (see [`CONTRIBUTING.md`](CONTRIBUTING.md)).
 - Relative links between documents; check them after moving or renaming a file.
 - Licences are mapped per path in [`REUSE.toml`](REUSE.toml); a new folder of quoted source needs its own annotation.

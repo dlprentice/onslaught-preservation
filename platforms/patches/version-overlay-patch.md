@@ -1,16 +1,21 @@
 # Version Overlay Patch
 
+Status: historical patch note
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Summary: the paired pointer and cave-string rows that show `V1.00 - PATCHED` in the version overlay, and the one
+copied-game run that confirmed it.
+
 > Patch note for the opt-in `V1.00 - PATCHED` marker bytes
 
 ## Scope
 
-The Binary Patches UI ships one visible stable row that redirects the bottom-left version-format pointer when the user explicitly selects the marker. A hidden cave-string payload row is selected with that visible marker only. A bounded copied-game title/menu runtime smoke has confirmed the visible `V1.00 - PATCHED` marker in one local run; this document does not claim broader overlay, gameplay, or parity behavior.
+The Binary Patches page of the retired AppCore editor (Onslaught-Career-Editor [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has it) shipped one visible stable row that redirects the bottom-left version-format pointer when the user explicitly selects the marker. A hidden cave-string payload row is selected with that visible marker only. A bounded copied-game title/menu runtime smoke has confirmed the visible `V1.00 - PATCHED` marker in one local run; this document does not claim broader overlay, gameplay, or parity behavior.
 
-WinUI Windowed & Mods also exposes Proof quick-pick controls named `Add PATCHED
-marker` and `Clear PATCHED marker`. They only select or clear the existing
-visible `version_overlay_use_patched_format_pointer` row; AppCore/catalog
-dependency handling remains responsible for adding the hidden
-`version_overlay_patched_format_cave_string` payload when a copied profile is
+The retired WinUI app's Windowed & Mods page also had Proof quick-pick controls named `Add PATCHED
+marker` and `Clear PATCHED marker`. They only selected or cleared the
+visible `version_overlay_use_patched_format_pointer` row; the AppCore catalogue's
+dependency handling added the hidden
+`version_overlay_patched_format_cave_string` payload when a copied profile was
 prepared.
 
 ## Patch Pair
@@ -29,15 +34,15 @@ prepared.
 
 ## Safety Model
 
-- Both patches are byte-verified before write.
-- Both patches are restored through the normal `BEA.exe.original.backup` rollback path.
+- The retired editor byte-verified both patches before writing them.
+- It restored both through the normal `BEA.exe.original.backup` rollback path.
 - They do not change gameplay logic; they only affect the version overlay string path when that path is exercised.
 
 ## Evidence
 
-- `patches/catalog/patches.v2.json`
-- `BinaryPatchEngine.cs`
-- `patches/README.md`
+- [`patches/catalog/patches.v2.json`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/patches/catalog/patches.v2.json) (Onslaught-Career-Editor `4ac3c9ae`, retired)
+- [`BinaryPatchEngine.cs`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BinaryPatchEngine.cs) (same commit)
+- [`patches/README.md`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/patches/README.md) (same commit)
 - Copied-game runtime smoke artifact: retained in ignored local evidence storage.
 - First captured title/menu frame: retained in ignored local evidence storage; public summary is only that the frame showed `V1.00 - PATCHED` in one local run.
 

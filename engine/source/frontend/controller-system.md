@@ -1,7 +1,7 @@
 # Controller System
 
 Status: active — mixed source reference and bounded retail evidence
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired tools no longer described as current)
 Summary: controller architecture and retail differences; the keyboard queries
 and POV neutral comparison were rechecked on September 26, while other sections
 retain their own dated evidence and limitations. The September 27 joystick and
@@ -340,7 +340,7 @@ and `0x00662F36`, passes the shared filename buffer at `0x00662F4C`, and calls
 the two start functions. The Steam command-line parser does **not** contain the
 source build's `-record` or `-play` spellings or parser arms, however. The
 surviving fields are cleared by the `CLIParams` defaults constructor at
-`0x004239F0`; they require a debugger intervention or an exact safe-copy patch
+`0x004239F0`; they require a debugger intervention or an exact patch to a copied executable
 before the post-load path can activate them.
 
 The final complete 12-byte frame is consumed. The following attempted read sets

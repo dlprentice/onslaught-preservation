@@ -1,7 +1,7 @@
 # Unit / BattleEngine / gameplay static contract
 
 Status: bounded retail static map; not runtime gameplay proof
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: retained gameplay routing plus specimen-bound aircraft arithmetic, provider, debris and squad-registration findings.
 Evidence: MEASURED — October 1 whole-section/relocation match, bounded original-code arithmetic and squad instruction reads; the retained map sections keep their July 16 evidence limits.
 Specimen: pristine `BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -19,7 +19,7 @@ preserves the compiled instruction sections of all 45 callables; only the
 threshold reference at Move section offset `+0x51a` changes. All 44 other
 callable graphs, 36 existing exact results and six vtables remain unchanged.
 
-The lead freshly compiled both forms, independently read the constant, and
+The maintainer freshly compiled both forms, independently read the constant, and
 executed the original and candidate 111-byte fragments
 `[0x004475dc,0x0044764b)`. These load the float32 headings, wrap their difference
 and select the threshold branch. Seven constant references are bound to their
@@ -52,7 +52,7 @@ the former reconstruction used `(Y+X)+Z`. Cancellation can change the sign.
 Binding the earlier destination height by const reference recovers the retail
 operand order without a shared-header or compiler change.
 
-The lead freshly compiled both versions and executed the original and candidate
+The maintainer freshly compiled both versions and executed the original and candidate
 47-byte fragments in 336 authored finite states. Before correction, 37 PC24,
 21 PC53 and nine PC64 cases select the opposite sign. The corrected fragment
 is byte-identical after its zero-constant relocation is independently bound,
@@ -77,7 +77,7 @@ lifetime; the later outer iterator reuses that storage. Selection phases and
 scoring remain in retail order. These source groupings are reconstructed,
 not recovered original helper names.
 
-The lead freshly compiled and bound every reference, preserving all 240 other
+The maintainer freshly compiled and bound every reference, preserving all 240 other
 callable graphs across Unit and UnitAI and all nine vtables. The extra emitted
 iterator was already globally exact. This settles the compiled method, not
 live targeting or full Unit behavior. Other Unit/UnitAI misses remain open.
@@ -91,7 +91,7 @@ product on x87 until doubling and bias subtraction finish. The former vector
 expression rounded that product to float first. Calling the existing vector
 setter with the scaled components recovers the original materialization order.
 
-The lead executed the original fragment and freshly compiled correction in
+The maintainer executed the original fragment and freshly compiled correction in
 9,216 bounded integer/precision/rounding cases. The old version differs in
 2,184 Z results; the correction agrees in XYZ and x87 status in all admitted
 cases. A control inserting only the intermediate float store/reload reproduces
@@ -107,7 +107,7 @@ root receipts are `mech-root-static-readback.json` and
 
 ## Squad registration order — October 1
 
-The lead freshly decoded squad initialization at `0x004e5e70`, the called
+The maintainer freshly decoded squad initialization at `0x004e5e70`, the called
 `Append` at `0x004e5b20`, and the different `Add` at `0x004e5a80`.
 
 After the base initialization call at `0x004e61b4` and copying the position

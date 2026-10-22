@@ -1,7 +1,7 @@
 # Retail Specimen Baseline
 
 Status: active specimen record
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: which retail executable and corpus files probes trust, their hashes, and the state of the installed copy.
 Evidence: MEASURED — SHA-256 of the named files, measured on the dates given.
 Specimen: pristine `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -95,15 +95,15 @@ Measured today:
   (`<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, and identically
   `<maintainer evidence>/pristine-verification-2026-07-26/pristine-target/BEA.exe`)
 
-Same size, **28 bytes differ across exactly four sites**, and all four are this
-repository's own catalogued patches:
+Same size, **28 bytes differ across exactly four sites**, and all four are rows of
+the patch catalogue of the retired AppCore editor (Onslaught-Career-Editor [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has it):
 
 | File offset | Change | Catalogue entry |
 |---|---|---|
-| `0x06416F` | pushed string pointer `0x00629454` → `0x005AA444` | `BinaryPatchEngine.cs:282` version-overlay marker pointer |
-| `0x129696` | `jne` rel32 displacement `0xCC` → `0x00` | `BinaryPatchEngine.cs:233` aspect/4:3 reject gate |
-| `0x12A644` | `a1 f0 2d 66 00` → `b8 01 00 00 00` (`mov eax,[0x662df0]` → `mov eax,1`) | `BinaryPatchEngine.cs:246` `force_windowed` |
-| `0x1AA444` | 20 bytes of `cc` padding → `"V%1d.%02d - PATCHED\0"` | `BinaryPatchEngine.cs:296` version-overlay cave payload |
+| `0x06416F` | pushed string pointer `0x00629454` → `0x005AA444` | [`BinaryPatchEngine.cs:282`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BinaryPatchEngine.cs#L282) version-overlay marker pointer |
+| `0x129696` | `jne` rel32 displacement `0xCC` → `0x00` | [`BinaryPatchEngine.cs:233`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BinaryPatchEngine.cs#L233) aspect/4:3 reject gate |
+| `0x12A644` | `a1 f0 2d 66 00` → `b8 01 00 00 00` (`mov eax,[0x662df0]` → `mov eax,1`) | [`BinaryPatchEngine.cs:246`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BinaryPatchEngine.cs#L246) `force_windowed` |
+| `0x1AA444` | 20 bytes of `cc` padding → `"V%1d.%02d - PATCHED\0"` | [`BinaryPatchEngine.cs:296`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BinaryPatchEngine.cs#L296) version-overlay cave payload |
 
 **Scope of the damage to existing findings: none identified, and the reason is
 specific rather than reassuring.** 2,506,724 of 2,506,752 bytes are identical, so

@@ -1,7 +1,7 @@
 # Walker dash: the retail timing window
 
 Status: active static contract for the rebuild's walker movement
-Last updated: 2026-10-22 (private evidence paths generalised for the onslaught-preservation layout)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: a walker dash needs the opposite hard press to have started more than half of
 `mDashTime` and less than `mDashTime` before (0.1 to 0.2 s). The pinned source has only the
 0.2 s bound. The frame calculation assumes float32 event times and x87 single precision. At 20 event
@@ -176,7 +176,7 @@ percentages were not recomputed by this pass.
 
 ## Native slow-movement recheck — October 1
 
-The lead ran all four complete original directional bodies and their freshly compiled
+The maintainer ran all four complete original directional bodies and their freshly compiled
 candidates in native i386 probes. The primary vtable at `0x005d89c4` identifies
 CBattleEngine through its RTTI; its ground-query and AddVelocity slots select the
 actual `0x00401f70` and `0x00404170` helpers. Those execute, along with the original
@@ -199,7 +199,7 @@ directional sections already match completely, and 42 focused exact controls rem
 The cheapest remaining player-level falsifier records the slow flag and resulting
 velocity during the same charging action in all four directions on a retail copy.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/walker-strafe-root-20261001/slow-input/`.
 `native-v01/receipt.json` SHA-256:
 `309272f1a4bc382fb1100567e8ba6b50d645ac76467b351906b37bdc2a538f09`.

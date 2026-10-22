@@ -1,14 +1,14 @@
 # Save, options and startup compatibility contract
 
 Status: active bounded contract; comprehensive compatibility recheck in progress
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense; VALIDATION citations pinned to sections; neutral evidence wording)
 Summary: independently rechecked startup/serialization behavior and explicit remaining save/settings compatibility boundaries.
 Evidence: MEASURED — selected pristine instructions and the isolated execution below; inherited subsystem summaries remain subject to recheck.
 Specimen: `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
 
 ## September 30 reconstructed options-reader comparison
 
-The lead independently reran 50 bounded in-memory comparisons between the original `0x00420d70` reader
+The maintainer independently reran 50 bounded in-memory comparisons between the original `0x00420d70` reader
 and the current private reconstruction. Both execute at the original address in separate emulator images;
 the 1,072-byte candidate is still shorter than the 1,155-byte retail body and **does not count as a byte match**.
 All 70 candidate relocations are bound by 20 retail data-immediate witnesses and seven direct-call witnesses.
@@ -43,14 +43,14 @@ Private reproduction, from the decompilation's main branch, with a new output di
 ```
 
 The frozen script SHA-256 is `270920c047c0bb3ce53f2683a9473627d92ecb9b85410776396a98daba3a2846`;
-its pinned source/COFF inputs are adjacent. The lead's actual output is
+its pinned source/COFF inputs are adjacent. The maintainer's actual output is
 `<maintainer evidence>/career-compatibility-root-20260930/results.json`. Independent review checked the anchors,
-ABI boundaries and controls before the lead rerun. Extending the callback boundary to original tweak/audio
+ABI boundaries and controls before the maintainer's rerun. Extending the callback boundary to original tweak/audio
 implementations is a stronger falsifier; no save or settings file was created or modified by these probes.
 
 ## October 1 original integer-tweak conversion
 
-The lead freshly compiled the options reader and reproduced 217 native i386 cases
+The maintainer freshly compiled the options reader and reproduced 217 native i386 cases
 through the complete original/candidate bodies, now executing the actual
 `CTweakSLONG::Set` at `0x00528ad0` instead of the earlier conversion model. The
 serialized integer goes through binary32 before the setter converts it to a signed
@@ -76,7 +76,7 @@ aliasing safety or complete save compatibility. No save or settings file was cha
 The next useful falsifier replaces a remaining callback model in the composed reader
 under an admitted real-options input, preserving its original bytes.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/career-tweak-native-root-20261001/`.
 `v02/receipt.json` SHA-256:
 `d505219ce6314284de26eab4d974258b03baaf01ebd3c94c688a67bc9bd8c80b`.
@@ -153,7 +153,7 @@ language, diagnostics and final Goodie actions remain explicit boundaries.
 The Linux child admits only read/write/exit syscalls; a forbidden-call negative
 control terminates with SIGSYS. These controls establish neither real desktop
 startup nor full save compatibility. Exact commands and intermediate failures
-are in `VALIDATION.md` in Onslaught-Career-Editor.
+are in [`VALIDATION.md`, "Original save and startup controls — September 19"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-save-and-startup-controls--september-19).
 
 ## Original menu load and next-startup composition
 
@@ -369,7 +369,7 @@ yet been folded into this load/serialization composition.
 
 ## Original audio reset and language-bank retry behavior
 
-The reset controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The reset controls ([`VALIDATION.md`, "Original audio reset and music restoration — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-audio-reset-and-music-restoration--september-20))
 execute nine unchanged bodies in 26 cases. Original shutdown deletes sample
 objects, stops/frees music state, handles message voice, and releases/clears
 device slots before attempting sound Init. Init admission tests its low return
@@ -393,7 +393,7 @@ memory, so this neither proves a valid lifetime nor demonstrates a real dangling
 access. The alternate-manager case likewise establishes the final canonical
 sample-list traversal without claiming safe sharing after real destruction.
 
-The bank controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The bank controls ([`VALIDATION.md`, "Original language-bank admission and retry — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-language-bank-admission-and-retry--september-20))
 execute seven unchanged bodies in 22 cases. Once initialized, Reload obtains the
 name from active CText `+0x1c`, builds the bank path, and compares it with the
 manager's cached path using original ASCII case-insensitive comparison. Equal
@@ -425,7 +425,7 @@ Unchanged full bodies and explicit hooks are pinned in the private receipts.
 
 ## Original sample decoding and saved quality
 
-The 44 direct sample controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The 44 direct sample controls ([`VALIDATION.md`, "Original sample decode and quality conversion — September 22"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-sample-decode-and-quality-conversion--september-22))
 execute unchanged sample loading `005172a0`, cached Read `00548570`, device-buffer
 creation `00517440`, ADPCM decoding `00517fa0` and conversion `00517600`. The
 heap and COM methods are explicit recording hooks. Original bank traversal,
@@ -491,7 +491,7 @@ are retained in the private comparison linked from validation.
 
 ## Outer sample admission and registration
 
-The 25 outer-call controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The 25 outer-call controls ([`VALIDATION.md`, "Original sample admission and registration — September 22"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-sample-admission-and-registration--september-22))
 add original `004e0890`, ASCII `stricmp`, `strncpy` and the five-byte stub at
 `00517290` to the preceding sample pipeline. They use only English-bank record 3;
 existing sample objects and list layouts are authored. Formatter, logger,
@@ -547,7 +547,7 @@ separately. Successful playback remains open.
 
 ## Original sample destruction and failed loads
 
-The 23 standalone and 11 composed controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The 23 standalone and 11 composed controls ([`VALIDATION.md`, "Original sample destruction and failed loads — September 22"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-sample-destruction-and-failed-loads--september-22))
 execute the original deleting wrapper, derived/base destructors, matching-event
 shutdown, channel stop, owner clearing and reader-list removal. The composed
 route additionally executes `004e0890` → `005172a0` → cached Read, with an
@@ -605,7 +605,7 @@ traversal with supplied filesystem/device services.
 
 ## Complete original bank loading and reloads
 
-The 11 bank controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The 11 bank controls ([`VALIDATION.md`, "Original complete bank loading and reloads — September 22"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-complete-bank-loading-and-reloads--september-22))
 execute unchanged `00517d00`, file Open/refill/Close/constructor/destructor,
 CreateSample, sample loading, decoding, conversion and string helpers. The full
 English XAP is 5,396,113 bytes, SHA-256
@@ -650,7 +650,7 @@ or startup composition remain outside this experiment.
 
 ## Coupled language and audio settings routing
 
-The nine paired controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The nine paired controls ([`VALIDATION.md`, "Original coupled settings and audio routing — September 23"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-coupled-settings-and-audio-routing--september-23))
 use the **unchanged real gold save** and vary only prior live state. Original
 Load/TailRead/SetLanguage execute into either reset/shutdown or language-bank
 refresh; original Save then supplies its buffer directly to a second Load and
@@ -691,7 +691,7 @@ replace the status-only boundary; real platform effects remain open.
 
 ## Original audio-device initialization
 
-The 29 isolated controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The 29 isolated controls ([`VALIDATION.md`, "Original audio-device initialization — September 23"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-audio-device-initialization--september-23))
 execute the complete original Init `005169b0`, enumeration callback and seven
 wrapper/import/string bodies. Heap, enumeration delivery, COM/device methods,
 `mmioClose` and diagnostics remain supplied boundaries. These results extend
@@ -762,7 +762,7 @@ changed in these controls.
 
 ## Original outer sound-manager initialization
 
-The ten outer-initialization controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The ten outer-initialization controls ([`VALIDATION.md`, "Original outer sound-manager initialization — September 23"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-outer-sound-manager-initialization--september-23))
 execute original `004e00d0`, its registration/timer helpers and device Init in
 one call. The receiver is the canonical sound manager `00896988`. SFX parsing
 at `004e2530` remains an explicit recording boundary: the caller requests
@@ -814,7 +814,7 @@ actual SFX loading, device behavior, playback or save compatibility.
 
 ## Original device effects during Load and Save
 
-The eight composed controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The eight composed controls ([`VALIDATION.md`, "Original device effects during Load and Save — September 23"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-device-effects-during-load-and-save--september-23))
 execute original Load, reset, device Init/enumeration, Save and direct-buffer
 reload/Save. Five inputs retain every byte of the real gold fixture. Three
 private in-memory derivatives change only its known device-index word at
@@ -853,7 +853,7 @@ file writes and complete player startup acceptance remain unproven.
 
 ### Bank loading with a missing device
 
-The four debugger-controlled variants (`VALIDATION.md` in Onslaught-Career-Editor)
+The four debugger-controlled variants ([`VALIDATION.md`, "Original bank null-device controls — September 23"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-bank-null-device-controls--september-23))
 reuse the already reviewed bank ELF and admitted two-record/zero-count inputs.
 Only owned process state changes before the original bank call: main-device
 pointer, initialized byte, listener and wrapper. No original instructions or
@@ -879,7 +879,7 @@ in the installed game/Proton. File, heap and COM dependencies remain supplied.
 
 ## Original save reload after reinitialization
 
-The round-trip controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The round-trip controls ([`VALIDATION.md`, "Original Load, Save and reload controls — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-load-save-and-reload-controls--september-20))
 pass 15 cases through unchanged Load, the settings/preset/language-copy and
 volume bodies, and both Save variants. The second Load reads the first native
 serializer's buffer directly. Optional original career and binding initializers
@@ -912,7 +912,7 @@ one real fixture and named derivatives, not complete startup acceptance.
 
 ## Original startup reset including Goodies
 
-The extended startup controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The extended startup controls ([`VALIDATION.md`, "Original startup reset with Goodies — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-startup-reset-with-goodies--september-20))
 replace the former Goodie hook with the unchanged recomputation and its required
 helpers. Original descriptor initialization supplies the thresholds; zero-filled
 BSS is not an equivalent starting state. WinMain, Load and Blank execute in 17
@@ -948,11 +948,11 @@ inherited evidence, not comparisons rerun here.
 
 ## Implementation-consumer findings
 
-The retained `BesFilePatcher.ApplyOptionsTailOverrides` clamps mouse sensitivity
+The retired AppCore editor's [`BesFilePatcher.ApplyOptionsTailOverrides`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BesFilePatcher.cs) (Onslaught-Career-Editor `4ac3c9ae`) clamped mouse sensitivity
 to `0.1..5.0`. Fresh bytes place the image default at `7.0`, and the retail menu
 setter at `004cefe0` writes `(index + 1) * 3.0`; the construction bounds yield
 `3, 6, ..., 63`. The tail reader preserves the raw sensitivity dword. Therefore
-that editor's range is a narrower application policy, not the retail range.
+that editor's range was a narrower application policy, not the retail range.
 The `OptionsD3DDeviceIndex`/`D3DDeviceIndex` consumer names similarly misdescribe
 the packed display-mode key. No companion/rebuild code was changed in this RE pass.
 
@@ -978,7 +978,7 @@ newly verified merely because they remain documented here.
 | Career data | The mapped body includes 100 nodes, 200 links, 300 Goodie slots with 233 displayable entries, five packed kill counters from `0x23F6`, and raw float ranks. | In-game presentation and unlock animation remain runtime behavior. |
 | Options | Flags begin at `0x249E`, control entries at `0x24BE`, and the options tail is `0x56` bytes. `OptionsTail_Write`/`Read` and the binding helpers own this structure. | Hardware/input behavior needs focused runtime evidence when claimed. |
 | Frontend persistence | `CFEPLoadGame__DoLoad`, `CFEPOptions__SaveDefaultOptions`, `CFEPOptions__WriteDefaultOptionsFile`, `CPauseMenu__ResumeGameAndPersistOptions`, and `Platform__AsyncSaveCareer` connect frontend actions to serialization. | Static xrefs do not establish filesystem timing. |
-| Product behavior | `BesFilePatcher` validates size/version, refuses in-place output, preserves unknown and reserved regions, supports scoped options copy, and blocks career writes to options-like files unless explicitly overridden. | These guarantees remain protected by focused AppCore/UI tests. |
+| Product behavior | The retired AppCore `BesFilePatcher` validated size/version, refused in-place output, preserved unknown and reserved regions, supported scoped options copy, and blocked career writes to options-like files unless explicitly overridden. | The companion's `CareerSave` and `OptionsFile` tests now carry the save-layout and file-safety facts. |
 
 ## Canonical owners
 
@@ -992,7 +992,7 @@ newly verified merely because they remain documented here.
 - [Control bindings](options-control-bindings.md)
 - [`CFEPOptions__WriteDefaultOptionsFile`](by-function/CFEPOptions__WriteDefaultOptionsFile.md)
 - `CPauseMenu__ResumeGameAndPersistOptions` (in the decompilation notes, not yet published)
-- `OnslaughtCareerEditor.AppCore/BesFilePatcher.cs` in Onslaught-Career-Editor
+- The companion's [`CareerSave.cs`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/companion/OnslaughtToolkit.Godot/Careers/CareerSave.cs) (Onslaught-Career-Editor `51129bab`); before it, the retired [`BesFilePatcher.cs`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BesFilePatcher.cs) (`4ac3c9ae`)
 
 ## Open boundaries
 

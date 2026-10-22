@@ -1,5 +1,9 @@
 # Save Goodies quick reference
 
+Status: active quick reference
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Summary: where the Goodie states live in a `.bes` save and the corrections an editor must keep.
+
 The authoritative format and evidence boundaries are in [goodies-system.md](goodies-system.md). Unlock copy shown by the product is owned by `companion/OnslaughtToolkit.Godot/Careers/GoodieUnlockRequirementService.cs` in Onslaught-Career-Editor.
 
 ## Storage
@@ -29,4 +33,4 @@ MissionScript Goodie indices are one-based: `script index = save index + 1`. Scr
 - Goodie `232` maps to cutscene `33` and lacks a matching `goodie_232_res_PC.aya` in the checked PC archive set.
 - Goodie `228` is at `0x22D6`. The old `0x22D4` aligned-view value is not `mCareerInProgress`; that flag is at file offset `0x248A`.
 
-Use the AppCore patcher and its focused tests for byte-preservation behavior.
+The companion's [`CareerSave`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/companion/OnslaughtToolkit.Godot/Careers/CareerSave.cs) (Onslaught-Career-Editor `51129bab`) and its tests now own the byte-preserving Goodie edit.

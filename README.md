@@ -1,7 +1,7 @@
 # Onslaught preservation
 
 Status: active — the repository's front page
-Last updated: 2026-10-22 (related projects limited to published ones)
+Last updated: 2026-10-22 (related projects linked; Onslaught-Career-Editor citations pinned to one commit)
 Summary: what this repository documents about *Battle Engine Aquila*, where to start in each section, how to read a
 finding, the licence, related projects and how to contribute.
 
@@ -39,9 +39,10 @@ and no decompiler output.
   controlled runtime evidence establishes causality and values. Unknowns are written as open questions.
 - Retail addresses refer to the specimen named in the document, normally the pristine Steam `BEA.exe`
   (SHA-256 `74154bfa…`; see the [retail specimen baseline](platforms/pc/retail-specimen-baseline.md)).
-- Function names such as `CCareer__Save` are the names of the matching decompilation, which is the naming authority.
-  Its function notes are not yet published; a document that cites one says "(in the decompilation notes, not yet
-  published)".
+- Function names such as `CCareer__Save` are the names of the matching decompilation,
+  [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp), which is the naming authority. Its per-function notes are not
+  published; a document that cites one says "(in the decompilation notes, not yet published)", and the decompiled
+  source itself is in onslaught-decomp.
 - `references/Onslaught/<file>` cites Stuart's published source at the pinned commit
   [`c3d8ac4`](https://github.com/dlprentice/Onslaught/tree/c3d8ac464259942b83fa8aa7f867c856e77b734d) of the
   public reference fork of [stuart73/Onslaught](https://github.com/stuart73/Onslaught).
@@ -50,9 +51,12 @@ and no decompiler output.
   [`53b10b0`](https://github.com/dlprentice/AYAResourceExtractor/tree/53b10b083b59cfd7e72849c15bec8b608eaf8a23).
 - `<maintainer evidence>/…` names a receipt (capture, probe output, readback) kept privately by the maintainer
   because it holds retail bytes or machine detail. Its hash, where given, identifies it.
-- Paths such as `tools/…`, `rebuild/…`, `companion/…` and `tests_shared/…` name files in
-  [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor), where the tools, the rebuild and
-  the companion were developed when the finding was written; a few have since moved to their own repositories.
+- A path cited "in Onslaught-Career-Editor", such as `tools/…`, `rebuild/…`, `companion/…`, `tests_shared/…` or
+  `VALIDATION.md`, names the file at commit [`51129bab`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/51129bab45489e5e45ee1c047cbcd8072bf4cc50) of
+  [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor), where the tools, the rebuild and the companion were developed when the finding
+  was written. The rebuild (`rebuild/…`) has since moved to [onslaught-godot](https://github.com/dlprentice/onslaught-godot). The retired
+  AppCore editor and its patch catalogue (`OnslaughtCareerEditor.AppCore/…`, `patches/…`) are cited at
+  [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has them.
 - "(archived research record, not published)" marks a citation of the project's private research history: process
   records that are kept but not published.
 
@@ -75,12 +79,16 @@ Credits are in [`history/attribution.md`](history/attribution.md).
 
 ## Related projects
 
-- [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor): the companion app for careers,
-  saves and settings, with the game's lore and lore book.
+- [onslaught-ce](https://github.com/dlprentice/onslaught-ce): Onslaught CE, a native Linux and Windows port of the game built from its
+  source, to play it on current systems with your own copy of the game.
+- [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp): the byte-matching decompilation of the retail executable, the naming
+  authority for the function names used here.
+- [onslaught-godot](https://github.com/dlprentice/onslaught-godot): a Godot (C#) rebuild of the game, checked against the original frame by
+  frame.
+- [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor): the companion app for careers, saves, settings and backups, with the game's
+  lore and lore book (to be renamed onslaught-companion).
 - [stuart73/Onslaught](https://github.com/stuart73/Onslaught): Stuart Gillam's published Onslaught source, which
   many findings here cite.
-
-Further projects will be linked here when they are published.
 
 ## Contributing
 

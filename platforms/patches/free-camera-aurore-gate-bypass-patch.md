@@ -1,8 +1,11 @@
 # Free-camera Aurore-gate bypass
 
 Status: experimental copied-profile patch with bounded static and runtime evidence.
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Summary: the branch that gates the free-camera toggle behind the Aurore cheat, the bytes that bypassed it, and the
+keyboard camera rows, with what controlled copied runs observed.
 
-The patch catalog is the byte-definition authority. This note records why the rows exist and what has actually been observed.
+The rows were defined in the patch catalogue of the retired AppCore editor (Onslaught-Career-Editor [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has it); that catalogue is retired and this note is now the record of why the rows existed and what was observed.
 
 ## Toggle gate
 
@@ -38,4 +41,4 @@ Separate `O` diagnostics with the forward variant did not reach the expected pau
 
 ## Boundary
 
-The evidence covers toggle on/off and one controlled movement or orientation path per companion row. It does not prove arbitrary key reachability, analog input, control feel, broad gameplay safety, rendering parity, online behavior, or rebuild parity. Every row remains experimental, mutually constrained by the catalog, and valid only for app-owned copied executables. Never apply it to the installed game or the original clean backup.
+The evidence covers toggle on/off and one controlled movement or orientation path per companion row. It does not prove arbitrary key reachability, analog input, control feel, broad gameplay safety, rendering parity, online behavior, or rebuild parity. Every row was experimental, mutually constrained by the catalogue, and meant only for copied executables. Never apply it to the installed game or the original clean backup.

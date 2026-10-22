@@ -1,7 +1,7 @@
 # Executable Analysis (BEA.exe)
 
 Status: active reference
-Last updated: 2026-10-22 (research-campaign records removed)
+Last updated: 2026-10-22 (decompilation linked)
 Summary: the retail `BEA.exe`: PE identity, hashes, size, DLL imports, Direct3D 9 and branding.
 
 ## Executable Metadata
@@ -15,7 +15,7 @@ Summary: the retail `BEA.exe`: PE identity, hashes, size, DLL imports, Direct3D 
 | **File Size** | 2,506,752 bytes (~2.4 MB) |
 | **Loaded Memory** | ~6.1 MB (includes BSS/uninitialized data) |
 | **Architecture** | x86 32-bit |
-| **Functions** | 5,482, the function count of the byte-matching decompilation (not yet published). Earlier counts quoted in dated notes came from automatic function recovery and are not properties of the binary. |
+| **Functions** | 5,482, the function count of the byte-matching decompilation ([onslaught-decomp](https://github.com/dlprentice/onslaught-decomp)). Earlier counts quoted in dated notes came from automatic function recovery and are not properties of the binary. |
 | **Format** | PE / D3D9 |
 
 **Notes**: CompanyName says "Lost Toys" (retail build still branded Lost Toys). The Windows retail release was published by Encore; per Stuart (Discord, Dec 2025), the retail Windows work was done in-house at Lost Toys (Jan, ex-Mucky Foot, and possibly others). D3D9 confirms retail/Steam build (not Stuart's D3D8 internal dev build).

@@ -1,7 +1,7 @@
 # `CTokenArchive` particle grammar and reference semantics
 
 Status: active, bounded semantic recovery
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (neutral evidence wording)
 Evidence: MEASURED — complete pristine retail bodies, exact parser tables,
 particle-set files, callers, memory layout, and twelve normalized-identical PC
 demo twins; October adds bounded original-code numeric/header comparisons.
@@ -101,7 +101,7 @@ All fifteen other callable sections/relocation targets remain unchanged and exac
 ReadToken's 960-byte section still differs at 543 positions; it receives no exact
 match credit. The August corpus/demo comparisons were not rerun in this pass.
 
-Private lead evidence:
+Maintainer evidence:
 `<maintainer evidence>/tokenarchive-root-20261001/readback.json`
 and `allocation-v1/receipt.json` (SHA-256
 `c1fffd33dab5794f33c216438ff47cb5a613c988e8d012eef1a69adb963cde76`).
@@ -110,7 +110,7 @@ the whole reader on a disposable particle-set copy with real numeric conversion.
 
 ## Original numeric scanner — October 1
 
-The lead independently reproduced `sscanf` at `0x0055e14f`, its `_input`
+The maintainer independently reproduced `sscanf` at `0x0055e14f`, its `_input`
 implementation and admitted original CRT dependencies on 72 authored ASCII cases
 using `%i`, `%f` and `%s %s`. Nine negative controls reject missing initialization,
 conversion/EOF dependencies, unsupported locale state, incomplete execution,
@@ -140,7 +140,7 @@ at `0x00625274`. The scanner accepts both words in `File_Version +.`. The
 composed experiment below now tests ReadToken's subsequent result. ReadToken
 itself and archive I/O did not execute in this scanner-only experiment.
 
-Lead reproduction owner:
+Maintainer reproduction owner:
 `<maintainer evidence>/retail-sscanf-20261001/`.
 `scanner-v03/receipt.json` SHA-256:
 `1328f00bccda3b44438b691f36c3daef9ac9e8fdff7325852948a9f42509a089`;
@@ -149,7 +149,7 @@ Lead reproduction owner:
 
 ## Composed numeric and header reads — October 1
 
-The lead reproduced twelve authored ASCII streams through 38 complete ReadToken
+The maintainer reproduced twelve authored ASCII streams through 38 complete ReadToken
 calls, executing original ReadLine `0x0048de00`, ReadString `0x00548820`, token-name
 lookup and the admitted CRT scanner. Input is an explicit ready-memory last block;
 refill, allocation and unadmitted code are refused. This is original code under
@@ -191,7 +191,7 @@ archive compatibility. Repeated standalone calls after FALSE/EOF do not prove a
 production caller continues then. The simple-sprite caller is tested separately
 below; no real file, original save or game asset was modified.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/readtoken-scanner-20261001/`.
 Original receipt `composition-v02/receipt.json` SHA-256:
 `25be4ba8c58e78535d2da04175a0139abc7fe5667d2d367e757ae0ab60ad2055`;
@@ -202,7 +202,7 @@ fresh candidate comparison `comparison-v05/receipt.json`:
 
 The original loader at `0x004c05c0` ignores ReadToken's return value after its
 call at `0x004c05fb`, dispatches the token at `0x004c0600`, and loops until the
-separator token. Its shared float output is not reset between reads. The lead
+separator token. Its shared float output is not reset between reads. The maintainer
 reproduced five authored streams through the complete original loader, totaling
 fifteen ReadToken calls, with the original reader/scanner and null-texture SetUV.
 
@@ -230,7 +230,7 @@ complete archive compatibility. Original saves and installed assets were untouch
 A useful next falsifier follows another actual descriptor loader with the same
 numeric-output lifetime, before generalizing this caller's behavior.
 
-Lead evidence in the same private owner: `sprite-v10/receipt.json`, SHA-256
+Maintainer evidence in the same private owner: `sprite-v10/receipt.json`, SHA-256
 `f80596125975a42fc7b39003da973842b31dad810e33c934963cf9b9dfe90b88`.
 
 ## Deferred reference workspace

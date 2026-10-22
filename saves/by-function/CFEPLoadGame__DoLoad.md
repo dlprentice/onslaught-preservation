@@ -1,7 +1,7 @@
 # CFEPLoadGame__StartLoad
 
 Status: active bounded retail contract; complete UI/filesystem acceptance pending
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections)
 Summary: original menu-load composition preserves live volumes and conditionally forwards the entire read buffer to default-options persistence.
 Source File: `references/Onslaught/FEPLoadGame.cpp` (`StartLoad`, partial analogue); Binary: pristine `BEA.exe.original.backup`.
 Evidence: MEASURED — selected pristine instructions and 20 isolated original-code controls; UI and filesystem services intercepted.
@@ -73,7 +73,7 @@ handoff is explicitly supplied; there was no real file write or desktop launch.
 
 The private controls and receipts live in
 `<maintainer evidence>/test-runs/save-startup-20260919/`. Exact commands and limitations are
-in `VALIDATION.md` in Onslaught-Career-Editor.
+in [`VALIDATION.md`, "Original menu load and next startup — September 19"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-menu-load-and-next-startup--september-19).
 
 ### Read-path name conversion
 

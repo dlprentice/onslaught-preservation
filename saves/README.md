@@ -1,9 +1,13 @@
 # Retail save format
 
+Status: active — the saves folder index
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Summary: the fixed 10,004-byte `.bes` career format and the documents that describe it.
+
 This directory documents the observed fixed 10,004-byte (`0x2714`) `.bes`
-career format used by the supported retail/Steam specimen. AppCore starts from
+career format used by the supported retail/Steam specimen. An editor starts from
 a real baseline, preserves unknown bytes and file size, and writes only fields
-selected by the user.
+selected by the user; the companion's `CareerSave` (Onslaught-Career-Editor) does so.
 
 ## Documents
 

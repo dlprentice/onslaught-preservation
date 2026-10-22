@@ -1,7 +1,7 @@
 # Destroyable Segments Static Contract
 
 Status: active contract with a dated inherited subsystem map
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: retail segment-break ordering and complete Break/SpawnRubble code matches; the broader June 7 map retains its earlier limits.
 
 The October 1 section below is a fresh instruction read and bounded original-code
@@ -28,7 +28,7 @@ walks the temporary removal set through its own cursor at `+8`
 (`0x00442cd0`–`0x00442d09`). These are measured instruction-order corrections;
 they do not assert that the actual callbacks replace parts or alter mount IDs.
 
-The lead rebuilt both sources and reproduced fourteen complete-body cases with
+The maintainer rebuilt both sources and reproduced fourteen complete-body cases with
 authored separate objects and explicit `GetRTMesh`, `FindEffect` and `GetEffect`
 providers. Four interventions replace a part-table entry or part index after the
 first effect query: the old source's later callback arguments differ from retail;
@@ -50,7 +50,7 @@ reachability remains open; the intervention is a falsifier of the old load order
 not retail observation of a changing mesh. Exact code matching does not broaden
 that experiment's runtime coverage.
 
-Private lead evidence under `<maintainer evidence>/`:
+Maintainer evidence under `<maintainer evidence>/`:
 `<maintainer evidence>/destroyable-break-root-20261001/accepted/receipt.json` and
 `callback-v01/receipt.json` (SHA-256
 `3ab42b2ed8aaafc91664e6cb0b6aa750e947315b08efefc7d2496d403a4db7e9`);
@@ -66,7 +66,7 @@ damage wrapper, and expresses the transformed box point and velocity scaling
 with the lifetimes that reproduce the retail expansion. The inline box-point
 helper is a reconstruction interface, not a recovered original source name.
 
-The lead rebuilt and read back both targets against retail. All 98 other baseline
+The maintainer rebuilt and read back both targets against retail. All 98 other baseline
 callable sections in the segment/controller objects retain their bytes and
 recursive relocation identities. Two newly emitted helper copies were already
 matched elsewhere and receive no additional unique-function credit. The integrated

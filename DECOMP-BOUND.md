@@ -1,11 +1,11 @@
 # Moved to the decompilation notes
 
 Status: active — list of removed documents
-Last updated: 2026-10-22
+Last updated: 2026-10-22 (decompilation linked)
 Summary: per-function notes that were removed from this repository because they were mostly records of the
 research process (per-function packets, digests, grades, coverage tables and promotion verdicts) rather than
-findings about the game. Their subject matter belongs to the function notes of the byte-matching decompilation,
-which are not yet published.
+findings about the game. Their subject matter belongs to the function notes of the byte-matching decompilation
+([onslaught-decomp](https://github.com/dlprentice/onslaught-decomp)), which are not published.
 
 Each line names a removed path; the address is the last part of the file name. What the game does in these
 areas is described in the subsystem documents that remain, such as

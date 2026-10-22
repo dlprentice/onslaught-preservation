@@ -1,7 +1,7 @@
 # Chunk readers and resource dispatch
 
 Status: active, bounded retail/source contract
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections)
 Summary: re-derived resource routing and reader behavior; historical invented methods, tag meanings and validation claims are superseded.
 Evidence: MEASURED — complete selected pristine bodies, literal-selected calls and isolated original-code reader controls; SOURCE — pinned chunker, resource accumulator, engine, platform and Goodies definitions. No new whole-game loading run.
 Specimen: `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -82,7 +82,7 @@ removing Read's counter write changes both the observed callee-entry state
 and the final state. Pristine bytes remain unchanged. The full records are
 `resource-dispatch/reader-sahv5bik/results.json` under the evidence owner’s
 parent; validation commands and exact private paths are in
-`VALIDATION.md` in Onslaught-Career-Editor.
+[`VALIDATION.md`, "Resource-reader identities and controls — September 27"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#resource-reader-identities-and-controls--september-27).
 Underlying buffer I/O, allocator outcomes, ownership and full dispatcher
 execution are outside these experiments.
 

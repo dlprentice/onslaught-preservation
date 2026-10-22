@@ -1,7 +1,7 @@
 # Battle Engine weapon stores, charge and firing state
 
 Status: active static contract for the rebuild's player weapons
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: the Aquila's ammo and heat stores, when a shot spends them, cooling, the
 Missile Pod and Pulse Cannon Pod charge law, what an empty store blocks, and what
 `IsFiring` counts.
@@ -128,7 +128,7 @@ available for execution. Its two registry relocations were bound to the actual
 `008553ec` instruction operands. Both bodies had explicit execution/read/write
 bounds, return/stack and preserved-register checks, and memory canaries.
 
-The lead independently reran **57 finite in-array comparisons** covering all
+The maintainer independently reran **57 finite in-array comparisons** covering all
 five levels, ordered fallback, missing/out-of-list modes, empty and null-item
 lists, stale iterator reset and four explicit rounding controls around charge
 boundaries. Six malformed-input witnesses are separate: four adjacent-field
@@ -148,7 +148,7 @@ Private owner, relative to `<maintainer evidence>`:
 `<maintainer evidence>/build/weapon-mode-review-20260930/`.
 The frozen script SHA-256 is
 `fe4bc36d1c5e3f4242881331be4e069153474ac4046e78edb0836891b03484ec`;
-its receipt pins source, COFF, parser, specimen and linked candidate. The lead's
+its receipt pins source, COFF, parser, specimen and linked candidate. The maintainer's
 independent result is `<maintainer evidence>/weapon-mode-root-20260930/results.json`.
 Reproduce with the existing `<maintainer evidence>/venv/bin/python -B`, the owner's
 `probe.py`, and `--out` naming a new private output directory.
@@ -174,7 +174,7 @@ a convenient default angle. Target height is stored at frame `+0x24` at
 that call. This establishes the machine behavior, not whether original C++
 intentionally initialized pitch or used an uninitialized local sharing storage.
 
-The lead reproduced 19 original-code prefix cases and 19 negative controls
+The maintainer reproduced 19 original-code prefix cases and 19 negative controls
 that redirect the four velocity displacements to the target delta. Nine bound
 pairs differ; all nine absolute-limit controls remain unchanged. Five further
 original-code runs reach the matrix-construction call: reversed/equal bounds
@@ -189,7 +189,7 @@ playthrough. The source now uses velocity elevation and explicitly retains
 height when no angle wins. All 43 existing exact weapon functions survive;
 this aim function itself remains unmatched.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/weapon-aim-root-20261001/`.
 The rerunnable `aim-prefix-probe.py` and `aim-fallback-probe.py` write receipts
 with SHA-256 `4a78c512675038f253021c8017059bcafa7bcc86db79452dea4db03a0b2b6628`

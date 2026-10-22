@@ -1,15 +1,15 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-10-22 (rewritten as this repository's own index)
+Last updated: 2026-10-22 (patch notes marked historical; related projects linked)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
 This repository documents *Battle Engine Aquila* as prose and tables: file formats, save and options layouts,
 mechanics, levels and mission scripts, engine systems, the PC, demo and console builds, documented executable
 patches, and notes on Stuart Gillam's published source (GitHub `stuart73/Onslaught`). Function names follow the
-byte-matching decompilation of the retail executable, which is the naming authority; its function notes are not
-yet published. A document that cites one says "(in the decompilation notes, not yet published)", and a citation
+byte-matching decompilation of the retail executable, [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp), which is the
+naming authority; its per-function notes are not published. A document that cites one says "(in the decompilation notes, not yet published)", and a citation
 of the project's private research history says "(archived research record, not published)". Dated notes quote the
 counts and names of their own time; read them as history.
 
@@ -43,9 +43,9 @@ counts and names of their own time; read them as history.
 These documents record where a byte lives, which function owns it, what the clean bytes are, and what was observed
 when a copied executable carried the change. An observation covers only the copy it was made on. Applying a patch
 to an installed game is the player's own choice and needs a verified backup first; the pristine
-`BEA.exe.original.backup` is never a target. The patch catalogue that the companion app applies lives in
-Onslaught-Career-Editor (`patches/CATALOG_CONTRACT.md` and `patches/README.md` there); where a note here and that
-catalogue disagree, the catalogue wins.
+`BEA.exe.original.backup` is never a target. These notes are historical analyses and now the record: no maintained
+tool applies them. The patch catalogue of the retired AppCore editor (Onslaught-Career-Editor
+[`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), `patches/`) was removed, and the companion app no longer patches executables.
 
 **Two documents carry a withdrawn claim.** The 2026-07-28 guard-byte correction struck a hex-edit recipe out of both
 the windowed-mode and the widescreen analyses. Both keep the withdrawn text visible and struck through. Read the
@@ -121,10 +121,11 @@ Machine-readable tables:
 | [Executable analysis](platforms/pc/executable-analysis.md) | PE identity, hashes, size, DLL imports, the D3D9 confirmation, and the Lost Toys/Encore branding. |
 | [Controlled runtime observations](engine/controlled-runtime-observations.md) | What controlled runs of copied retail builds have measured, and their limits. |
 
-## Product-facing summaries
+## Boundaries for modders
 
 - [Save/options boundary](saves/public-save-options.md)
 - [Assets and modding boundary](formats/public-assets-and-modding.md)
 
-The companion app that edits careers, saves and settings, and applies the patch catalogue, is
-[Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor).
+The companion app for careers, saves, settings and lore is [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) (to be renamed
+onslaught-companion); it does not patch executables. To play the game, see [onslaught-ce](https://github.com/dlprentice/onslaught-ce); the
+rebuild is [onslaught-godot](https://github.com/dlprentice/onslaught-godot).

@@ -1,5 +1,5 @@
 Status: active quick reference
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (retired tools no longer described as current)
 Source: migrated from archived Onslaught skills during the skill clean-slate pass.
 Summary: Key source function signature lookup.
 # Key Function Signatures
@@ -84,8 +84,8 @@ internal PC build used 9." That inference holds only if `sizeof(CCareer)` is
 here, and this document does not assert it as measured.
 
 So the snippet above is the **internal build's** version stamp, not retail's.
-`../save-file/struct-layouts.md` is the authority for the shipped stamp, which is
-the field the WinUI editor validates before touching a save.
+The [save format](../../saves/save-format.md) is the authority for the shipped stamp, which is
+the field a save editor validates before touching a save.
 
 ## CSArray Template
 

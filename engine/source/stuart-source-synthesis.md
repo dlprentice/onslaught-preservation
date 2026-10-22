@@ -3,7 +3,7 @@
 Status: active canonical synthesis of the pinned Stuart Gillam source corpus and
 its current reverse-engineering/rebuild use; the source files remain the
 line-level primary evidence
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense; neutral evidence wording)
 Verdict: **The pinned `references/Onslaught` drop is an exceptionally valuable
 but incomplete architecture corpus: 106 C/C++ files (52 `.cpp`, 54 headers),
 50,266 physical source lines, 1,354,693 source bytes, 254 distinct quoted
@@ -33,7 +33,7 @@ static specimen. No game executable, retail data, or installed
 game file was mutated for this document.
 
 “Baseline” here means the repository-designated unpatched retail specimen. It
-is pristine only relative to the project's patch catalog; this research does
+is pristine only relative to the retired AppCore patch catalogue; this research does
 not establish its Steam depot identity.
 
 ---
@@ -1428,8 +1428,8 @@ save/options data. The measured file is 10,004 bytes:
 
 Retail `CCareer__Load @ 0x00421200` and `CCareer__Save @ 0x00421350`
 therefore have useful source names and broad serializer shape, but the source
-PC branch is not the Steam implementation. AppCore and retail byte evidence own
-actual `.bes` offsets and mutation safety.
+PC branch is not the Steam implementation. Retail byte evidence (and the companion's `CareerSave`, which
+follows it) own actual `.bes` offsets and mutation safety.
 
 `PCFEPLoadGame.cpp` and `PCFEPSaveGame.cpp` are seven-line implementation
 stubs; their headers declare page shells. The substantial FE save/load
@@ -3871,7 +3871,7 @@ but is not durable repository truth by itself:
 | --- | --- |
 | Unpatched baseline executable | `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup` |
 | Corrected source-tree basename extraction | fresh read-only scan of that baseline image in this pass |
-| Audio static law | `<maintainer evidence>/agent-notes-2026-07-27/recon-sound.md` |
+| Audio static law | `<maintainer evidence>/working notes of 2026-07-27, sound reconnaissance` |
 | Current parity/delta adjudications | `<maintainer evidence>/PARITY-WORKLIST-2026-07-27.md` |
 | Terrain light runtime state | `<maintainer evidence>/TERRAIN-LIGHT-STATE-RUNTIME-2026-07-26.md` |
 | Source divergence history/adversarial corrections | `<maintainer evidence>/SOURCE-DIVERGENCE-AUDIT-2026-07-27.md` and gauntlet assessments |

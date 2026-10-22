@@ -1,7 +1,7 @@
 # Game Assets And Mission Data
 
 Status: active index
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: where the asset-format, extraction and mission-data documents are, and which of them are historical.
 
 These documents describe formats and relationships observed from user-supplied
@@ -25,8 +25,8 @@ replacement for the installed bytes or the narrower format findings below.
 
 The reusable extractor and catalog tools are documented in
 `tools/README.md` in Onslaught-Career-Editor. Generated catalogs use bundle-root-
-relative paths and remain local; the WinUI Asset Library reads an existing
-catalog and does not extract the installed game in place.
+relative paths and remain local; the retired WinUI Asset Library read an existing
+catalog and did not extract the installed game in place.
 
 ## Mission and script references
 
@@ -38,6 +38,6 @@ catalog and does not extract the installed game in place.
 The MSL reference retains language conventions and representative examples.
 The level inventory is a checked map of which levels exist and load, not a mirror of their files.
 Generated per-level inventories and count tables are intentionally not tracked;
-agents can query the source corpus directly when a reconstruction task needs
+readers with the game can query or regenerate them when a reconstruction task needs
 them. Static identities do not establish runtime source selection, command
 effects, renderer fidelity, or rebuild parity.

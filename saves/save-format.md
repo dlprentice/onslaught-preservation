@@ -1,7 +1,7 @@
 # BES save file format
 
 Status: supported retail/Steam specimen contract
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: supported byte layout and preservation policy; startup/load and tail semantics have scoped independent rechecks, not whole-format acceptance.
 Evidence: MEASURED — the scoped September 19 original-code controls and byte findings linked below; remaining field interpretations retain their older evidence limits.
 Specimen: pristine `BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -151,7 +151,7 @@ normal menu-load publication chain. The raw loader has no size parameter or
 checksum check; callers admit a requested read length. Product exact-size and
 unknown-byte protections remain stricter requirements.
 
-These semantics are why AppCore treats save and options edits as separate,
+These semantics are why save and options edits are separate,
 byte-preserving operations.
 
 ## Tail snapshot
@@ -203,6 +203,7 @@ language and audio calls remain behavioral dependencies, not raw-field copies.
    validation failure.
 6. Do not infer runtime behavior or another build's format from this specimen.
 
-Focused implementation protection lives in AppCore tests using the reviewed
-`tests_shared/fixtures/gold_career_save.bin` fixture. That fixture is the only
+Focused implementation protection lives in the companion's `CareerSave` tests
+(Onslaught-Career-Editor `51129bab`). The reviewed
+`tests_shared/fixtures/gold_career_save.bin` fixture there is the only
 tracked save-payload exception.

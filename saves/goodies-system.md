@@ -1,7 +1,7 @@
 # Goodies save and unlock contract
 
 Status: active save contract
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: the 300 Goodie states in the career block, which indices the wall shows, and how unlocks are decided.
 Evidence: MEASURED — pristine instructions and the tracked gold save; SOURCE — `Career.cpp`, `FEPGoodies.cpp`.
 Specimen: pristine `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -10,7 +10,7 @@ This document owns the public format boundary and the evidence needed to interpr
 
 ## Save layout
 
-`CCareer` stores 300 four-byte Goodie states. The retail save view used by AppCore is:
+`CCareer` stores 300 four-byte Goodie states. The retail save view (used by the companion's `CareerSave`) is:
 
 ```text
 offset(index) = 0x1F46 + index * 4
@@ -35,7 +35,7 @@ renders blue. Stuart's `FEPGoodies.cpp` has the same state switch. Horizontal
 wall panning changes projected screen position, not the cursor coordinate used
 by `get_goodie_number`.
 
-AppCore accepts only a real `10004`-byte, version-`0x4BD1` baseline, refuses in-place Goodie patching, limits writes to displayable indices, and preserves unselected and reserved bytes. `OnslaughtCareerEditor.AppCore/BesFilePatcher.cs` in Onslaught-Career-Editor and its focused tests are the implementation authority for this contract.
+The retired AppCore editor accepted only a real `10004`-byte, version-`0x4BD1` baseline, refused in-place Goodie patching, limited writes to displayable indices, and preserved unselected and reserved bytes ([`BesFilePatcher.cs`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BesFilePatcher.cs), Onslaught-Career-Editor `4ac3c9ae`). The companion's [`CareerSave`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/companion/OnslaughtToolkit.Godot/Careers/CareerSave.cs) (Onslaught-Career-Editor `51129bab`) and its tests now own this contract.
 
 MissionScript handlers use one-based indices:
 
@@ -81,7 +81,7 @@ Goodies `71..73` have source data-table entries, unlock/instruction hooks, and s
 
 Stuart's in-house PC source establishes the four-byte state shape and state meanings, but its frontend implementation and addresses do not define the console-derived Steam release. The checked Steam executable owns the offsets used here: `CCareer__Load` copies the serialized career from file offset `0x0002`, the retail Goodie array begins at file offset `0x1F46`, and `CFEPGoodies` maps wall coordinate `(2,0)` to save index `2`.
 
-A controlled WinUI/AppCore A/B used disposable copies of one real `10004`-byte, version-`0x4BD1` career save. The control retained Goodie `2 = 0`; the edited output set its dword at `0x1F4E` to `2`. The output differed only at byte `0x1F4E` (`00` to `02`); all other bytes, including reserved indices `233..299`, matched, and the source hash was unchanged. Same-file output and a new output inside the installed game tree were both rejected without creating or changing a file.
+A controlled A/B with the retired WinUI/AppCore editor used disposable copies of one real `10004`-byte, version-`0x4BD1` career save. The control retained Goodie `2 = 0`; the edited output set its dword at `0x1F4E` to `2`. The output differed only at byte `0x1F4E` (`00` to `02`); all other bytes, including reserved indices `233..299`, matched, and the source hash was unchanged. Same-file output and a new output inside the installed game tree were both rejected without creating or changing a file.
 
 Both app-owned game copies had the same verified copied `BEA.exe`. Before any Goodies-wall interaction, automated retail selection of the sole staged save exposed runtime states `1,0,0` for Goodies `1..3` in the control and `1,2,0` at the same addresses in the edited arm. With the live `CFEPGoodies` object at its checked retail vtable and cursor `(2,0)`, the edited cell was gold and exposed `Unlocked! Col. Chuck Kramer`; opening it changed the live state from `2` to `3`, turned the cell blue, and displayed the Kramer image. The control target remained dark at raw state `0`. Process memory before selection, the live cursor, the retail mapper, the label, and the automatic state transition establish the identity; ring appearance alone does not. The Steam load flow also rewrote the copy's `defaultoptions.bea` as an exact mirror of the selected save buffer before wall interaction, independently confirming which buffer it consumed. The staged save and mirror remained byte-identical to the edited output after the live `2`-to-`3` transition, so persistence of the viewed state was not established.
 
@@ -101,7 +101,7 @@ Goodie 228 = 0x1F46 + 228 * 4 = 0x22D6
 mCareerInProgress = file offset 0x248A
 ```
 
-Writing a progress flag at `0x22D4` corrupts the neighboring Goodie dword. AppCore uses the true view and must preserve this correction.
+Writing a progress flag at `0x22D4` corrupts the neighboring Goodie dword. Any editor must use the true view; the companion's `CareerSave` does.
 
 ## Claim boundary
 

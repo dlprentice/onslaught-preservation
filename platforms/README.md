@@ -1,7 +1,7 @@
 # Platforms and builds
 
 Status: active — folder index
-Last updated: 2026-10-22
+Last updated: 2026-10-22 (summaries filled, titles in sentence case)
 Summary: The retail PC executable, the PC demo, console versions, display and launch options, and documented executable patches.
 
 ## Folders
@@ -19,4 +19,4 @@ Summary: The retail PC executable, the PC demo, console versions, display and la
 
 | Document | Summary |
 | --- | --- |
-| [Local multiplayer evidence boundary](local-multiplayer-static-runtime-contract.md) |  |
+| [Local multiplayer evidence boundary](local-multiplayer-static-runtime-contract.md) | What supports the retail local split-screen path, and why online multiplayer is not available. |

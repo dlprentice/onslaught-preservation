@@ -1,7 +1,7 @@
 # `CPCSoundManager` DirectSound backend semantic recovery
 
 Status: active, bounded semantic recovery
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections)
 Evidence: SOURCE — pinned `pcsoundmanager.cpp`/`.h` and the first-party GDC
 shared/platform architecture; MEASURED — complete pristine retail bodies,
 DirectSound calls, formats, tables, constants, and twenty normalized-identical
@@ -66,7 +66,7 @@ reviewed: 1,618 bytes / 531 instructions, including CPCSample's nondeleting
 destructor. The parent sound-family record is
 `<maintainer evidence>/test-runs/re-audit-20260926/sound/identity-evidence-v4.json`.
 These twelve names are kept.
-The direct-call evidence (`VALIDATION.md` in Onslaught-Career-Editor)
+The direct-call evidence ([`VALIDATION.md`, "Direct source-call evidence — September 27"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#direct-source-call-evidence--september-27))
 binds eight shared calls to their target, receiver and ordered arguments;
 complete-body/source inspection supplies the explicitly separate identity
 premises. These are static findings, not new device runs.

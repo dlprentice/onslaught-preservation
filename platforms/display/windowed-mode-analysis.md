@@ -7,7 +7,7 @@ Status: **partially superseded 2026-07-28**, parser scope corrected 2026-09-26 �
 and the hex-edit instruction built on it are **withdrawn as false**. The two-gate
 model, the startup-flow patch guidance, and the wrapper workarounds stand
 unchanged. See "Correction 2026-07-28" immediately below.
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Verdict: `-forcewindowed` is real and reachable, but its parser gate
 `0x00662f3e` is **BSS — zero at load**; on the inspected startup route,
 the parser sets it for `-testeur` appearing **earlier on the same command line**. So `-forcewindowed` alone
@@ -114,7 +114,7 @@ operational guidance to use the startup-flow patch at `0x12A644` (with
 | Guard Flag | `0x00662f3e` is **BSS — zero at load** in the pristine specimen (`74154bfa…`), and is set to `1` at runtime only by `-testeur` appearing earlier on the command line. *(Corrected 2026-07-28 — see above; previously read "Current canonical Steam hash (`74154bfa...`) has `0x00662f3e` = 0x01".)* |
 | Flag Storage | `CLIParams.mForceWindowed` at offset 0x38 |
 | Root Cause | Launch behavior depends on both CLI parse gating and startup fullscreen-flow gates |
-| Practical path | Use the AppCore safe-copy profile with catalog rows at `0x12A644` and `0x12BB97`. **Guard-byte normalization is not an alternative** — the guard has no file byte. *(Corrected 2026-07-28.)* |
+| Copied-executable rows | The retired AppCore editor (Onslaught-Career-Editor [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has it) patched copied executables at `0x12A644` and `0x12BB97`. **Guard-byte normalization is not an alternative** — the guard has no file byte. *(Corrected 2026-07-28.)* |
 
 ## The Mystery
 
@@ -170,15 +170,15 @@ If `mForceWindowed` is not set (or later startup flow forces fullscreen), this p
 
 ### Root Cause
 
-Current evidence supports a two-gate model: parser gate (`0x00662f3e`) plus startup fullscreen flow. This explains inconsistent field reports and aligns with the current Binary Patches implementation.
+Current evidence supports a two-gate model: parser gate (`0x00662f3e`) plus startup fullscreen flow. This explains inconsistent field reports and agreed with the Binary Patches implementation of the retired AppCore editor.
 
 ## Workarounds
 
-### Option 0: Isolated safe-copy testing
+### Option 0: Isolated copied-executable testing (historical)
 
-Use the Windowed & Mods custom profile to select the resolution gate and
-windowed-startup rows independently. AppCore verifies the supported specimen
-and mutates only the copied executable.
+The Windowed & Mods custom profile of the retired AppCore editor (Onslaught-Career-Editor [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has it) selected the resolution gate and
+windowed-startup rows independently. It verified the supported specimen and
+changed only the copied executable. No maintained tool offers this now.
 
 ### Option 1: DxWnd (Recommended)
 

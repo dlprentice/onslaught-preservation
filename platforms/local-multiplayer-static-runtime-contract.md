@@ -1,7 +1,7 @@
 # Local multiplayer evidence boundary
 
 Status: local split-screen path available; online multiplayer unavailable
-Last updated: 2026-10-22 (research-campaign records removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: what supports the retail local split-screen path, and why online multiplayer is not available.
 
 This contract owns the distinction between the retail game's bounded local
@@ -23,17 +23,17 @@ patch networking into the retail executable, or prove online play.
 Stuart's pinned source is a naming and control-flow reference, not proof of the
 Steam binary. The listed retail addresses provide bounded corroboration only.
 
-## Current toolkit behavior
+## Retired toolkit behavior
 
-The Windowed & Mods page can select a local split-screen launch preset for an
-app-owned safe game copy. It uses `-skipfmv -level 850` and the same required
-windowed compatibility base as other safe copies. The installed game and
-original `BEA.exe` remain read-only source material.
+The Windowed & Mods page of the retired WinUI app could select a local split-screen launch preset for an
+app-owned game copy. It used `-skipfmv -level 850` and the same required
+windowed compatibility base as other copies. The installed game and
+original `BEA.exe` remained read-only source material.
 
-The preset does not expose Host, Join, invitation, matchmaking, relay, or
-public-network actions. Product status explicitly says online multiplayer is
-not ready. The AppCore readiness service reports source-level checks only;
-passing those commands is not runtime or network proof.
+The preset did not expose Host, Join, invitation, matchmaking, relay, or
+public-network actions, and the app said online multiplayer was
+not ready. The readiness service of the retired AppCore editor (Onslaught-Career-Editor [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), the last commit that has it) reported source-level checks only;
+passing those commands was not runtime or network proof.
 
 Controlled copied-target observations established bounded launch, exact-process
 ownership, source safety, managed stop, and selected P1/P2 input-to-state/frame

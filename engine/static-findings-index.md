@@ -1,12 +1,12 @@
 # Binary Analysis
 
 Status: living index of the static and byte-level findings
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (decompilation linked)
 Summary: front door to the static and byte-level findings about the Steam `BEA.exe`: specimen baseline, dated
 analyses, per-system contracts and per-function notes. Makes no claim of its own — every claim below belongs to the
 document it links.
 
-The byte-matching decompilation (not yet published) is the naming and behaviour authority. The earlier research
+The byte-matching decompilation ([onslaught-decomp](https://github.com/dlprentice/onslaught-decomp)) is the naming and behaviour authority. The earlier research
 process records that used to head this index are kept privately and are not published. Function counts and
 names quoted in the documents below are dated snapshots.
 

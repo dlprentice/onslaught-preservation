@@ -1,7 +1,7 @@
 # ProjectileBurst__SpawnFromCurrentPreset
 
 Status: active static contract, instruction-level
-Last updated: 2026-10-22 (research-campaign records removed; findings unchanged)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: one burst event of a weapon: the Battle Engine spend gate, then per round of the volley the emitter, aim, launch angle, two inaccuracy draws, target, locks, round Init, effects, clip ejection and recoil, in retail order.
 Evidence: MEASURED — the September 25 body instruction record and physics value maps; October 1 native flak arithmetic fragments compared with a fresh reconstructed object. No complete-body runtime replay.
 Specimen: pristine `BEA.exe.original.backup`, 2,506,752 bytes, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -119,7 +119,7 @@ FPU state is exercised. Threshold neighbors were selected from original distance
 These are useful falsifiers for source repair; they do not establish occurrence in
 player gameplay.
 
-The lead freshly compiled the distance correction and reran all 10,824 cases:
+The maintainer freshly compiled the distance correction and reran all 10,824 cases:
 all 403 admission differences and 1,209 distance differences disappear. A separate
 2,187-case signed-zero/Inf/qNaN/sNaN run also agrees. The candidate reverses the inner
 Y²/Z² operands, so these samples do not establish arbitrary NaN-payload equivalence.

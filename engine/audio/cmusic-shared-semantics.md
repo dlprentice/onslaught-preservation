@@ -1,7 +1,7 @@
 # `CMusic` shared music-policy semantic recovery
 
 Status: active, bounded semantic recovery
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections)
 Evidence: MEASURED — September 27 complete retail bodies and interface identities; September 20 original-code controls and August 11 source/demo comparison are retained evidence, not rerun here.
 Verdict: shared identities and source differences are rechecked; configured volume, later fade consumption and device acceptance remain distinct.
 
@@ -50,7 +50,7 @@ No runtime safety or decoder behavior is inferred from these branches.
 ## September 20 independent volume recheck
 
 The selected executable is `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`
-with the retail hash above. The audio controls (`VALIDATION.md` in Onslaught-Career-Editor)
+with the retail hash above. The audio controls ([`VALIDATION.md`, "Original audio volume controls — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-audio-volume-controls--september-20))
 execute the unchanged setter at `004bba10`. It converts `float32 * 127`
 through x87 `FISTP` to 64-bit integer storage, takes the low DWORD for
 receiver `+0x2c`, logs, then writes the original input float bits to
@@ -74,13 +74,13 @@ volume and submits it through vtable slot `+0x14`. This is instruction evidence;
 fade cadence, queued-track composition and device loudness were not executed
 by the setter controls.
 
-The Load/audio composition (`VALIDATION.md` in Onslaught-Career-Editor)
+The Load/audio composition ([`VALIDATION.md`, "Original Load, audio and Save composition — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-load-audio-and-save-composition--september-20))
 also retains this setter in the real loader before TailRead/preset/language
 application and Save. The preserved fixture's music float produces configured
 integer 51, while its original float bits survive serialization. Audio reset,
 music initialization/playback and durable storage remain separate.
 
-The separate reset/restoration controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The separate reset/restoration controls ([`VALIDATION.md`, "Original audio reset and music restoration — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-audio-reset-and-music-restoration--september-20))
 now retain original Shutdown, Init and PlaySelection. Init sets current/target
 to 127, derives configured volume from the career float, clears the queue and
 sets its initialized byte. The platform-Init hook supplies an owned playlist;

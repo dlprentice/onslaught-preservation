@@ -1,7 +1,7 @@
 # `CSoundManager` shared audio-policy semantic recovery
 
 Status: active, bounded semantic recovery
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections)
 Evidence: MEASURED — September 27 original event-queue and intercepted sample-lookup execution; September 20 volume/event/backend execution retains its date. Earlier source/demo/deck analysis below remains bounded evidence.
 Verdict: event acquisition preserves the existing active head and inserts after a selected node; earlier head-insertion wording is corrected. Device, mixer and audible behavior retain explicit limits.
 
@@ -35,7 +35,7 @@ without changing the authored manager/events. Its warning-string call reaches
 the pristine one-byte RET at `0040c640`; the string does **not** prove a warning
 was emitted by this executable.
 
-The native controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The native controls ([`VALIDATION.md`, "Original sound event queue — September 27"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-sound-event-queue--september-27))
 passed 60 cases and two altered-copy branch controls, recording the complete
 2,048-byte authored area, stack balance and nonvolatile registers. Two deliberately
 inconsistent count fields isolate 32-bit wraparound; they do not model valid
@@ -144,7 +144,7 @@ non-ASCII comparison, allocator/lifetime or audible result is established.
 ## September 20 independent volume/event recheck
 
 The selected executable is `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`
-with the retail hash above. The audio controls (`VALIDATION.md` in Onslaught-Career-Editor)
+with the retail hash above. The audio controls ([`VALIDATION.md`, "Original audio volume controls — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-audio-volume-controls--september-20))
 retain original `004e04c0`, camera getter `0046f2c0` and PC
 UpdateSound `00517ae0`. The setter stores the raw float at manager
 `+0x20`, logs, writes career `00662aac`, then recalculates both
@@ -175,7 +175,7 @@ Optional frequency updates use 44100/22050/11025 for selector 0/1/other, times
 event pitch, with x87 conversion. The stopped-status and 3D COM paths remain
 outside this execution cohort.
 
-The composed loader check (`VALIDATION.md` in Onslaught-Career-Editor)
+The composed loader check ([`VALIDATION.md`, "Original Load, audio and Save composition — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-load-audio-and-save-composition--september-20))
 now runs these setters on an authored two-event list before the actual tail,
 preset, language-copy and Save operations. Live-setting preservation modes skip
 the setters/events. This is bounded native execution, not device opening,
@@ -183,8 +183,8 @@ playback, reset, language-bank loading or a durable save round trip.
 
 ## September 20 independent reset and bank recheck
 
-The original reset controls (`VALIDATION.md` in Onslaught-Career-Editor)
-and bank controls (`VALIDATION.md` in Onslaught-Career-Editor)
+The original reset controls ([`VALIDATION.md`, "Original audio reset and music restoration — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-audio-reset-and-music-restoration--september-20))
+and bank controls ([`VALIDATION.md`, "Original language-bank admission and retry — September 20"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-language-bank-admission-and-retry--september-20))
 separate operations formerly grouped as sound reset. DeviceShutdown releases
 and clears both 64-slot arrays, then the device/wrapper. Bank reload instead
 calls the 64-slot buffer Stop path, ignores its supplied results and retains the

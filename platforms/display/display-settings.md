@@ -1,7 +1,7 @@
 # Display Settings & Screen Mode Analysis
 
 Status: mixed — retained display evidence with scoped parser and options-callback corrections
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections)
 Summary: display/settings reference; bounded options/device execution remains distinct from real driver and full-menu acceptance.
 Source File: pinned `references/Onslaught/d3dapp.cpp` and `CLIParams.cpp`; Binary: pristine
 `BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -277,7 +277,7 @@ Two separate counterfactuals distinguish helper result 1 from 2 and low-byte
 from full-DWORD state testing. Transition/persistence callees are intercepted;
 this proves neither device detection nor actual settings publication or menu
 acceptance. Exact records and limitations are in
-`VALIDATION.md` in Onslaught-Career-Editor.
+[`VALIDATION.md`, "Original options callback — September 27"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#original-options-callback--september-27).
 
 ## Known Issues
 

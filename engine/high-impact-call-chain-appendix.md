@@ -1,7 +1,7 @@
 # High-impact call chains
 
 Status: active static summary
-Last updated: 2026-10-22 (research-campaign records removed)
+Last updated: 2026-10-22 (retired tools no longer described as current)
 Summary: static call chains with their product consequence for save and options persistence, the world lifecycle and text lookup.
 
 These chains explain product-relevant ownership and side effects. They are
@@ -21,7 +21,7 @@ Primary owners are
 [`CCareer__Save`](../saves/by-function/CCareer__Save.md),
 `CPauseMenu__ResumeGameAndPersistOptions` (in the decompilation notes, not yet published),
 and the [save/options contract](../saves/save-options-startup-compatibility.md).
-These relationships are why AppCore patches real baseline files, preserves
+These relationships are why a save editor patches real baseline files, preserves
 unknown bytes, and writes separate outputs instead of synthesizing saves.
 
 ## World lifecycle

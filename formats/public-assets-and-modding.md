@@ -1,11 +1,12 @@
-# Public Assets And Modding Overview
+# Public assets and modding overview
 
 Status: public-safe overview
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Summary: what public changes may contain, and two controlled copied-game findings (one localization entry, one
+compiled mission command) that show which modified retail inputs the engine consumes.
 
-The current toolkit source tree and portable app do not include retail game
-assets or converted copies. Resource analysis, copied-game workflows, and the
-rebuild read a user's lawfully obtained installation as local input.
+The companion's source tree and portable app do not include retail game assets or converted copies. Resource
+analysis, copied-game runs and the rebuild read a user's lawfully obtained installation as local input.
 
 ## Public Boundary
 
@@ -14,32 +15,36 @@ rebuild read a user's lawfully obtained installation as local input.
 - Public changes may add exact extraction/conversion recipes and bounded
   provenance, not retail asset payloads. Do not add bulk exports, saves,
   screenshots, copied executables, converted assets, or raw proof bundles.
-- Patches must target copied executables or app-owned roots, not the installed
-  Steam folder.
+- Patches must target copied executables, not the installed Steam folder.
 - Patch descriptions should say only what is byte-verified or runtime-proven.
 
 ## Proven Copied-Content Slice
 
-The safe-copy product can replace one fixed-size English localization entry:
-Level 100 `TUTORIAL_01`, text ID `4422830`, in
-`data/language/english.dat`. AppCore verifies the supported Steam table hash
-and original UTF-16 bytes, keeps the table and file length unchanged, writes a
-backup, and records before/after hashes in the copied-profile manifest. A
-controlled copied-game run rendered the unique replacement in Level 100.
+These are historical findings. They were made with the copied-game ("safe-copy") feature of the retired AppCore
+editor (Onslaught-Career-Editor
+[`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28),
+the last commit that has it); no maintained tool offers either change now.
 
-The safe-copy product can also rebuild the supported
+A controlled run of a copied game showed that the engine displays a replaced fixed-size English localization entry:
+Level 100 `TUTORIAL_01`, text ID `4422830`, in
+`data/language/english.dat`. The editor verified the supported Steam table hash
+and original UTF-16 bytes, kept the table and file length unchanged, wrote a
+backup, and recorded before/after hashes in the copied-profile manifest. The
+copied game rendered the unique replacement in Level 100.
+
+A second controlled run showed that the engine consumes a rebuilt
 `data/resources/100_res_PC.aya` with one exact compiled mission-command change:
 Level 100's initial `DisableFlightMode` call becomes `EnableFlightMode`.
-AppCore verifies the original archive and decompressed payload hashes, changes
-one byte in the `LevelScript` instruction stream, writes an original backup,
-round-trips the four size-prefixed zlib members, and validates the exact
+The editor verified the original archive and decompressed payload hashes, changed
+one byte in the `LevelScript` instruction stream, wrote an original backup,
+round-tripped the four size-prefixed zlib members, and validated the exact
 original/modified payload pair before launch. In controlled retail runs, the
 same transform input reached the original rejection return with the clean
-archive and the walker-to-jet state write with the changed archive. A
-WinUI-created copy reproduced the accepted path with the runtime flight flag
+archive and the walker-to-jet state write with the changed archive. A copy made
+by the retired WinUI app reproduced the accepted path with the runtime flight flag
 set.
 
-The retained implementation anchors are `LevelScript` instruction 33 (`CALL`,
+The implementation anchors are `LevelScript` instruction 33 (`CALL`,
 opcode `24`) and its command byte at decompressed payload offset `3658889`:
 descriptor `101` is `DisableFlightMode` and descriptor `100` is
 `EnableFlightMode`. Retail observation distinguished the walker-to-jet state
@@ -52,7 +57,7 @@ These slices establish that the retail engine consumes the copied language
 table and this one rebuilt compiled mission archive. They do not establish
 arbitrary string growth, other languages, loose `.msl` loading, a general
 mission compiler/editor, texture replacement, general AYA repacking, or a mod
-package format. The early-flight option deliberately bypasses Level 100's
+package format. The early-flight change deliberately bypassed Level 100's
 training progression; it is not a claim about intended campaign behavior.
 
 ## Useful References

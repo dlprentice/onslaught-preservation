@@ -1,7 +1,7 @@
 # The default render-state block — `0x004EB1E0`, re-derived from bytes
 
 Status: active static contract
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: what the default render-state block 0x004EB1E0 sets on the device, re-derived from bytes; it fixes the default state, not the state at any particular later draw.
 Evidence: MEASURED — pristine instructions and whole-image scans; the state at later draws is not traced.
 Specimen: pristine `BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -9,8 +9,8 @@ Specimen: pristine `BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766
 `D3DStateCache__UseDefaultRenderState` at `0x004EB1E0` has been load-bearing for
 several committed rendering decisions — lighting enable, the two material
 sources, the stage-0 texture arguments, and the *absence* of
-`D3DRS_COLORVERTEX` — while existing in **no tracked file**. It lived in agent
-reports and in raw exports under the ignored `<maintainer evidence>/`. This document
+`D3DRS_COLORVERTEX` — while existing in **no tracked file**. It lived in working
+notes and in raw exports under the ignored `<maintainer evidence>/`. This document
 promotes it, and it is a **re-derivation, not a transcription**: the function
 body and every call site below were read from the specimen's own bytes.
 

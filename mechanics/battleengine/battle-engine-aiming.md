@@ -1,7 +1,7 @@
 # Battle Engine auto-aim, launch position and Gun emitters
 
 Status: active static contract for the rebuild's player shots
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (neutral evidence wording)
 Summary: how the Battle Engine picks an auto-aim target and blends its aim offsets,
 where each player round starts (the cockpit mesh's Gun emitters) and in which
 direction, and which state that depends on.
@@ -124,7 +124,7 @@ establish the relevant semantics:
 | `+0x50` | 1 | Forwarded into the map trace at `0x00490a40`; exactly 1 enables its additional water-level threshold test (`0x00490ba7`). |
 | `+0x54` | `0xffffffff` | Allows every type bit through the separate inclusion-mask test (`0x0050b1cc`). |
 
-The lead reproduced native i386 execution of the original, old candidate and corrected
+The maintainer reproduced native i386 execution of the original, old candidate and corrected
 caller suffixes through the actual exact line-copy constructor (`0x004098e0`). The
 dispatch boundary captures all arguments, line bytes and report initialization. Retail
 and corrected results agree apart from the legitimate report pointer's frame offset;
@@ -171,13 +171,13 @@ existing slot-90 target-position calls and a separate feature squared-distance
 operation now reproduce the retail instructions. These are reconstructed interfaces,
 not recovered original helper names or source text.
 
-The lead ran 1,179 native range-admission slices under masked nearest PC24/53/64:
+The maintainer ran 1,179 native range-admission slices under masked nearest PC24/53/64:
 all 22 old discrepancies become zero. The earlier target-Z = 1, origin-Z = −2⁻²⁴,
 maximum-range = 1 witness is fixed. Thirty-six added cases isolate sum association;
 the adapter-only intermediate still fails six, including two under PC24. Zeroing
 either small coordinate removes these differences. A diagnostic Z reload changes
 eight decisions, and an inverted upper-bound branch changes 944. The new candidate
-uses the lead's freshly compiled object, not the helper's reported match.
+uses the maintainer's freshly compiled object, not an earlier reported match.
 
 Whole-section matching settles this compiled body. The native experiment observes
 only range admission: filters, `GetCentrePos`, callbacks, subsequent angle tests,
@@ -187,7 +187,7 @@ regions (209 bytes/four relocations); its three supporting owners' 27 deeper
 relocation fields and input-dependent indirect dispatch remain explicit limits.
 This is neither complete exception-runtime validation nor retail/Godot play acceptance.
 
-Private lead owner under `<maintainer evidence>/`:
+Maintainer evidence under `<maintainer evidence>/`:
 
 - `<maintainer evidence>/handleautoaim-match-root-20261001/readback.json`, SHA-256
   `d9609c9131406a83264375d6be9e2bcd0af5d7c5401506911eab0334c6b55374`.
@@ -213,7 +213,7 @@ with no lost matched symbols or relocation conflicts. This settles this compiled
 body; target search now also matches as recorded above. `GetLaunchPosition`, actual
 target availability, update cadence and player-visible tracking retain their separate limits. No game or Godot window ran.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/autoaim-root-20261001/`.
 `readback.json` SHA-256:
 `3f5d42e0893671dd208f07c4b95df33d5eaf5feec0cd2a622a133339e1350adf`.
@@ -330,7 +330,7 @@ This describes the inner cockpit tilt S, before the separate world composition B
 The decompilation previously reversed these operands and has been corrected; neither
 complete update body is yet a byte match.
 
-The lead reproduced 16 finite isolated cases against the pristine specimen named in
+The maintainer reproduced 16 finite isolated cases against the pristine specimen named in
 this document: Walker and Jet, four authored base matrices, and two angle/state sets,
 with x87 control word `0x027f`. The corrected source agrees on every XYZ matrix float
 bit and the two eased slope values at `+0xa4`/`+0xa8`. The old order fails all 12
@@ -341,7 +341,7 @@ with the old order and zero with the correction.
 
 Walker was restricted to nonwalking, airborne updates by making its `IsWalking`
 and `IsOnGround` queries return false. Other called helpers execute unchanged
-retail instructions; Jet needs neither substitution. The lead also checked normal
+retail instructions; Jet needs neither substitution. The maintainer also checked normal
 return, stack canaries, nonvolatile registers, preserved x87 control word, and that
 candidate bytes fit their original function slots. Unused candidate tails were
 poisoned rather than filled with leftover retail instructions. Matrix padding is

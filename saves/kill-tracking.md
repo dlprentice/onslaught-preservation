@@ -1,7 +1,7 @@
 # Kill Tracking System
 
 Status: active reference; the top-byte notes are corrected to the byte-level rule in [save-format.md](save-format.md#kill-counters-and-slots)
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: kill categories, 24-bit counts and their Goodie thresholds; the first two counters' top byte is a front-end screen offset that Load resets to 0 when out of range.
 Evidence: MEASURED for the 24-bit mask and the top-byte rule (pristine bytes `0x0041C16B`, `0x0042126a`-`0x00421280`, `0x004218f0`-`0x00421960`); SOURCE for the kill categories (`Player.h`); thresholds per the cited Goodie owner.
 Specimen: pristine `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256
@@ -134,7 +134,7 @@ The *top byte* of the first two kill counters (CCareer offsets `0x23F4` and `0x2
 - `CFEPOptions__GetKillCounterTopBytes_23F4_23F8` (`0x0051f470`) reads both values
 - `CFEPOptions__SetKillCounterTopBytes_23F4_23F8` (`0x0051f490`) writes both values
 
-**Practical consequence for patchers:** when writing kill counts (true view at `0x23F6..0x2409`), preserve the existing top byte: `new = (old & 0xFF000000) | (kills & 0x00FFFFFF)`. A byte-level diff of two saves must also report that byte as a screen-position difference rather than a kill-count difference; `BesFilePatcher.GetRegionName` labels it `ScreenPos[0]`/`ScreenPos[1]`.
+**Practical consequence for patchers:** when writing kill counts (true view at `0x23F6..0x2409`), preserve the existing top byte: `new = (old & 0xFF000000) | (kills & 0x00FFFFFF)`. A byte-level diff of two saves must also report that byte as a screen-position difference rather than a kill-count difference; the retired AppCore editor's [`BesFilePatcher.GetRegionName`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/4ac3c9ae32d97c1293858c49bf9cc485eb814f28/OnslaughtCareerEditor.AppCore/BesFilePatcher.cs) (Onslaught-Career-Editor `4ac3c9ae`) labelled it `ScreenPos[0]`/`ScreenPos[1]`, and the companion's [`CareerSave`](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/companion/OnslaughtToolkit.Godot/Careers/CareerSave.cs) never authors it.
 
 **Important:** This is *not* the Sound/Music volume system. The real audio volumes are IEEE-754 floats in CCareer at:
 - `mSoundVolume` (true view `0x248E`)

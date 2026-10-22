@@ -1,7 +1,7 @@
 # Mesh, resource, and render static contract
 
 Status: active static map
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense; neutral evidence wording)
 Summary: specimen-bound rendering and collision contracts, with bounded corrections to arithmetic association, float stores and ordered admission.
 Evidence: MEASURED — specimen instructions, whole-section/relocation matches and bounded native calculations and buffer comparisons; older slices were not reverified in this pass.
 Specimen: `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -19,7 +19,7 @@ the projected V coordinate with the negative Y scale removes one internal
 compiler node and puts the fourth device-pointer push in the preceding
 scheduling region, recovering retail's push at `0x00553e31`.
 
-The lead freshly compiled the correction and bound every reference: 109
+The maintainer freshly compiled the correction and bound every reference: 109
 placements witnessed by other exact code, 73 references to already exact
 callees, eleven literal payloads and four proven library references. All 43
 other callable graphs and 31 existing focused matches survive. An isolated
@@ -61,7 +61,7 @@ call targets are preserved. Stuart's pinned `5352a81c` `thing.h` supplies both
 names, but its missing base-interface header prevents a claim about the original
 identifier spelling.
 
-The lead freshly built the two caller corrections separately and together:
+The maintainer freshly built the two caller corrections separately and together:
 46 other callable graphs and all 35 ordered reference meanings survive. The
 coordinated identity rename preserves 556 callable graphs and 214 exact results
 across eight focused objects, after the explicit symbol-name substitution. The
@@ -84,7 +84,7 @@ The argument order is receiver, format, length promoted to double, step promoted
 to double, check count and current check. The 90-byte format at `0x0062d964`
 is unchanged.
 
-The lead freshly compiled both versions, the logger and an existing logger
+The maintainer freshly compiled both versions, the logger and an existing logger
 caller. Exact initializer/body/caller witnesses independently bind the receiver,
 callee and empty trace; 22 explicit operand correspondences bind the changed
 caller without relaxing the whole-function checker. All seventeen existing Map
@@ -104,7 +104,7 @@ direct/DMA-read branch. Removing that block changes VC6 register allocation and
 scheduling while preserving the executable buffered copy, refill, check-byte
 and EOF paths. It does not establish the original source spelling.
 
-The lead freshly compiled both forms and checked ten references through prior
+The maintainer freshly compiled both forms and checked ten references through prior
 exact controls, five through PE imports and one through the exact `.aya`
 literal. All 21 other callable graphs are unchanged; only Read and its FPO
 record change. `InitFromFile` still differs in twenty stack-slot byte positions.
@@ -123,7 +123,7 @@ All 42 other emitted callables and three exact vtables remain unchanged.
 Texture-device initialization (`0x00557a90`) matches all 2,896 section bytes,
 its 2,489-byte body and 193 relocations. Separate animated/static status-buffer
 lifetimes, the existing device accessor, the mip-filter value and the success
-query/tagging scope reproduce the retail instructions. The lead rebuilt and
+query/tagging scope reproduce the retail instructions. The maintainer rebuilt and
 checked internal targets, literals, PE imports, annotated callees and consistent
 prior exact references. Two newly encountered library identities were also
 compared directly with the pinned Microsoft libraries; their dependency graphs
@@ -146,7 +146,7 @@ Both fallback switches in `LoadFrame` (`0x00557300`) map texture enum index 6
 `0x005574fd`/`0x00557504` and `0x005575cc`/`0x005575d3`.
 
 The reconstruction's conversion helper previously omitted the compressed cases.
-The lead checked all six retail branch values and the fresh compiled fallback
+The maintainer checked all six retail branch values and the fresh compiled fallback
 switches. All 41 exact controls and 44 other callable graphs survive, including
 the newly matched initialization function. `LoadFrame` remains unmatched, and
 no texture conversion or device call ran. A controlled resource-load comparison
@@ -166,7 +166,7 @@ All 31 other callable sections and references remain unchanged.
 
 Sphere-trigger `Hit` (`0x004e5700`) matches all 320 section bytes, its 315-byte
 body and 22 relocations. Containment reset and clock assignment share a helper
-scope; the nested iterator remains a call as in retail. The lead also verified
+scope; the nested iterator remains a call as in retail. The maintainer also verified
 the associated 62-byte exception handler and 56-byte unwind record, with seven
 and four references respectively. All thirteen other sphere-trigger callables
 and fifteen Radar callables remain unchanged. The newly emitted shared iterator
@@ -185,7 +185,7 @@ The former reconstruction darkened the output buffer, which this copy would
 overwrite. The corrected operand follows the receiver slot, distinct from the
 output-pointer slot, throughout the loop.
 
-The lead reproduced the static correction with a fresh build, preserving all
+The maintainer reproduced the static correction with a fresh build, preserving all
 26 target reference identities, eleven other callable sections and nine exact
 controls. The complete `Palletize` body remains unmatched; no image conversion
 ran. Complete compiled matching and a controlled conversion comparison remain
@@ -197,7 +197,7 @@ the decoded operands and preservation checks.
 The complete reconstructed `0x004976d0` section now matches: 2,480 bytes,
 including its 2,469-byte body and all 100 relocations. Copy-initializing the
 old/new Euler matrices in its six branches preserves the retail branch and
-multiplication orders. The lead freshly compiled it, bound each reference
+multiplication orders. The maintainer freshly compiled it, bound each reference
 using baseline witnesses and preserved all 29 other callable sections and
 the controller vtable. This settles the compiled method, not live animation
 or the original spelling of its source. Private root `hive-copy-root-readback.json`
@@ -213,7 +213,7 @@ those helper names and groupings are reconstructed. The back vector receives
 the second product directly. Omitting the descriptor boundary or restoring an
 extra temporary fails the complete match.
 
-The lead rebuilt and checked every reference; eleven other retained callable
+The maintainer rebuilt and checked every reference; eleven other retained callable
 sections/references survive. The newly emitted math helpers were already exact
 elsewhere and add no unique credit. No device, particle scene or GPU ran.
 Private root `particle-other-root-readback.json` records this static result.
@@ -228,7 +228,7 @@ The private draft used the receiver's projection; it now uses the global owner.
 This distinction can matter when the receiver differs from that singleton,
 but no such live call was observed.
 
-The lead reproduced the operand correction, preserving all 107 prior reference
+The maintainer reproduced the operand correction, preserving all 107 prior reference
 identities/addends, 44 exact controls and 62 other callable sections across the
 shadow/patch objects. `RenderTextures` remains unmatched, with a 4,400-byte
 section and 108 relocations; this adds no whole-function credit. A complete
@@ -243,7 +243,7 @@ The root receipts above are under
 The private reconstruction now matches both complete `GetPartTransform`
 sections: buggy `0x004944d0` and tentacle `0x0049e660`. Each is 1,136 bytes
 with 33 relocations; their body lengths are 1,127 and 1,131 bytes respectively.
-The lead recompiled both sources and checked every relocation independently.
+The maintainer recompiled both sources and checked every relocation independently.
 All 74 other callable sections and their recursive references remain unchanged,
 including the already matched tentacle spline.
 
@@ -264,7 +264,7 @@ Private root evidence under
 
 Private reconstructed `CVertexShader::SetCustomConstants` (`0x00502920`) now
 matches the pristine executable's complete 4,512-byte section and every one of
-its 165 relocations. The lead reproduced the stock-compiler result and verified
+its 165 relocations. The maintainer reproduced the stock-compiler result and verified
 the references; all 34 other callable sections and references in the object survive.
 
 The existing declaration-token accessor restores the observed expansion boundary:
@@ -286,7 +286,7 @@ comparison at `0x00568390` for `Blue Trail Large`. This follows a separate,
 case-sensitive fifth-index character check for uppercase `T`. The reconstructed
 case-sensitive full-string comparison rejected names that retail accepts.
 
-The lead freshly compiled the correction and reproduced its 32-byte gate with
+The maintainer freshly compiled the correction and reproduced its 32-byte gate with
 all three references checked. A bounded native test executes only the admitted
 gate and the CRT's locale-zero ASCII path, replacing RenderAll with a count stub.
 Across 16,407 authored cases (all ASCII letter-case combinations plus rejection
@@ -307,7 +307,7 @@ x87 square-root magnitude at `0x004c398b`–`0x004c39a9` and
 draft rounded the magnitude before division and retained a different component
 intermediate. Existing in-place division restores the observed value boundaries.
 
-The lead rebuilt the source and reproduced both frozen arithmetic corpora.
+The maintainer rebuilt the source and reproduced both frozen arithmetic corpora.
 For 3,594 prepared float32 step vectors under PC24/53/64 nearest rounding,
 1,636 prior XYZ/exception differences become zero. Extending to 14,412 cases
 over all four rounding modes leaves twelve inherited signed-zero differences,
@@ -318,7 +318,7 @@ The earlier signed-zero counterexample was: at CW `037f`, step bits
 `[80000000,3f800000,00000000]` produce side.Y `00000000` in retail and
 `80000000` in both drafts. A subsequent correction restores the actual cross
 product of the step with `(0,0,-1)` at `0x004c3910`, including zero subtractions
-that the expanded scalar spelling discarded. The lead's fresh compilation and
+that the expanded scalar spelling discarded. The maintainer's fresh compilation and
 native replay agree with retail across 19,296 prepared cases: the previous
 108 XYZ/exception-flag differences become zero, with no new disagreements.
 The expanded corpus includes signed zeros, threshold neighbors, subnormals,
@@ -332,13 +332,13 @@ is not observed. These isolated calculations do not establish step reachability,
 complete trail updates, allocation, live control words or visible output; those
 remain useful falsifiers.
 
-Private lead receipts under
+Maintainer evidence under
 `<maintainer evidence>/geometry-gate-resume-20261001/`:
 `trail-native-root-expanded/receipt.json`,
 `trail-native-root-replay/signed-zero-readback.json`, and
 `trail-frontend-device-root-readback.json` preserve the earlier normalization-only
 results. The current cross-product proof is `trail-cross-root-expanded/receipt.json`
-and `trail-pulse-shader-root-readback.json`. The lead compared regenerated fixtures
+and `trail-pulse-shader-root-readback.json`. The maintainer compared regenerated fixtures
 and admitted fragments with the frozen inputs and bound fresh compiled code to
 the accepted object. Other callable sections retain their bytes and references.
 
@@ -362,7 +362,7 @@ return paths and the near-plane getter's float value boundary. The product and
 subtraction both read far/near at `0x0089cdd4`/`0x0089cdd0`, against the independently
 consistent ENGINE base `0x0089c9a0`. This closes the previous structural draft's two
 reversed references; all 44 other callable sections and their targets are preserved.
-No resource decoding or graphics device ran. Private lead proofs under the owner
+No resource decoding or graphics device ran. Maintainer evidence under the owner
 above: `startup-render-texture-root-readback.json` (earlier correction) and
 `texture-activation-root-readback.json` (complete match). Resource/device behavior
 remains the runtime falsifier.
@@ -380,7 +380,7 @@ this API consequence is distinct from an observed image defect. See Microsoft's
 [texture-coordinate processing contract](https://learn.microsoft.com/en-us/windows/win32/direct3d9/texture-coordinate-processing).
 Active shader configuration and rendered results were not inspected here.
 
-The lead freshly compiled both sources and isolated one changed instruction byte.
+The maintainer freshly compiled both sources and isolated one changed instruction byte.
 All 37 exact object controls, 88 target relocation records and 160 other object sections
 remain unchanged. That intermediate activation draft was unmatched; the complete
 match above supersedes that status. No D3D device,
@@ -412,7 +412,7 @@ inherited from the x87 control word, not established by a C# cast or a floor ope
 The later allocation multiplies this count by 40. The experiment below executes the
 arithmetic only, not that allocation or the point-initialization loop.
 
-The lead reproduced a frozen native ELF32 probe of the unchanged, relocation-free
+The maintainer reproduced a frozen native ELF32 probe of the unchanged, relocation-free
 retail slice `[0x004c3602,0x004c363e)`, the old candidate and the corrected candidate.
 It uses 140 finite float32 input cases at PC24, PC53 and PC64 with nearest-even and
 toward-zero rounding: 840 executions per image. The old candidate differs in 36
@@ -432,7 +432,7 @@ and truncated-input refusal also pass.
 Private reproducer:
 `<maintainer evidence>/build/trail-count-native-20260930/probe.py`
 (SHA-256 `a58ee0b5fb6aed5405aea7d371c5957ae660fd5b17d8582b009f4ddcbc6f6ccb`).
-Lead output: `<maintainer evidence>/build/trail-count-native-lead-20260930/result.json`
+Maintainer output: `<maintainer evidence>/build/trail-count-native-lead-20260930/result.json`
 (SHA-256 `221566301ee483bc306dd5e8eecaab514eb6c6e946710657eb8a046b508cb7df`).
 The full-section readback is in the adjacent `squad-trail-independent-readback-20260930.json`.
 The actual game's control word, allocation outcome and visible trail remain unmeasured.
@@ -461,7 +461,7 @@ at `0x004dd1cf` also binds to the existing `0x004b4de0` implementation with seve
 arguments rather than a declaration-only alias. Its complete body remains unmatched;
 `EvaluatePose` and `FindEmitterPart` are reconstruction names, not proven original spellings.
 
-The lead inspected the pristine instructions above, reproduced all 378 previous exact
+The maintainer inspected the pristine instructions above, reproduced all 378 previous exact
 results in the affected twelve-object set and ran the full integrated score with no lost
 matched addresses or relocation conflicts. Private receipts:
 `<maintainer evidence>/build/emitter-pointer-20260930/`, its adjacent
@@ -490,7 +490,7 @@ weight formula agrees within these static limits. The private reconstruction alr
 retail dimensions before this recheck. A subsequent source-lifetime correction also makes the
 entire loader match: its five independent chunk-read indices now have separate lexical scopes,
 reproducing retail's reuse of dead argument homes. All 2528 compiled section bytes and every
-relocation match, covering 2514 retail function bytes. The lead recompiled the helper's change and
+relocation match, covering 2514 retail function bytes. The maintainer recompiled this change and
 reproduced it in the complete integrated build with all earlier matched identities retained.
 Private receipts: `<maintainer evidence>/build/meshpart-load-stack-20260930/`
 and `<maintainer evidence>/source-interfaces-score-20260930.log`.
@@ -543,7 +543,7 @@ The caller path independently supports the adjustment: `0x004f35d7` forms the ob
 pointer passed to the render factory; `0x004dc4fa` retrieves the render object's stored interface
 pointer and `0x004dc503` invokes its slot `+0x2c`. The private reconstruction's `GetRenderMesh`
 override now reproduces the complete 16-byte compiled section (seven body bytes plus alignment).
-The lead recompiled the affected objects and the full integrated build without losing earlier matches.
+The maintainer recompiled the affected objects and the full integrated build without losing earlier matches.
 Private receipts: `<maintainer evidence>/build/namedmesh-secondary-this-evidence-20260930.json`
 and `menu-namedmesh-readback-root-20260930.txt`; integrated checks are in
 `<maintainer evidence>/root-score-menu-namedmesh-20260930.log`.
@@ -569,7 +569,7 @@ their bytes and relocation meaning. Simpler helper forms that removed the store
 were rejected. The helper's original type/name is unknown, and shared vector math,
 the outer normal and the edge-length calculation are unchanged.
 
-The lead rebuilt the source, bound its fragment to the frozen candidate and
+The maintainer rebuilt the source, bound its fragment to the frozen candidate and
 reproduced the existing 43,062 authored float32 XYZ cases under six explicit x87
 precision/rounding settings. The old magnitude differs in 1,340 cases: 906 at
 PC24/nearest and 434 at PC24/toward-zero. Corrected captured output agrees with
@@ -587,7 +587,7 @@ the curvature/collapse comparison with the caller precision recorded.
 
 Private source/object readback:
 `<maintainer evidence>/geometry-gate-resume-20261001/mesh-side-root-readback.json`.
-The unchanged corpus, frozen before/after objects and lead replay are under
+The unchanged corpus, frozen before/after objects and maintainer replay are under
 `<maintainer evidence>/mesh-side-correction-20261001/`:
 `correction-frozen/` and `root-corrected-replay-20261001/receipt.json`.
 
@@ -604,7 +604,7 @@ and admitted unordered comparisons. A reconstructed inline predicate taking the 
 reference, with `squaredLimit <= move.MagnitudeSq()`, restores the observed storage and branch
 semantics under the pinned compiler. No independent helper entry or original source spelling is claimed.
 
-The lead executed original, prior and corrected post-projection instruction fragments with the actual
+The maintainer executed original, prior and corrected post-projection instruction fragments with the actual
 byte-matched magnitude helper. Across 54 explicit PC24/53/64 cases, the prior candidate differs in
 17 decisions: five finite boundaries and twelve NaN cases. The correction agrees on all decisions,
 stored squared-limit bits and x87 status words. Projected-vector copies, stack canaries, control words
@@ -633,7 +633,7 @@ rounded the Y/Z products to float32 before adding the start; explicit component 
 the observed order and storage boundary. This is a demonstrated reconstruction error, not merely
 different register allocation.
 
-The lead independently reproduced a frozen original/old/corrected instruction-slice comparison:
+The maintainer independently reproduced a frozen original/old/corrected instruction-slice comparison:
 27 finite cases across declared x87 precisions PC24, PC53 and PC64, with round-to-nearest-even.
 The corrected results agree in all cases; the old code differs in six. With start `(1,-1,-1)`,
 displacement `(-3,3,3)` and float32 distance `1/3`, retail and corrected Y/Z are `2^-25` at
@@ -675,7 +675,7 @@ threshold comparison is at `0x00478d58`–`0x00478d5a`. Reusing one cached float
 splitting its tests does not preserve these two evaluation boundaries.
 
 The corrected reconstruction evaluates facing separately, constructs the stored displacement, then
-recomputes approach. The lead reproduced 57 finite ordinary-entry prefixes at declared PC24/53/64,
+recomputes approach. The maintainer reproduced 57 finite ordinary-entry prefixes at declared PC24/53/64,
 nearest rounding: all corrected outcomes, normal bits and admitted distance bits agree. The previous
 candidate differs twice; a naive split-expression version differs eight times. With normal
 `(0.6f,0.8f,0)` and Y displacement bits `0xbbcccccc`, the previous float store rounds the magnitude
@@ -691,14 +691,14 @@ and relocations are unchanged. The corrected body remains unmatched: 672 section
 
 Private probe: `<maintainer evidence>/build/geometry-approach-probe-v2-20260930.py`,
 SHA-256 `c3d393e008a240aaaa533fe54c1b4859654887cd2230c35f0f3c836ac298bf84`.
-Lead receipts: `<maintainer evidence>/geometry-approach-root-20260930.json` and
+Maintainer receipts: `<maintainer evidence>/geometry-approach-root-20260930.json` and
 `<maintainer evidence>/geometry-contact-retained-root-20260930.json`.
 The useful runtime falsifier remains observation of the actual caller's FPU state and admission path;
 the earlier Plane/AirGuide PC24 observations do not settle this call site.
 
 ## Sphere and cylinder boundary checks — September 30
 
-The lead independently reproduced complete invocations of sphere line admission (`0x004e4b90`)
+The maintainer independently reproduced complete invocations of sphere line admission (`0x004e4b90`)
 and cylinder collision/line response (`0x0043fe20`, `0x00440510`) with actual byte-verified retail
 helpers and no stubs. These are bounded emulator experiments over authored records, not a running
 retail game or proof of function equivalence.
@@ -744,7 +744,7 @@ Private frozen probes are `<maintainer evidence>/build/sphere-line-review-202609
 (SHA-256 `f68e248f2d072172bfa0d5e15cc9046bf00f91ba80b644167181d8cb67fd3067`) and
 `<maintainer evidence>/build/cylinder-boundaries-20260930/probe.py`
 (SHA-256 `60339772c35dcb6ea86e28aef2014df2515476beac0d9c60e386ef6b48514936`).
-Independent lead results are `<maintainer evidence>/sphere-line-root-20260930/comparison.json`
+Independent maintainer results are `<maintainer evidence>/sphere-line-root-20260930/comparison.json`
 and `<maintainer evidence>/cylinder-boundaries-root-20260930/comparison.json`.
 
 ## Sphere response arithmetic — October 1
@@ -774,7 +774,7 @@ caller's live control word. Nonfinite inputs, exceptional arithmetic and other r
 outside these samples. The [startup precision contract](../../platforms/display/CD3DApplication__Initialize3DEnvironment__0052af00.md#precision-setup--october-1-instruction-recheck)
 explains why PC24 deserves testing without claiming it has been measured at this caller.
 
-Lead private owners in `<maintainer evidence>/` are
+Maintainer evidence in `<maintainer evidence>/`:
 `sphere-root-20261001/` (baseline) and `sphere-correction-root-20261001/` (fresh compiled correction).
 The latter's `native/receipt.json` SHA-256 is
 `23a9ffe5a4509e9a1e02382aeda646596d19b05298c2885c7d0719527a610fb4`;
@@ -785,7 +785,7 @@ arithmetic block exercised at its actual caller's measured precision and contact
 ### Expanded relative-speed comparison
 
 At `0x004e4fa3`, retail combines relative speed as `(X² + Z²) + Y²`; the earlier reconstruction
-emits `(Z² + Y²) + X²`. Asymmetric small Y/Z velocity components expose the difference. The lead
+emits `(Z² + Y²) + X²`. Asymmetric small Y/Z velocity components expose the difference. The maintainer
 reproduced 23,160 complete original/candidate calls with the same five retail vector helpers:
 132 defined-output differences in the baseline, all PC24, and none in the corrected candidate.
 Changing only the speed instruction block in a private diagnostic also removes all 132 differences;
@@ -802,13 +802,13 @@ The expanded fixtures cover the earlier controls, disparate-scale velocities, tr
 and shallow/deep contacts under explicit PC24/53/64 nearest rounding. Return, defined XYZ positions and
 velocities, stopped flags, untouched volumes/report, preserved registers, stack/canaries, x87 stack/control
 word and exception flags are compared. Copied vector padding is excluded. A coarse-admission mutation
-changes 21 results; removing an admitted constructor exits with the expected refusal. The lead verified
+changes 21 results; removing an admitted constructor exits with the expected refusal. The maintainer verified
 the original entry, its 15 alignment NOPs, all five helpers and the constant region against the specimen.
 This remains finite, nonaliased authored-input evidence with one stack-fill pattern; live precision,
 world reachability and general equivalence are not established.
 
 Frozen inputs and replayer: `<maintainer evidence>/`
-`collision-resume-20261001/replay-sphere.py --suite random --out NEW_OUTPUT`. Lead execution is in
+`collision-resume-20261001/replay-sphere.py --suite random --out NEW_OUTPUT`. Maintainer execution is in
 `<maintainer evidence>/sphere-random-root-20261001/`;
 the adjacent `geometry-gate-resume-20261001/sphere-original-readback.json` records the specimen readback.
 The exact vector helpers are `0x00401ec0`, `0x0040d150`, `0x0041ad10`, `0x004404f0` and `0x00490900`.
@@ -842,7 +842,7 @@ comparisons, not gameplay observations, general equivalence or measurements of t
 All 20 other retained callable sections and relocation destinations are unchanged; the line body
 remains exact. The no-longer-emitted local Normalise copy is covered by its exact whole-build owner.
 
-Lead private evidence is
+Maintainer evidence is
 `<maintainer evidence>/cylinder-correction-root-20261001/`:
 `root-readback.json`, frozen sources/objects, inputs and outputs. The corrected native receipt
 `accepted-native/receipt.json` has SHA-256
@@ -851,7 +851,7 @@ The next numerical falsifier is the retained translated-origin Z witness; live c
 nonfinite inputs, aliases and world contact reachability remain separate questions.
 
 A subsequent explicit Z/Y-rounding draft is **rejected**, despite matching all
-2,622 structured cases. The lead reproduced a separate frozen 24,000-case finite
+2,622 structured cases. The maintainer reproduced a separate frozen 24,000-case finite
 set: the draft reduces disagreements from 692 to 288 but introduces 116 newly
 failing cases. Retail's first position rewind rounds the X/Y products and retains
 Z; the draft retains X instead. That concrete boundary is the next source question,
@@ -879,7 +879,7 @@ Both buffer routes share these stores. A second defect rounded the first
 three intermediates on x87 at `0x00543069`–`0x00543090`; the other corners have
 different constructor/materialization boundaries and must not all be flattened.
 
-The lead reproduced 828 complete native i386 calls per version with four actual,
+The maintainer reproduced 828 complete native i386 calls per version with four actual,
 independently byte-matched helpers: vector construction, position assignment and
 both buffer-pointer getters. Finite authored positions at PC24/53/64, two fills,
 both buffer routes and three starting offsets produce 774 differences in the old
@@ -889,7 +889,7 @@ differs in 474 cases. Missing-constructor, unlocked-buffer and vertex/index-resi
 controls refuse execution rather than count partial runs as agreement.
 
 A natural three-component aggregate with parenthesized values subsequently restores
-the remaining instruction scheduling. The lead freshly reproduced all 880 compiled
+the remaining instruction scheduling. The maintainer freshly reproduced all 880 compiled
 section bytes and 20 relocations against the 866-byte retail body and its padding;
 the final candidate also agrees in all 828 cases. All 25 prior exact controls and
 29 other callable bodies/relocation targets remain intact. This identifies compiled
@@ -902,7 +902,7 @@ stack guards and x87 control/depth, not every memory access or all floating-stat
 semantics. A useful visual follow-up captures a known non-symmetric imposter frame
 and its emitted vertices together; no such live observation is claimed here.
 
-Private lead evidence:
+Maintainer evidence:
 `<maintainer evidence>/imposter-correction-root-20261001/`,
 with `exact-readback.json`, `native-exact/receipt.json`, the pre-correction witnesses
 and capacity refusal controls.
@@ -916,7 +916,7 @@ pushes, `0x00543888` forms the turn-matrix receiver. The actual matrix product
 whereas the former reconstruction used `ori * turn`. Matrix multiplication is not
 commutative; this is a source error, not merely register allocation.
 
-The lead freshly compiled the combined correction and reproduced 48 native cases
+The maintainer freshly compiled the combined correction and reproduced 48 native cases
 using the original turn-construction block, its exact trigonometric constants,
 the original update and the complete byte-matched matrix helper. Eight finite
 orientations at PC24/53/64 nearest and two stack fills distinguish the old source
@@ -937,7 +937,7 @@ blocks with explicit state, not a full render, GPU or live-world observation.
 A useful runtime falsifier captures one noncommuting incoming orientation and the
 six resulting quad orientations on an experimental game copy; no such run occurred.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/imposter-render-root-20261001/`.
 Rotation receipt SHA-256 `6a43f46e4bda0c1e011e200a36d7dce58815232356dc7a810e9dbbe8072cbc4d`;
 offset receipt SHA-256 `9aeb7e86d28698f1f2c688995ce708c16d763b327b2b4cbde4eb71d1c78f7ac1`.
@@ -953,7 +953,7 @@ The reconstructed forwarding format-setter wrappers consumed enough inline budge
 to keep a vector constructor out of line and round X prematurely. Calling the actual
 format setters directly removes that extra boundary without adding fake operations.
 
-The lead freshly compiled and reproduced eighteen native finite cases with six
+The maintainer freshly compiled and reproduced eighteen native finite cases with six
 inputs at PC24/53/64 and nearest-even rounding. Six old X differences, three each at
 PC53/64, become zero; Y/Z are unchanged. Adding only the premature X store/reload to
 retail reproduces every old result. The baseline executes the actual vector
@@ -979,7 +979,7 @@ submits four vertices and two triangle-list primitives. Neither acquisition nor
 submission establishes that the unwritten index is valid. The reconstruction
 preserves this static behavior; no visible defect or device failure is claimed.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/arrow-root-20261001/`.
 The native receipt `native-v08/receipt.json` has SHA-256
 `a096ffd7f37c2361550ecc5cd7e3d59f745d33f4d26d041e0d25b10d5c158875`;
@@ -1011,7 +1011,7 @@ The checker and comparison resolver now enforce the four independently proved
 entry identities before caller inference, stale annotations or section aliases.
 This corrects a source/tooling defect; it does not prove visible toppling,
 explosion orientation, shadow rendering or all other library identities.
-Lead readback: `<maintainer evidence>/math-binding-root-20261001/readback.json`;
+Maintainer readback: `<maintainer evidence>/math-binding-root-20261001/readback.json`;
 library comparison receipt SHA-256:
 `a173dd413c384bacbed2215af09b8b2f9f43aab6384b0f2bd2c5a4d0bcd03e96`.
 
@@ -1026,7 +1026,7 @@ section; all 22 relocation identities and 33 other callable sections remain unch
 All 28 exact controls survive. The full 1,168-byte section remains unmatched, with
 38 nonrelocation differences rather than 44; no new exact function is counted.
 
-Fresh lead compilation and native i386 execution compare 650 authored finite
+Fresh maintainer compilation and native i386 execution compare 650 authored finite
 triangle/endpoint fixtures at PC24/53/64, 1,950 cases per image. Execution begins at
 the actual function entry and stops at `0x004ee57d`, before intersection and angle
 processing. A harness sentinel records arrival at that continuation; it is not the
@@ -1062,7 +1062,7 @@ remain open. The complete section still differs at 38 positions. A useful next
 runtime falsifier records an actual shadow ray, resulting BOOL and FPU/CRT state on
 an experimental retail copy, then reproduces those inputs without modifying assets.
 
-Private lead owner:
+Maintainer evidence:
 `<maintainer evidence>/staticshadow-root-20261001/`.
 `readback.json` records the fresh compiled comparison; `native-plane/receipt.json`
 has SHA-256 `9920a99d67783f330ad20c96fb7f2ee278a21e598f31b1a86969730516abd317`.
@@ -1092,6 +1092,6 @@ The CEngine constructor, lifecycle, resource, viewpoint and deserialise function
 
 This map does not prove runtime texture pixels or GPU upload, mesh loading,
 skinning, collision, culling, particles, water, exact object layouts, source-body
-identity, native WinUI 3D rendering, in-game visual fidelity, patch behavior,
+identity, 3D rendering in the retired WinUI app, in-game visual fidelity, patch behavior,
 gameplay outcomes, or rebuild parity. Current extraction coverage is owned by
 [the game-assets index](../../formats/game-assets-index.md), not repeated here.

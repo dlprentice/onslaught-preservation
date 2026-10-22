@@ -1,7 +1,7 @@
 # CDXMemBuffer: retail file buffering and text I/O
 
 Status: active specimen-bound contract; dated historical records retained below
-Last updated: 2026-10-22 (research-campaign records removed; findings unchanged)
+Last updated: 2026-10-22 (VALIDATION citations pinned to sections; neutral evidence wording)
 Summary: source method identities, measured receiver fields, retail/source differences,
 and bounded original-code evidence for buffered reads, line reading and failed writes. File/device
 acceptance and complete save compatibility remain separate.
@@ -30,7 +30,7 @@ Private evidence: `<maintainer evidence>/test-runs/re-audit-20260926/membuffer/`
 complete body/consumer packets, import/export witnesses, original-code drivers
 and retained input/output pairs. These files contain private retail evidence and
 remain outside Git. Native experiment commands and limits are also recorded in
-`VALIDATION.md` in Onslaught-Career-Editor.
+[`VALIDATION.md`, "RE memory-buffer original code — September 27"](https://github.com/dlprentice/Onslaught-Career-Editor/blob/51129bab45489e5e45ee1c047cbcd8072bf4cc50/VALIDATION.md#re-memory-buffer-original-code--september-27).
 
 ## Method identities and transport
 
@@ -136,7 +136,7 @@ remain unexecuted.
 
 ## Buffered-read comparison — October 1
 
-The lead freshly compiled the reconstructed Read and compared it with original
+The maintainer freshly compiled the reconstructed Read and compared it with original
 instructions in 200 authored cases. The 192 nonnegative cases also compare state
 and provider-call order with the complete byte-matched Skip body, excluding only
 destination writes. Eight negative-size cases remain separate malformed-input
@@ -161,7 +161,7 @@ prevent treating modeled agreement as retail I/O or save compatibility.
 
 Read remains unmatched: a 688-byte compiled section versus the 686-byte retail
 body, with 460 differing positions. Thirteen exact object controls survive; no
-source behavior correction was demonstrated. Private lead evidence:
+source behavior correction was demonstrated. Maintainer evidence:
 `<maintainer evidence>/dxmembuffer-read-root-20261001/`,
 `native-model-v1/receipt.json`, SHA-256
 `3e5e0d5df525c713e04affbb59c55d30b062f16aa6b2293201210c9caf301c17`.

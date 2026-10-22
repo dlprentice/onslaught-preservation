@@ -1,7 +1,7 @@
 # Save functions
 
 Status: active — folder index
-Last updated: 2026-10-22
+Last updated: 2026-10-22 (summaries filled, titles in sentence case)
 Summary: Function-level contracts for writing, reading and sizing career saves and the options file.
 
 ## Documents
@@ -14,7 +14,7 @@ Summary: Function-level contracts for writing, reading and sizing career saves a
 | [CCareer__Save](CCareer__Save.md) | serializes career, active bindings and runtime tail; tail construction also refreshes the packed display-mode global. |
 | [CCareer__SaveWithFlag](CCareer__SaveWithFlag.md) | sets the live progress word before serialization; Load does not clear that word. |
 | [CCareer__UpdateGoodieStates](CCareer__UpdateGoodieStates.md) | original reset produces nine instruction states; canonical progression reads and separate pending/count bookkeeping matter. |
-| [CCareer__UpdateThingsKilled](CCareer__UpdateThingsKilled.md) |  |
+| [CCareer__UpdateThingsKilled](CCareer__UpdateThingsKilled.md) | Adds each mission's kill counts to the career totals, except on the training level. |
 | [CFEPLoadGame__StartLoad](CFEPLoadGame__DoLoad.md) | original menu-load composition preserves live volumes and conditionally forwards the entire read buffer to default-options persistence. |
 | [CFEPOptions__WriteDefaultOptionsFile](CFEPOptions__WriteDefaultOptionsFile.md) | fixed output filename and unchecked write/close results, independently rechecked against original code. |
 | [CFEPSaveGame__CreateSave](CFEPSaveGame__CreateSave.md) | explicit save checks the slot adapter's result, but that adapter discards a close error after a complete item write. |

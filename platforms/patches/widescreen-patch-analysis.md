@@ -1,13 +1,13 @@
 # Widescreen Patch Analysis
 
 Status: historical external-patch analysis; guard-byte section withdrawn 2026-07-28
-Last updated: 2026-10-22 (research-campaign records removed)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Summary: the 28-region `BEA_Widescreen.exe` diff and what each region does.
 
 > Analysis of BEA_Widescreen.exe modifications to understand resolution/aspect ratio patching
 > Generated: December 2025
 
-Status note: this is historical external widescreen-patch analysis and attribution evidence. It is not the current WinUI/AppCore catalog patch contract, and it does not by itself prove the current `resolution_gate`/`force_windowed` copied-game flow, runtime FOV parity, or no-noticeable-difference rendering.
+Status note: this is historical external widescreen-patch analysis and attribution evidence. It is not the patch contract of the retired WinUI/AppCore catalogue, and it does not by itself prove that catalogue's `resolution_gate`/`force_windowed` copied-game flow, runtime FOV parity, or no-noticeable-difference rendering.
 
 ## Summary
 

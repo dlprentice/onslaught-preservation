@@ -1,6 +1,9 @@
 # Texture and resource decode static contract
 
 Status: active static map
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Summary: routes texture and resource decode work to its retail evidence without promoting static names to runtime
+or pixel-fidelity claims.
 Evidence class: reviewed Steam-binary instructions, xrefs, strings, and
 decompilation
 
@@ -20,7 +23,7 @@ to runtime or pixel-fidelity claims.
 
 The retained function notes and
 [`../engine/render/mesh-resource-render-static-contract.md`](../engine/render/mesh-resource-render-static-contract.md)
-provide address-level context. Asset exporters and the WinUI Asset Library may
+provide address-level context. Asset exporters (and, before it was retired, the WinUI Asset Library) may
 use this map to choose parsers and label uncertainty, but successful extraction
 or preview does not establish full retail-format support.
 

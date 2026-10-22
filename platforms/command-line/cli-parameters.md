@@ -1,7 +1,7 @@
 Status: active quick reference
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
 Source: pristine retail command-line parser, each option's readers, and the separately dated copied-runtime observations.
-Summary: the Steam launch surface Onslaught Toolkit uses, and what each of the retail parser's 25 options does in the game.
+Summary: the Steam launch surface, and what each of the retail parser's 25 options does in the game.
 Evidence: MEASURED — fresh parser/initializer guard instructions and, on 2026-09-30, every retail instruction that reads
 an option's field or global; readers are cited by the decompilation function that compiles to their retail bytes, or by
 retail address where that function does not match yet. Runtime claims are dated records, not rerun here.
@@ -10,7 +10,7 @@ Specimen: `BEA.exe.original.backup`, SHA-256
 
 # Steam Launch Contract
 
-The first table is the small launch surface current Steam workflows use. The
+The first table is the small launch surface that controlled Steam-copy runs used. The
 [second](#what-every-retail-option-does) says what every option the retail parser
 accepts does in the game. Stuart's in-house PC source has a broader parser; those
 switches are not Steam contracts unless the canonical retail parser independently
@@ -20,17 +20,17 @@ contains them.
 
 | Parameter | Evidence-bounded behavior |
 |-----------|---------------------------|
-| `-res W H` | The retail parser accepts width and height. The safe-copy workflow has exercised `1600 900`. |
+| `-res W H` | The retail parser accepts width and height. The copied-game workflow of the retired AppCore editor exercised `1600 900`. |
 | `-skipfmv` | Controlled retail launches skip startup and level-intro FMV playback; click-to-start remains. |
-| `-level N` | The retail parser accepts a numeric level id. Controlled safe-copy workflows use this for bounded level probes. |
+| `-level N` | The retail parser accepts a numeric level id. Controlled copied-game runs used this for bounded level probes. |
 | `-forcewindowed` | The pristine startup initializer clears its guard. On the canonical receiver, preceding it with `-testeur` enables this parser branch; reversing the order does not. Actual window behavior and compatibility patches are separate evidence. |
 | `-nomusic` | Controlled retail use disables background music. |
 | `-nosound` | Controlled retail use disables game audio. |
-| `-showdebugtrace` | The retail parser accepts the flag. Toolkit exposes it only as a copied-profile diagnostic; visible output is not promised. |
+| `-showdebugtrace` | The retail parser accepts the flag. The retired AppCore editor exposed it only as a copied-profile diagnostic; visible output was not promised. |
 
 Controller configuration, sensitivity, inversion, and bindings are not launch
-arguments in the supported Steam workflow. Toolkit writes requested controller
-settings only to the safe copy's `defaultoptions.bea`.
+arguments in the supported Steam workflow; they live in `defaultoptions.bea`
+(see [control bindings](../../saves/options-control-bindings.md)).
 
 ## Supported examples
 
@@ -92,8 +92,7 @@ The canonical unpatched Steam executable with SHA-256
 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`
 does not contain parser literals for `-configuration`, `-norumble`,
 `-nostaticshadows`, `-hidetail`, or `-textureramlimit`. Those names occur in
-Stuart's different in-house PC source and are not accepted by AppCore or shown
-by WinUI.
+Stuart's different in-house PC source, and the Steam executable ignores them.
 
 See
 [`CCLIParams__GetParams`](CLIParams__ParseCommandLine.md)

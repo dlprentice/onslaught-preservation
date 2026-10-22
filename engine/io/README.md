@@ -1,7 +1,7 @@
 # I/O and memory
 
 Status: active — folder index
-Last updated: 2026-10-22
+Last updated: 2026-10-22 (summaries filled, titles in sentence case)
 Summary: File buffering, memory and I/O services.
 
 ## Documents
@@ -9,4 +9,4 @@ Summary: File buffering, memory and I/O services.
 | Document | Summary |
 | --- | --- |
 | [CDXMemBuffer: retail file buffering and text I/O](DXMemBuffer.md) | source method identities, measured receiver fields, retail/source differences, and bounded original-code evidence for buffered reads, line reading and failed… |
-| [PC memory-buffer and allocation-service semantic recovery](pc-memory-io-semantics.md) |  |
+| [PC memory-buffer and allocation-service semantic recovery](pc-memory-io-semantics.md) | The PC memory-buffer and allocation services: retail bodies, Win32 and zlib calls and heap routing. |
