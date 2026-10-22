@@ -1,0 +1,20 @@
+# Editor and OS clutter
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Local scratch and private evidence never belong here
+local-data/
+local-lab/
+.worktrees/
+.claude/
+
+# Game files, in case one is dropped in by mistake
+*.exe
+*.dll
+*.aya
+*.bes
+*.iso

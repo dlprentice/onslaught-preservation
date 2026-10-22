@@ -1,0 +1,37 @@
+# Licence map for this repository (REUSE specification 3.3).
+# The last matching annotation wins; the later ones override the default.
+version = 1
+
+# Documentation, tables and repository files.
+[[annotations]]
+path = ["**"]
+SPDX-FileCopyrightText = "David Prentice and Onslaught preservation contributors"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# engine/source/ quotes and documents Stuart Gillam's published Onslaught source
+# (github.com/stuart73/Onslaught, GPL version 3 only): the quoted source stays
+# under its GPL-3.0-only licence and credit, alongside CC BY-SA 4.0 for this
+# project's text. These notes were reverse-engineering/source-code/** and
+# reverse-engineering/quick-reference/{engine-singletons,source-files,
+# source-hierarchy,source-key-functions}.md in Onslaught-Career-Editor.
+[[annotations]]
+path = "engine/source/**"
+precedence = "override"
+SPDX-FileCopyrightText = [
+    "David Prentice and Onslaught preservation contributors",
+    "Stuart Gillam (Onslaught source release, github.com/stuart73/Onslaught)",
+]
+SPDX-License-Identifier = "CC-BY-SA-4.0 AND GPL-3.0-only"
+
+# The AYAResourceExtractor notes document Stuart's separate resource extractor
+# (github.com/stuart73/AYAResourceExtractor), whose root licence is MIT; they
+# quote it, not the GPL game source. They were
+# reverse-engineering/source-code/aya-* in Onslaught-Career-Editor.
+[[annotations]]
+path = "formats/aya-resource-extractor-*"
+precedence = "override"
+SPDX-FileCopyrightText = [
+    "David Prentice and Onslaught preservation contributors",
+    "Stuart Gillam (AYAResourceExtractor, github.com/stuart73/AYAResourceExtractor)",
+]
+SPDX-License-Identifier = "CC-BY-SA-4.0 AND MIT"

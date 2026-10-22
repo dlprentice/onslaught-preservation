@@ -1,0 +1,136 @@
+# Moved to the decompilation notes
+
+Status: active — list of removed documents
+Last updated: 2026-10-22
+Summary: per-function notes that were removed from this repository because they were mostly records of the
+research process (per-function packets, digests, grades, coverage tables and promotion verdicts) rather than
+findings about the game. Their subject matter belongs to the function notes of the byte-matching decompilation,
+which are not yet published.
+
+Each line names a removed path; the address is the last part of the file name. What the game does in these
+areas is described in the subsystem documents that remain, such as
+[Battle Engine aiming](mechanics/battleengine/battle-engine-aiming.md),
+[weapon stores](mechanics/battleengine/battle-engine-weapon-stores.md),
+[the level lifecycle](engine/cgame-level-lifecycle-semantics.md) and
+[the event scheduler](engine/world/event-manager-scheduler-semantics.md).
+
+## engine/render/contracts/
+
+```text
+CFastVB__Create__0051a270.md
+CFastVB__Destroy__0051a340.md
+CFastVB__LockAligned__0051a380.md
+CFastVB__Render__0051a510.md
+CFastVB__RenderTriangleStripImmediate__0051a6a0.md
+```
+
+## engine/world/contracts/
+
+```text
+CActor__Init__004011e0.md
+CGame__DeclareLevelLost__0046f430.md
+CGame__DeclareLevelWon__0046f2f0.md
+CGame__FillOutEndLevelData__0046d470.md
+CGame__Init__0046c360.md
+CGame__LoadLevel__0046cdf0.md
+CGame__LoadResources__0046cd30.md
+CGame__PostLoadProcess__0046d040.md
+CGame__RestartLoopRunLevel__0046dc30.md
+CGame__RunLevel__0046e240.md
+CGame__Shutdown__0046c990.md
+CThing__dtor_base__004f3640.md
+CThing__Init__004f34a0.md
+CWorld__LoadWorld__0050b9c0.md
+```
+
+## mechanics/ai/
+
+```text
+CUnitAI__SelectOrRefreshCloseTarget__004ff710.md
+CUnitAI__UpdateTargetSupportAndFireFlags__004ff4f0.md
+```
+
+## mechanics/battleengine/contracts/
+
+```text
+CBattleEngine__AugmentWeapon__0040de40.md
+CBattleEngine__BuildInterpolatedWorldTransform__0040da30.md
+CBattleEngine__CanSpawnBurstForResolvedEntry__0040c2e0.md
+CBattleEngine__ClearFlag58CAndMorphIfState3__0040dcc0.md
+CBattleEngine__ComputeProjectileMetricFromTargetProfile__00509c80.md
+CBattleEngine__Damage__0040a890.md
+CBattleEngine__DisplayLock__00407310.md
+CBattleEngine__dtor_base__00405a40.md
+CBattleEngine__FinalizeLinkedSetAndVFunc02__00405f80.md
+CBattleEngine__GetCurrentTarget__004071b0.md
+CBattleEngine__GetFloatAt0x118_AsDouble__004063a0.md
+CBattleEngine__GetInterpolatedAutoAimPos__0040d7c0.md
+CBattleEngine__GetInterpolatedEulerOrientation__0040d660.md
+CBattleEngine__GetLastValidRangeStep100__00409880.md
+CBattleEngine__GetLaunchPosition__0040c990.md
+CBattleEngine__GetTrackedPositionX_00406040__00406040.md
+CBattleEngine__HandleCloak__0040d4d0.md
+CBattleEngine__HandleLocks__00406560.md
+CBattleEngine__Hit__00407350.md
+CBattleEngine__HostileEnvironment__0040dce0.md
+CBattleEngine__Init__00404dd0.md
+CBattleEngine__IsNearGroundByTerrainProbe__0040e8e0.md
+CBattleEngineJetPart__AutoLevel__00412900.md
+CBattleEngineJetPart__GetCurrentWeapon__00412610.md
+CBattleEngineJetPart__GetFriction__00411aa0.md
+CBattleEngineJetPart__GetIsDoingSpecialAirMove__00411b70.md
+CBattleEngineJetPart__Gravity__004114d0.md
+CBattleEngineJetPart__HandleGroundEffect__00411630.md
+CBattleEngineJetPart__LoseWeaponCharge__00412000.md
+CBattleEngineJetPart__Move__00410c50.md
+CBattleEngineJetPart__Pitch__00410670.md
+CBattleEngineJetPart__Thrust__00410310.md
+CBattleEngineJetPart__Turn__00410490.md
+CBattleEngineJetPart__WeaponFired__00412050.md
+CBattleEngineJetPart__YawLeft__00410740.md
+CBattleEngineJetPart__YawRight__004109d0.md
+CBattleEngine__LockHit__00407140.md
+CBattleEngine__Morph__0040a580.md
+CBattleEngine__Move__004081c0.md
+CBattleEngine__PlayHudSampleByName__0040d5f0.md
+CBattleEngine__ProcessStateSwapAndDeathChecks__00408150.md
+CBattleEngine__RandomizeBurstOffsetsAndAccumulateRange__0040c340.md
+CBattleEngine__Rearm__0040ac50.md
+CBattleEngine__ResetAndSetActiveReader__0040c720.md
+CBattleEngine__scalar_deleting_dtor__00405f60.md
+CBattleEngine__SetFlag58CEnabled__0040dcb0.md
+CBattleEngine__StartDieProcess__0040bfd0.md
+CBattleEngine__StartLock__00406fc0.md
+CBattleEngine__UpdateConfiguration__0040c650.md
+CBattleEngine__VFunc_0_00406050__00406050.md
+CBattleEngine__VFunc_101_0040a560__0040a560.md
+CBattleEngine__VFunc_104_0040e7d0__0040e7d0.md
+CBattleEngine__VFunc_117_0040c380__0040c380.md
+CBattleEngine__VFunc_15_00405ef0__00405ef0.md
+CBattleEngine__VFunc_16_0040df80__0040df80.md
+CBattleEngine__VFunc_22_00406000__00406000.md
+CBattleEngine__VFunc_23_00406020__00406020.md
+CBattleEngine__VFunc_25_00409de0__00409de0.md
+CBattleEngine__VFunc_36_0040d530__0040d530.md
+CBattleEngine__VFunc_38_00405f00__00405f00.md
+CBattleEngine__VFunc_43_00405f40__00405f40.md
+CBattleEngine__VFunc_48_0040dfa0__0040dfa0.md
+CBattleEngine__VFunc_68_0040c750__0040c750.md
+CBattleEngine__VFunc_7_00405ed0__00405ed0.md
+CBattleEngine__VFunc_85_00405f20__00405f20.md
+CBattleEngine__VFunc_91_00405f50__00405f50.md
+CBattleEngineWalkerPart__ActivateLandingJets__004135e0.md
+CBattleEngineWalkerPart__Backward__00412f70.md
+CBattleEngineWalkerPart__ChargeWeapon__00413cf0.md
+CBattleEngineWalkerPart__ctor__00412bc0.md
+CBattleEngineWalkerPart__dtor_base__00412cf0.md
+CBattleEngineWalkerPart__Forward__00412d80.md
+CBattleEngineWalkerPart__GetIsDoingSpecialWalkerMove__004135d0.md
+CBattleEngineWalkerPart__GetWeaponAmmoCount__00414470.md
+CBattleEngineWalkerPart__GoingIntoWater__00413a70.md
+CBattleEngineWalkerPart__Slide__00413b90.md
+CBattleEngineWalkerPart__StrafeLeft__00413160.md
+CBattleEngineWalkerPart__StrafeRight__00413360.md
+CBattleEngineWalkerPart__UpdateWalkCycle__00412ad0.md
+CBattleEngineWalkerPart__WeaponFired__004140d0.md
+```
