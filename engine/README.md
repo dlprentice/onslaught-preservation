@@ -1,7 +1,7 @@
 # Battle Engine Aquila engine architecture
 
 Status: active, first-party architecture synthesis
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-29 (the private copy's location is named only as maintainer evidence)
 Evidence: SOURCE — Jeremy Longley's first-party contemporary 47-slide Lost Toys
 GDC deck; MEASURED — exact PC retail strings, RTTI, source-path remnants, and
 the current function inventory; UNKNOWN — console-binary joins and every
@@ -17,8 +17,7 @@ unconfirmed proposals/search seeds.
 
 The primary source is:
 
-Retained PowerPoint (private lab copy: `<maintainer evidence>/inputs/retail-archive/Lore/09_Wayback_Websites/full_domains/www.losttoys.com/GDC/20030412092159_GDC_GDCE02_20-_20Cross_20Platform_20Console_20Development.ppt`),
-inside the repository on Archive B. The former `<maintainer archive>` path is historical.
+Retained PowerPoint (private lab copy: `<maintainer evidence>/inputs/retail-archive/Lore/09_Wayback_Websites/full_domains/www.losttoys.com/GDC/20030412092159_GDC_GDCE02_20-_20Cross_20Platform_20Console_20Development.ppt`).
 
 | Property | Value |
 | --- | --- |
