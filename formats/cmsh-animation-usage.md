@@ -2,7 +2,7 @@
 
 Status: active bounded animation, position-skinning, and authored-usage contract
 Date: 2026-08-23
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the seven other `MESH` rows are in the base and front-end archives; the WRES join counts only records with no `dies_on` world; earlier: research-campaign records and decompiler-style code removed)
 Verdict: the 213 loose CMSH meshes contain 3,774 part tracks; 64 meshes and 659
 parts have non-trivial `VHFM` maps, exactly seven meshes carry one `BONE` array,
 and exactly 17 camera parts carry one `HFOV` value. Across the 66 numeric LVLR
@@ -173,11 +173,16 @@ unused: base/frontend loading, executable defaults, another container, and
 dormant content remain separate routes.
 
 The all-301 LVLR top-level census contains 3,492 `MESH` chunks. The difference
-is seven Goodie-archive mesh rows; this document's 3,485 denominator is the
-numeric-world slice, not a correction to [lvlr-archive.md](lvlr-archive.md).
+is seven rows in the special archives, one in `base_res_PC.aya` and six in
+`Frontend_res_PC.aya`; the Goodie archives have no `MESH` chunk. This document's
+3,485 denominator is the numeric-world slice, not a correction to
+[lvlr-archive.md](lvlr-archive.md).
 `MESH` membership alone proves only that a resource is packed with a level. The
 dedicated [WRES instance contract](wres-instance-join.md) closes 4,090
-definition-bearing Unit/Feature placements through physics mesh fields. Other
+definition-bearing Unit/Feature placements through physics mesh fields. Those
+are the records whose `dies_on` dword is -1; the records it leaves out (a
+`dies_on` world, squads, spawners) are listed in
+[its section on them](wres-instance-join.md#records-the-join-leaves-out). Other
 WRES types, dynamic spawns, rendering, and animation scheduling remain separate.
 
 ## Authored MSL animation calls

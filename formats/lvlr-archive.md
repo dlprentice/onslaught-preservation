@@ -3,7 +3,7 @@
 Status: active format contract — complete outer/tag census; most payload schemas
 remain owner-specific or open
 Date: 2026-08-28
-Last updated: 2026-10-29 (the 53 empty outer MESH names are separate from the internal CMSH names, which the usage census also reads as empty; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the seven non-numeric `MESH` rows are base and Frontend, not Goodie rows; the 53 empty outer MESH names are separate from the internal CMSH names, which the usage census also reads as empty; earlier: research-campaign records and decompiler-style code removed)
 Verdict: all 301 streams and 23,884 top-level tags are accounted for; the
 numeric WRES Unit/Feature instance join and released PS2 texture-page runtime
 boundary are bounded, while most other payload schemas and world dependencies
@@ -475,7 +475,9 @@ coverage claim.
   definition records through physics mesh fields to one named row and one loose
   CMSH each. The 53 rows with an empty outer name each own an anonymous embedded
   CMSH but retain no exact WRES/name key. The seven additional all-LVLR `MESH`
-  rows are in Goodie archives.
+  rows are in the special archives: one in `base_res_PC.aya` and six in
+  `Frontend_res_PC.aya` (the demo-shelf schedules above). The Goodie archives
+  have no `MESH` chunk.
 - Level 100/base/frontend retain deeper owner-specific work. All 66 numeric
   worlds now have the bounded WRES Unit/Feature slice above; their remaining
   record families and dependencies are primarily structural inventory.

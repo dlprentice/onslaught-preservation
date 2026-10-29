@@ -1,7 +1,7 @@
 # Onslaught preservation
 
 Status: active — the repository's front page
-Last updated: 2026-10-22 (related projects linked; Onslaught-Career-Editor citations pinned to one commit)
+Last updated: 2026-10-29 (onslaught-godot described as its own README describes it; earlier: related projects linked; Onslaught-Career-Editor citations pinned to one commit)
 Summary: what this repository documents about *Battle Engine Aquila*, where to start in each section, how to read a
 finding, the licence, related projects and how to contribute.
 
@@ -83,8 +83,9 @@ Credits are in [`history/attribution.md`](history/attribution.md).
   source, to play it on current systems with your own copy of the game.
 - [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp): the byte-matching decompilation of the retail executable, the naming
   authority for the function names used here.
-- [onslaught-godot](https://github.com/dlprentice/onslaught-godot): a Godot (C#) rebuild of the game, checked against the original frame by
-  frame.
+- [onslaught-godot](https://github.com/dlprentice/onslaught-godot): a proof-of-concept C# rebuild of the game on Godot, not yet
+  playable. Its simulation is compared frame by frame with recorded runs of Onslaught CE, and with recorded runs of the
+  original game up to frame 10,000.
 - [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor): the companion app for careers, saves, settings and backups, with the game's
   lore and lore book (to be renamed onslaught-companion).
 - [stuart73/Onslaught](https://github.com/stuart73/Onslaught): Stuart Gillam's published Onslaught source, which

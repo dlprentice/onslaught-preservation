@@ -2,7 +2,7 @@
 
 Status: active bounded world-instance and resource-linkage contract
 Date: 2026-08-28
-Last updated: 2026-10-22 (private evidence paths generalised for the onslaught-preservation layout)
+Last updated: 2026-10-29 (the records the join leaves out: a `dies_on` world, squads and spawners; earlier: private evidence paths generalised for the onslaught-preservation layout)
 Verdict: across all 66 numeric LVLR archives, 4,090 definition-bearing WRES
 records join without ambiguity through `default physics.dat` to exactly one named
 LVLR `MESH` row and one loose CMSH file in the same level. The join covers 2,731
@@ -167,6 +167,36 @@ selector. It remains valid to use the stronger Level 100 six-mesh agreement in
 its bounded owner; this all-world result forbids widening that decision from
 `active` alone.
 
+### Records the join leaves out
+
+The join takes a type-8 or type-35 record only when the dword after its
+definition name is -1. `CWorld__LoadWorld` (`0x0050B9C0`) reads that dword as
+the thing's `dies_on` world: -1, or a world number. It consults the value only
+for things of a base world, and drops such a thing when
+`CCareer__IsWorldLater` (`0x0041BBB0`) finds the level being loaded later on the
+career graph than that world; `CCareer__DoesBaseThingExist` (`0x0041BB20`) can
+drop a base-world thing as well. A level world's own records are placed whatever
+the value. These are static identities: no runtime capture here shows a thing
+dropped.
+
+A scan that frames each record family with the loader's layouts, using this
+census's framing with the -1 test dropped, finds the 4,090 joined records and
+these others in the 66 numeric archives (`<maintainer evidence>/unused-content-20261029/`):
+
+| Records outside the join | Count | What they add |
+| --- | ---: | --- |
+| Unit type `8` / Feature type `35` naming a `dies_on` world | 315 / 135 | 441 in `BSWD`, only six worlds named (300, 400, 511, 612, 710, 720); 9 in level 511's own `RLWD`. Two Unit definitions occur only here: Muspell Power Station and Muspell Radar Station |
+| Squad, type `28` | 607 | a Unit definition name and an amount (the amounts sum to 4,613), every `dies_on` -1; 19 Unit definitions are named only by squads |
+| Spawner thing, type `19` | 262 | a Unit definition to spawn; three are named only by spawners: Carver Fighter Boss, Fenrir and Gill-M |
+| Hazard, type `39` | 48 | Hazard definitions, outside the Unit/Feature join |
+
+So 24 of the 55 Unit definitions without a direct join edge are named by one of
+these records, and 129 of the 160 are named by some world record. The other 31
+have no world record; scripted spawns and executable literals remain separate
+routes. The scan locates records by their strings and the loader's layouts
+rather than reading each body in sequence, so its totals are not yet a sequential
+framing (see the open questions).
+
 ## Animation, script, and skeleton boundaries
 
 The 733 loose MSL files still contain 56 `PlayAnimation*` sites in 15 files.
@@ -265,6 +295,9 @@ specimen-bound tests when the two external inputs are absent.
 - **Other WRES records:** frame the type `15`, `18`, `19`, `27`, `28`, `36`,
   `37`, `39`, and other owner-specific tails sequentially, then require the same
   physics/resource/name agreement before calling any of them mesh instances.
+  The totals in [Records the join leaves out](#records-the-join-leaves-out)
+  come from a scan by strings and layouts; a sequential read of every body
+  confirms or corrects them.
 - **Anonymous embedded identity:** find a serialized WRES/header/configuration
   key that selects one of the 53 `PMS2+309` streams. One-to-one co-occurrence or
   similar skeleton shape is not an identity key.
@@ -287,7 +320,9 @@ owners, 4,090 exact same-level/loose CMSH joins, transforms/state/name strings,
 the ordinal/type/selector/member identity of all 3,578 direct Unit placements,
 730 direct MSL-coordinate edges, 22 direct animation call sites, and the 53
 anonymous embedded CMSH bodies are bounded. Other WRES record schemas,
-alternate population routes for the 55 directly unplaced Unit definitions,
+population routes for the 31 Unit definitions that no world record names
+(24 of the 55 without a direct join edge are named by a `dies_on`, squad or
+spawner record),
 anonymous names, component/dynamic-spawn mesh ownership, named clip
 serialization, universal scheduling, execution, rendering, malformed retail
 behavior, and parity remain open.
