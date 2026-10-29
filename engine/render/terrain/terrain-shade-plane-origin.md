@@ -1,7 +1,7 @@
 # Terrain shade plane — origin, ownership, and axis order
 
 Status: active dated finding
-Last updated: 2026-10-22 (research-campaign records removed)
+Last updated: 2026-10-29 (the patch site is named, not quoted; its bytes stay in the baseline's patch-site table; earlier: research-campaign records removed)
 Summary: the terrain lighting-index plane is map data read verbatim from the `MMAP` chunks, with its ownership and axis order.
 
 > Verdict: the terrain lighting-index plane is **map asset data read verbatim from
@@ -23,7 +23,7 @@ the same directory; see
 which records that the two file names are inverted in that directory.
 Re-measured 2026-07-28: the two builds differ at exactly **four** bytes,
 file offsets `0x12a644`–`0x12a647` = VA `0x0052a644`–`0x0052a647`
-(`a1 f0 2d 66 00` → `b8 01 00 00 00`). No address cited anywhere in this
+(the `force_windowed` patch site in the baseline's table). No address cited anywhere in this
 note falls in that range — the nearest are `0x005232b0` below and `0x00541f50`
 above — and no disassembly quoted here decodes through it, so **every byte
 claim below stands unchanged.** This is a specimen-label correction, not a

@@ -3,7 +3,7 @@
 Status: active format contract — complete outer/tag census; most payload schemas
 remain owner-specific or open
 Date: 2026-08-28
-Last updated: 2026-10-29 (the seven non-numeric `MESH` rows are base and Frontend, not Goodie rows; the 53 empty outer MESH names are separate from the internal CMSH names, which the usage census also reads as empty; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the PS2 loader table's raw-body digests flagged as malformed, 65 digits each; the seven non-numeric `MESH` rows are base and Frontend, not Goodie rows; the 53 empty outer MESH names are separate from the internal CMSH names, which the usage census also reads as empty; earlier: research-campaign records and decompiler-style code removed)
 Verdict: all 301 streams and 23,884 top-level tags are accounted for; the
 numeric WRES Unit/Feature instance join and released PS2 texture-page runtime
 boundary are bounded, while most other payload schemas and world dependencies
@@ -253,6 +253,10 @@ streamed from their retained ISO owners and independently rehashed:
 | Demo | `5700b5d0b39554e49afe65e079ad8109fe6688c2aa5e6f0e0ed5afcefd034584` | `[0x002812D8,0x00281AA8)` | `5d850c58d7a567885cccca3ef334d14381ea98cbcdee66bbe3c9680403840a371` |
 | Europe | `87cb89b020cf107b3ba4612ac6bc86ed3fcbd6dd985e2cd3978bf897be96b655` | `[0x00281398,0x00281B68)` | `b864394f6ab260db3831f5ecbce8880a6f5de393c4d699e200515c81e71638395` |
 | USA | `4cfed76f0b0cdf84377a4d5b1613fd197c27be9a3814743590fecba22ba4e166` | `[0x00281B00,0x002822D0)` | `ee0126daaf2e124b31b5fdfc70bced0746417cbf44be557e11fdcec7d451ee43b` |
+
+The three "Raw body SHA-256" values were recorded with 65 hex digits, one more than a SHA-256 has, so each holds a
+transcription error. Regenerate them from the retained ISOs before relying on them. The executable digests and the
+normalized digest below have the right length.
 
 Zeroing only MIPS J/JAL target fields and non-SPECIAL/non-SPECIAL2 immediate
 fields produces the same normalized SHA-256 for all three bodies:

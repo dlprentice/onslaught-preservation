@@ -1,7 +1,7 @@
 # `CRound::Hit`, configured explosion creation, and `CExplosion::Hit`
 
 Status: active, bounded semantic contract
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the binary64 constant given by value only; earlier: research-campaign records and decompiler-style code removed)
 Evidence: MEASURED — pristine retail bytes, strict RTTI/vtables, exact data
 records, dated static exports, replicated runtime carriers, and independent
 PC-demo normalized bodies; SOURCE — pinned `CThing`/init layouts and virtual
@@ -583,7 +583,7 @@ component calls with real part data, not observed player shots or projectile
 collision acceptance.
 
 The direct controller's multiply at `0x00444072` reads binary64 `0.3` at
-`0x005db0a0` (bytes `33 33 33 33 33 33 d3 3f`), stores a double and uses strict
+`0x005db0a0`, stores a double and uses strict
 less-than. Under the admitted PC24 model the real initial total produces
 threshold `0x419c23e9`; the former float32 coefficient produced `0x419c23ea`.
 A synthetic restored state at exact equality now survives; it does not establish

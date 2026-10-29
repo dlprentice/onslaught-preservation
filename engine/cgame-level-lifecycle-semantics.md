@@ -1,7 +1,7 @@
 # `CGame` level-lifecycle semantic recovery
 
 Status: active, bounded semantic recovery
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the Platform.h digest's dropped last digit restored, rehashed at the pinned commit; earlier: research-campaign records and decompiler-style code removed)
 Evidence: MEASURED — pristine retail bodies, direct calls, state writes, strings,
 and three normalized-identical demo twins plus one independently fixed demo
 entry plus two semantically bounded demo bodies; SOURCE — pinned `game.cpp`,
@@ -27,7 +27,7 @@ The retained source functions begin at `references/Onslaught/game.cpp:246`,
 `:292`, `:414`, `:530`, `:1260`, and `:1573`. That file is 103,727 bytes,
 SHA-256 `7f6932e001f0c57938dd49aba07ab1cd05239e7a038096fb25310a34e9a4ef4e`.
 `EQuitType` is fixed independently by `references/Onslaught/Platform.h:6`
-(SHA-256 `3f0c45560e58a0758e21b4adad40c7d57bdea9b0d2da79b72d8e023747e8efd`):
+(SHA-256 `3f0c45560e58a0758e21b4adad40c7d57bdea9b0d2da79b72d8e023747e8efd4`):
 `0` none, `1` frontend, `2` system, `3` load error, `4` restart, `5` timeout,
 `6` user frontend, and `7` user title screen.
 

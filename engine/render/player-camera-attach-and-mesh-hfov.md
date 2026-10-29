@@ -1,7 +1,7 @@
 # The player camera, the cockpit attach, and what `HFOV` means
 
 Status: active — partial September 27 recheck; earlier sections remain inherited evidence
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the float constants given by value only; earlier: research-campaign records and decompiler-style code removed)
 Summary: original camera/projection findings, with a bounded recheck of position
 identities and aggregate result transport appended below. Other earlier claims
 were not reverified by that recheck.
@@ -67,12 +67,12 @@ tan(vfov/2) = zoom * aspect
 ```
 
 `CCamera__GetAspectRatio` (`0x0041b070`) returns `0x005d85ec` in multiplayer
-and `0x005d8bc4` otherwise. Image bytes:
+and `0x005d8bc4` otherwise. The float32 values in the image:
 
-| VA | file offset | bytes | value |
-| --- | --- | --- | ---: |
-| `0x005d8bc4` | `0x001d8bc4` | `00 00 40 3f` | **0.75** (single player) |
-| `0x005d85ec` | `0x001d85ec` | `00 00 00 3f` | 0.5 (multiplayer) |
+| VA | file offset | value |
+| --- | --- | ---: |
+| `0x005d8bc4` | `0x001d8bc4` | **0.75** (single player) |
+| `0x005d85ec` | `0x001d85ec` | 0.5 (multiplayer) |
 
 `zoom` is `CCamera::GetZoom`, vtable slot 4. `CThingCamera`'s implementation
 (vtable `0x005DBB88` slot 4 -> `0x00418eb0`) reads `[EAX + 0x2c8]` — the Battle
@@ -208,7 +208,7 @@ zoom = fov * 0x005d9338 * 0x005d85ec
      = (fov / 90) / 2
 ```
 
-(`0x005d9338` = `61 0b 36 3c` = `0.0111111114`; `0x005d85ec` = `0.5`), matching
+(`0x005d9338` = float32 `0.0111111114`; `0x005d85ec` = `0.5`), matching
 `Camera.cpp:650` in the reference source.
 
 ### Therefore `HFOV = 180.0` means "no zoom change"
