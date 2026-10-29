@@ -1,7 +1,7 @@
 # Controller System
 
 Status: active — mixed source reference and bounded retail evidence
-Last updated: 2026-10-22 (retired tools no longer described as current)
+Last updated: 2026-10-29 (the debug-key table distinguished from the retail default bindings; the V-key god-mode statement corrected; earlier: retired tools no longer described as current)
 Summary: controller architecture and retail differences; the keyboard queries
 and POV neutral comparison were rechecked on September 26, while other sections
 retain their own dated evidence and limitations. The September 27 joystick and
@@ -150,11 +150,21 @@ controller site uses either directed rounding mode or that a player saw a differ
 
 ### Debug Keyboard Shortcuts
 
-**Source/internal mapping with Steam caveat:** These debug-key bindings exist in internal/source code; in the Steam retail build analyzed here, their gameplay handlers are not observed as active:
+**Source/internal mapping:** This table describes the pinned internal
+[PCController.cpp](https://github.com/dlprentice/Onslaught/blob/c3d8ac464259942b83fa8aa7f867c856e77b734d/PCController.cpp),
+not the Steam PC defaults.
+The [retail-matching binding table](https://github.com/dlprentice/onslaught-decomp/blob/6c434449dcc595a3ab7a99c4154d666e49ba8695/src/PCController.cpp#L20-L68)
+maps `F` to the free-camera toggle and `A` to free-camera strafe left; its default `Space` binding is the
+Battle Engine's walker/jet transformation. The first sixteen game controls can be remapped. Retail's
+[game action](https://github.com/dlprentice/onslaught-decomp/blob/6c434449dcc595a3ab7a99c4154d666e49ba8695/src/game.cpp#L2671-L2697)
+checks cheat 4, normally enabled by `Aurore` in the career name, before toggling the camera (the cheat indices are
+in [IsCheatActive](../../../mechanics/cheats/IsCheatActive.md#known-cheat-indices) and the gate in the
+[free-camera Aurore-gate bypass](../../../platforms/patches/free-camera-aurore-gate-bypass-patch.md#toggle-gate)).
+These source-backed defaults do not establish which controls or camera a particular player used.
 
 | Key | Virtual Button | Effect | Notes |
 |-----|----------------|--------|-------|
-| `V` | `BUTTON_TOGGLE_GOD_MODE` | Toggle god mode | **Internal builds only** |
+| `V` | `BUTTON_TOGGLE_GOD_MODE` | Toggle god mode | Historical source binding; no retail V default shown |
 | `A` | `BUTTON_TOGGLE_FREE_CAMERA` | Toggle free camera | Debug camera mode |
 | `F` | `BUTTON_TOGGLE_FREE_CAMERA` | Toggle free camera | Alternate binding |
 | `U` | `BUTTON_WIN_LEVEL` | Force win current level | Instant victory |
@@ -169,9 +179,9 @@ controller site uses either directed rounding mode or that a player saw a differ
 | `4` | `BUTTON_TOGGLE_DEBUG_UNIT_BACKWARD` | Cycle debug unit backward | Debug visualization |
 | `5` | `BUTTON_TOGGLE_DEBUG_UNIT_FORWARD` | Cycle debug unit forward | Debug visualization |
 
-**Why V-key God Mode Doesn't Work in Retail:**
-
-The `BUTTON_TOGGLE_GOD_MODE` mapping exists in source code, but in the Steam retail build analyzed here we have not observed an active `GAME.ReceiveButtonAction()` path for it; current evidence suggests that case is disabled or compiled out in retail.
+**V-key God Mode in retail:** The selected retail default binding table has no `V`-to-god row, although the
+reconstructed `CGame::ReceiveButtonAction` retains the `BUTTON_TOGGLE_GOD_MODE` handler. This does not establish
+whether another input path can invoke it; see the separate [God mode evidence](../../../mechanics/cheats/god-mode.md).
 
 **O-key pause caveat:** Source maps `O` to `BUTTON_PAUSE`, and source free-camera code handles `BUTTON_PAUSE` by toggling pause/unpause. Clean Steam retail copied-runtime diagnostics do not accept that as default Steam behavior: the 2026-06-18 held-`O` pause checks produced no `BUTTON_PAUSE`, no `CGame__Pause`, and no `CGame__UnPause`; the broader key-census diagnostic observed `onceScanO=01` but zero O-specific key queries in the active polling/mapping path. A follow-up active mapping-table dump decoded `47` retail rows from `0x008892dc`, found one pause row at index `34`, and classified it as `runtime-table-pause-row-present-without-o-slot`; slot0 was `inputCode=0`, `pushType=8`, `keyArg=1`, slot1 was disabled/sentinel-like, and no `O` key argument (`0x18` or `0x4f`) was present for pause. The copied-executable patch `pause_o_scan_initializer_experiment` changes that initializer byte to `0x18`; accepted copied-runtime CDB evidence now covers one bounded free-camera pause/unpause context plus one level-100 normal-gameplay path where `O` opens the pause menu and `ENTER` resumes. Second-`O` normal-gameplay unpause, broad pause-menu safety, and control feel remain unproven.
 
@@ -404,14 +414,15 @@ Auto-repeat for held buttons (menu navigation):
 
 **Summary of Debug Key System Findings:**
 
-1. The `V` key is mapped to `BUTTON_TOGGLE_GOD_MODE` (virtual button 0)
+1. In the source/internal mapping the `V` key is mapped to `BUTTON_TOGGLE_GOD_MODE` (virtual button 0)
 2. Debug buttons (0-15) are routed to `GAME.ReceiveButtonAction()` directly
 3. The handler in `CGame::ReceiveButtonAction()` processes the god mode toggle
-4. **In the Steam retail build analyzed here**, this handler is not currently observed as active (likely disabled/compiled out)
+4. **In the Steam retail build analyzed here**, the selected default binding table has no `V`-to-god row, but the
+   reconstructed handler is retained (see "V-key God Mode in retail" above)
 
 Current evidence indicates that:
 - God mode WAS toggleable via `V` key in internal builds
-- The input mapping survived, but the handler did not
+- The handler survives in retail, but the selected retail default binding table has no row that maps to it
 - In the **source/internal build**, B4K42 save-name check is the only confirmed god mode path
 - In the Steam PC port, the equivalent name check is `Maladim`; later testing confirmed that it surfaces as `God OFF` / `God ON` under `Controller Options` and changes real combat-damage behavior
 - Memory trainers work because they bypass the input system entirely

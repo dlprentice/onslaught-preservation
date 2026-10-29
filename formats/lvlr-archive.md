@@ -3,7 +3,7 @@
 Status: active format contract — complete outer/tag census; most payload schemas
 remain owner-specific or open
 Date: 2026-08-28
-Last updated: 2026-10-22 (research-campaign records and decompiler-style code removed)
+Last updated: 2026-10-29 (the 53 empty outer MESH names are separate from the internal CMSH names, which the usage census also reads as empty; earlier: research-campaign records and decompiler-style code removed)
 Verdict: all 301 streams and 23,884 top-level tags are accounted for; the
 numeric WRES Unit/Feature instance join and released PS2 texture-page runtime
 boundary are bounded, while most other payload schemas and world dependencies
@@ -466,13 +466,16 @@ coverage claim.
   metadata and must not be interpreted as arbitrary prose.
 - The [CMSH animation/usage census](cmsh-animation-usage.md) decodes the
   validated `PMSH[/PMS2]` logical name on all 3,485 `MESH` rows in the 66 numeric
-  archives: 3,432 rows join to 205 loose meshes and 53 have an empty name. This
+  archives: 3,432 rows join to 205 loose meshes and 53 have an empty outer name
+  (the `PMSH[/PMS2]` logical name; the stream's internal CMSH name is a separate
+  field, which census version 4 reads as empty, not unknown, in all 53; see
+  [Decoder/tool evidence](#decodertool-evidence)). This
   proves numeric-archive membership. The dedicated
   [WRES instance join](wres-instance-join.md) then closes 4,090 type-8/type-35
   definition records through physics mesh fields to one named row and one loose
-  CMSH each. The 53 empty rows each own an anonymous embedded CMSH but retain no
-  exact WRES/name key. The seven additional all-LVLR `MESH` rows are in Goodie
-  archives.
+  CMSH each. The 53 rows with an empty outer name each own an anonymous embedded
+  CMSH but retain no exact WRES/name key. The seven additional all-LVLR `MESH`
+  rows are in Goodie archives.
 - Level 100/base/frontend retain deeper owner-specific work. All 66 numeric
   worlds now have the bounded WRES Unit/Feature slice above; their remaining
   record families and dependencies are primarily structural inventory.
@@ -506,7 +509,15 @@ aggregation. Cross-platform comparison tools add PC/Xbox geometry evidence but
 do not turn differing payloads into decoded semantics.
 `tools/cmsh_animation_usage_census.py` in Onslaught-Career-Editor
 adds the guarded WRES/physics/named-MESH/loose-CMSH join and structurally parses
-the 53 direct anonymous `PMS2+309` bodies without naming them.
+the 53 direct anonymous `PMS2+309` bodies without naming them. Its output version 4
+(`onslaught.cmsh-animation-usage-census.v4`) reads each anonymous body's internal CMSH name from its own field
+and reports it with its own status. The focused test
+`test_empty_lvlr_names_are_anonymous_embedded_cmsh_not_loose_aliases` in
+`tools/cmsh_animation_usage_census_tests.py` pins all 53 internal names as empty and none as unknown. It runs
+only where the retail data and the mirror index named in the header are present, and the census checks its inputs
+against that index. Version 4 is later than the Onslaught-Career-Editor commit the README pins, so this tool and
+test are cited at commit
+[`843c86e`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/843c86e06810c8fce953226ccebd41bf2cf74473).
 
 ## Open questions and falsifiers
 

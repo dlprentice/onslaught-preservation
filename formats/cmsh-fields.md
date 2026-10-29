@@ -2,7 +2,7 @@
 
 Status: active format contract — the PC loader's complete chunk grammar and every stored record layout
 Date: 2026-10-16
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-10-29 (the `TEXB` name field: its terminator and the loader's suffix rule; the chained meshes counted as 15 meshes in seven files, not 15 files; earlier: links updated for the onslaught-preservation layout)
 Verdict: all 213 installed PC mesh files (228 meshes, counting 15 chained meshes) parse to their exact
 final byte under the grammar below, with exactly one tag in every grammar slot. Every stored record is the
 loader's in-memory object image: 372, 316, 296 and 184 bytes for the mesh, part, vertex-buffer and
@@ -30,7 +30,7 @@ The grammar walk settles several tags that [cmsh-mesh.md](cmsh-mesh.md) left ope
 
 | Tag | Earlier reading | What the loader reads there |
 | --- | --- | --- |
-| `PMS2` | bone/skeletal lane | the header that opens a chained mesh: the mesh after it belongs to the same file (15 files) |
+| `PMS2` | bone/skeletal lane | the header that opens a chained mesh: the mesh after it belongs to the same file (15 serialized chained meshes across seven files) |
 | `CAMD` | camera metadata | the mesh's animation-mode table (36-byte records) |
 | `CEMT` | end metadata | the mesh's emitter table |
 | `NMIC` | chain metadata | a part's next-part-in-chain index |
@@ -39,7 +39,10 @@ The grammar walk settles several tags that [cmsh-mesh.md](cmsh-mesh.md) left ope
 | 48-byte vertex | position, normal, colour, UV, then three palette offsets | position, then the three palette offsets, then normal, colour and UV |
 
 The census in [cmsh-mesh.md](cmsh-mesh.md) counts each file's first mesh only. The counts below include the
-15 chained meshes, which is why they are larger (for example 4,009 parts rather than 3,774).
+15 chained meshes, which is why they are larger (for example 4,009 parts rather than 3,774). A 2026-10-28
+read-only recheck matched all 213 loose files to the pinned mirror index in that document and counted the
+15 chained meshes in seven files with the grammar walker. This describes stored structure, not which meshes
+a resource record loads or the renderer selects at runtime.
 
 ## How the stream is read
 
@@ -204,7 +207,16 @@ which the loader replaces without reading: it means nothing to the game.
 4. U scale
 5. V scale
 
-The name is looked up among the textures already loaded. At draw time the renderer picks a lane value as
+The name is looked up among the textures already loaded. It is a NUL-terminated string in a fixed 128-byte field,
+and nothing guarantees a terminator or UTF-8. `CMesh::FindTexture` (`0x004aa410`) reads the suffix that begins at
+byte 8 of the field: an empty suffix is reported as a null texture name and nothing is looked up; a suffix starting
+`A8` or `A4` (either case) requests format 4 or 2, and any other suffix requests 1. Source:
+[`CMesh::FindTexture`](https://github.com/dlprentice/onslaught-decomp/blob/6c434449dcc595a3ab7a99c4154d666e49ba8695/src/mesh.cpp#L1364-L1384)
+in onslaught-decomp, called from
+[`CMesh::Deserialize`](https://github.com/dlprentice/onslaught-decomp/blob/6c434449dcc595a3ab7a99c4154d666e49ba8695/src/mesh.cpp#L1724-L1725)
+with the 128 bytes as read.
+
+At draw time the renderer picks a lane value as
 follows (the renderer is `0x0054d530`):
 1. Take the virtual frame: `floor(render_frame × mode.frame_scaler + mode.start)`, modulo the part's
    `vframe_count`. A part drawn without an animation uses frame 0.

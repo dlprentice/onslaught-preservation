@@ -1,8 +1,13 @@
 # Game System
 
-Status: historical source analysis (December 2025)
-Last updated: 2026-10-22 (research-campaign records removed)
-Summary: the game loop, level lifecycle, end-level data, music and sound managers as written in Stuart's source.
+Status: historical source analysis (December 2025), with bounded retail corrections to the debug-key description
+Last updated: 2026-10-29 (the debug-key table distinguished from the retail PC default bindings; earlier: research-campaign records removed)
+Summary: the game loop, level lifecycle, end-level data, music and sound managers as written in Stuart's source; the
+keyboard bindings below are distinguished from the selected retail PC table.
+Evidence: SOURCE — the historical analysis of Stuart's source, and the cited retail-matching controller and game
+source in onslaught-decomp; the remaining historical claims were not individually rechecked in this correction.
+Specimen: pristine `BEA.exe.original.backup`, SHA-256
+`74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
 
 > Analysis from game.cpp/h, DXGame.cpp/h, PCGame.cpp/h, EndLevelData.cpp/h, Music.cpp/h, and SoundManager.cpp/h - December 2025
 
@@ -175,6 +180,14 @@ This explains why goodies 200-232 appear as "empty placeholders" in `FEPGoodies.
 
 ## Debug Keys
 
+This historical internal-source table includes controller mappings such as the two camera bindings in
+[PCController.cpp](https://github.com/dlprentice/Onslaught/blob/c3d8ac464259942b83fa8aa7f867c856e77b734d/PCController.cpp)
+and game-level shortcuts; the other rows have not been individually rechecked here.
+The [retail-matching PC defaults](https://github.com/dlprentice/onslaught-decomp/blob/6c434449dcc595a3ab7a99c4154d666e49ba8695/src/PCController.cpp#L20-L68)
+instead map `F` to free-camera toggle and `A` to free-camera strafe left; default `Space` transforms the Battle
+Engine when gameplay permits. The retail [free-camera action](https://github.com/dlprentice/onslaught-decomp/blob/6c434449dcc595a3ab7a99c4154d666e49ba8695/src/game.cpp#L2671-L2697)
+checks cheat 4, normally enabled by `Aurore` in the career name. The internal rows below are not a general retail key list.
+
 | Key | Function | Notes |
 |-----|----------|-------|
 | `~` (tilde) | Toggle console | Debug console overlay |
@@ -193,7 +206,7 @@ This explains why goodies 200-232 appear as "empty placeholders" in `FEPGoodies.
 | `Space` | Skip cutscene | During cinematics |
 | `O` | Pause | Keyboard alternative |
 
-**Note:** These debug keys only function in development builds with `-devmode` enabled.
+**Scope:** The remaining rows are historical descriptions that were not individually rechecked; do not infer their retail availability from this table.
 
 ---
 
