@@ -1,7 +1,7 @@
 # Onslaught preservation: agent guide
 
 Status: active — the single instruction file for this repository; `CLAUDE.md` only points here
-Last updated: 2026-10-22 (public related projects are linked by URL)
+Last updated: 2026-10-29 (cross-project progress navigation)
 Summary: what this repository is, the document header convention, and the evidence and content rules for edits.
 
 ## What this is
@@ -9,6 +9,13 @@ Summary: what this repository is, the document header convention, and the eviden
 Documentation of how *Battle Engine Aquila* (2003) works: formats, saves, mechanics, levels, engine and platforms.
 Markdown and small TSV/JSON tables only; no code, no app, no build. [`README.md`](README.md) is the front page,
 [`INDEX.md`](INDEX.md) the front door to the findings, and each folder's `README.md` lists what it holds.
+
+## Cross-project navigation
+
+The [Onslaught Toolkit goal](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/GOAL.md#how-progress-is-measured)
+defines progress, and its [program](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/PROGRAM.md#cross-project-progress-and-priorities)
+owns the dated cross-project chart and queue. Check current product evidence and follow David's current direction;
+preservation findings and their history stay in this repository.
 
 ## Document headers
 
