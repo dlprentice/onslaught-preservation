@@ -1,7 +1,7 @@
 # Platforms and builds
 
 Status: active — folder index
-Last updated: 2026-10-22 (summaries filled, titles in sentence case)
+Last updated: 2026-10-30 (retail multiplayer scope and CE release navigation clarified)
 Summary: The retail PC executable, the PC demo, console versions, display and launch options, and documented executable patches.
 
 ## Folders
@@ -19,4 +19,6 @@ Summary: The retail PC executable, the PC demo, console versions, display and la
 
 | Document | Summary |
 | --- | --- |
-| [Local multiplayer evidence boundary](local-multiplayer-static-runtime-contract.md) | What supports the retail local split-screen path, and why online multiplayer is not available. |
+| [Local multiplayer evidence boundary](local-multiplayer-static-runtime-contract.md) | What supports retail local split-screen, and the limits of evidence for online play in the original binary. |
+
+For the separate Onslaught CE port's current player-facing capabilities, see the [CE README](https://github.com/dlprentice/onslaught-ce#readme).

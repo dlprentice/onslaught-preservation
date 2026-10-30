@@ -1,12 +1,16 @@
 # Local multiplayer evidence boundary
 
-Status: local split-screen path available; online multiplayer unavailable
-Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
-Summary: what supports the retail local split-screen path, and why online multiplayer is not available.
+Status: retail local split-screen path evidenced; original-binary online play not established by this contract
+Last updated: 2026-10-30 (retail multiplayer scope and CE release navigation clarified)
+Summary: what supports the retail local split-screen path, and the limits of original-binary evidence for online play.
 
-This contract owns the distinction between the retail game's bounded local
-multiplayer path and any future networked companion. It does not add netcode,
-patch networking into the retail executable, or prove online play.
+This contract describes the retail game's bounded local multiplayer path and
+the limits of the original-binary evidence. It does not add netcode, patch
+networking into the retail executable, or prove online play.
+
+Onslaught CE is a separate native-source port. Its [README](https://github.com/dlprentice/onslaught-ce#readme)
+describes what is currently available to players; experimental network work
+alone does not establish a released online feature.
 
 ## Retail anchors
 
