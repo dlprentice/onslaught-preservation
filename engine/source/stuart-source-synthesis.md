@@ -1,9 +1,9 @@
 # Stuart's 50,266-line Onslaught source is deeply mapped, but it is a partial internal lineage—not the Steam game
 
-Status: active canonical synthesis of the pinned Stuart Gillam source corpus and
-its current reverse-engineering/rebuild use; the source files remain the
-line-level primary evidence
-Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense; neutral evidence wording)
+Status: active canonical synthesis of the pinned Stuart Gillam source corpus; its source files remain the
+line-level primary evidence, and the progress queue is historical
+Last updated: 2026-10-30 (historical queue and current project ownership clarified)
+Summary: Source evidence and its historical research queue, with links to the current project and rebuild owners.
 Verdict: **The pinned `references/Onslaught` drop is an exceptionally valuable
 but incomplete architecture corpus: 106 C/C++ files (52 `.cpp`, 54 headers),
 50,266 physical source lines, 1,354,693 source bytes, 254 distinct quoted
@@ -14,8 +14,8 @@ frontend, input, audio, resource, memory, and platform algorithms. It does not
 contain a build system, tests, or enough dependencies to compile; it is not the
 exact Steam source tree; mutually exclusive PC/Xbox/PS2/editor/debug bodies
 coexist in the text; and released behavior still belongs to controlled Steam
-runtime and pristine-binary evidence. This file is the integrated source master
-and work queue, not a claim that every textual body is a released Steam
+runtime and pristine-binary evidence. This file is an integrated source synthesis
+and records a historical work queue; it does not claim that every textual body is a released Steam
 function or that the absent source has been recovered.**
 Evidence: SOURCE + MEASURED — complete read-only scan of every tracked file at
 Onslaught commit `5352a81cdb838b145a57f7febc5d9fc4b0129ebb`, its Git tree and
@@ -40,19 +40,21 @@ not establish its Steam depot identity.
 
 ## Purpose and reading contract
 
-This is the single narrative master for Stuart's partial Onslaught source and
-its use in the Battle Engine Aquila reverse-engineering/rebuild project. It
-answers five different questions without pretending they are one:
+This is the narrative synthesis for Stuart's partial Onslaught source and its
+use in the Battle Engine Aquila reverse-engineering/rebuild project. Its earlier
+rebuild observations and work queue are retained as historical context; the
+current project and rebuild owners are linked from the queue below. It answers
+five different questions without pretending they are one:
 
 1. What exactly is present in the pinned source drop?
 2. What architecture, algorithms, data formats, names, and constants does that
    text establish?
 3. Which parts correspond to the shipped Steam executable, and with what
    strength?
-4. Which source-shaped behaviors are present, absent, superseded, or still
-   provisional in `rebuild/`?
-5. Which source facts should drive the next static, runtime, data, and rebuild
-   investigations?
+4. Which source-shaped behaviors were recorded as present, absent, superseded,
+   or provisional in `rebuild/` at the time of the audit?
+5. Which source facts did that audit identify for later static, runtime, data,
+   and rebuild investigations?
 
 The decompilation notes (not yet published) are the executable-side
 master. `../installed-corpus-census.md` (archived research record, not published) is the installed-data master. Their
@@ -125,7 +127,7 @@ are interchangeable.
 - [Resources, I/O, memory, and containers](#resources-io-memory-and-containers)
 - [Source-to-Steam crosswalk](#source-to-steam-crosswalk)
 - [Source-to-rebuild crosswalk](#source-to-rebuild-crosswalk)
-- [Canonical progress queue](#canonical-progress-queue)
+- [Historical progress queue](#canonical-progress-queue)
 - [Per-unit census](#appendix-a-complete-source-unit-census)
 - [Finite source registries](#appendix-b-finite-source-registries)
 - [Missing quoted includes](#appendix-c-complete-missing-quoted-include-registry)
@@ -2391,9 +2393,13 @@ audio/controller claims above are static until a stated capture exists.
 
 ### Current reconstruction boundary
 
-No complete Stuart class-family can honestly be called full released-game
-parity. The current reconstruction is a substantial, bounded Level 100 and
-Aquila implementation with:
+This heading and the assessment below describe the reconstruction at the time
+of the source audit. For the current rebuild and its measured limits, see
+[onslaught-godot's parity record](https://github.com/dlprentice/onslaught-godot/blob/main/rebuild/PARITY.md).
+
+At that time, no complete Stuart class-family had been established as full
+released-game parity. The reconstruction was a substantial, bounded Level 100
+and Aquila implementation with:
 
 - deterministic Core physics, morph, weapons, mission, actor, contact, terrain,
   and destruction work;
@@ -2622,11 +2628,20 @@ serialization vocabulary—should be expressed in current safe owners.
 
 ## Canonical progress queue
 
-This separates bounded near-term corrections from broader discovery families.
-P0/P1 items name the current falsifier or evidence dependency. P2 is a thematic
-backlog, not a finite completion gate; each family must be split into a counted
-function, table, event, or draw/state set before implementation claims close.
-Order may change only when new evidence changes impact or dependency.
+**Historical queue and labels.** This source audit's former priorities are retained
+below as research context; the heading and priority labels are not a current
+project plan. The cross-project [goal](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/GOAL.md)
+states the direction, the [program](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/PROGRAM.md)
+owns the current work queue, and [onslaught-godot's parity record](https://github.com/dlprentice/onslaught-godot/blob/main/rebuild/PARITY.md)
+owns the current rebuild scope and measured limits. The earlier `OnslaughtRebuild.Core`
+is reference material; `OnslaughtRebuild.Parity` is the current simulation owner.
+
+At the time of this audit, the queue separated bounded corrections from broader
+discovery families. P0/P1 items named their then-current falsifier or evidence
+dependency. P2 was a thematic backlog, not a finite completion gate; each family
+needed to be split into a counted function, table, event, or draw/state set before
+implementation claims closed. The order was to change when new evidence changed
+impact or dependency.
 
 ### P0: current correctness
 
@@ -3888,8 +3903,8 @@ This file closes the first complete Stuart-source research pass at four levels:
 - definitions, declarations, types, enums, globals, macros, includes, finite
   arrays, CLI switches, and source-path gaps have explicit denominators;
 - each major supplied subsystem has an architectural/function atlas;
-- source-to-retail and source-to-rebuild claims are separated by evidence
-  grade and converted into a discrete next-work queue.
+- source-to-retail and source-to-rebuild claims were separated by evidence
+  grade and converted into the historical next-work queue above.
 
 It does **not** close reconstruction of the game. The source pin is partial,
 multi-target, unbuildable in isolation, and not the exact Steam tree. Its value
