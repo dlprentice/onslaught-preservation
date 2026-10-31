@@ -1,7 +1,7 @@
 # Onslaught preservation: agent guide
 
 Status: active — the single instruction file for this repository; `CLAUDE.md` only points here
-Last updated: 2026-10-29 (cross-project progress navigation)
+Last updated: 2026-10-31 (the header date means the last substantive change; mechanical edits do not bump it)
 Summary: what this repository is, the document header convention, and the evidence and content rules for edits.
 
 ## What this is
@@ -27,6 +27,8 @@ Last updated: YYYY-MM-DD (<what changed>)
 Summary: <one or two sentences>
 ```
 
+`Last updated:` is the date of the last substantive change to what the document claims; renames, link repairs and
+bulk reformatting do not bump it, so a file's last commit can be newer than its header.
 `Date:` may stand in for `Last updated:` on a dated finding. A finding that quotes a retail address adds a
 `Specimen:` line naming the file and its SHA-256. Headers carry no volatile counts. Keep heading text stable: other
 documents link to its anchors.
