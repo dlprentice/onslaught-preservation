@@ -1,7 +1,7 @@
 # Onslaught preservation: agent guide
 
 Status: active — the single instruction file for this repository; `CLAUDE.md` only points here
-Last updated: 2026-10-31 (the header date means the last substantive change; mechanical edits do not bump it)
+Last updated: 2026-10-31 (commit messages: keep Co-Authored-By, no Claude-Session line, name no agent or role)
 Summary: what this repository is, the document header convention, and the evidence and content rules for edits.
 
 ## What this is
@@ -51,3 +51,4 @@ documents link to its anchors.
 - No game files, screenshots, string dumps or links to disc images (see [`CONTRIBUTING.md`](CONTRIBUTING.md)).
 - Relative links between documents; check them after moving or renaming a file.
 - Licences are mapped per path in [`REUSE.toml`](REUSE.toml); a new folder of quoted source needs its own annotation.
+- Commits here are public: keep the Co-Authored-By line, add no Claude-Session line, and describe the change itself, not which agent or role made it.
