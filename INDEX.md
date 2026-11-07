@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-06 (the no-game-data sentence states the short quoted strings; earlier: patch notes marked historical; related projects linked)
+Last updated: 2026-11-06 (real-time dependence under replay linked; the no-game-data sentence states the short quoted strings; earlier: patch notes marked historical; related projects linked)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
@@ -32,6 +32,7 @@ counts and names of their own time; read them as history.
 | Measured mechanics | [Game-mechanics index](mechanics/README.md) |
 | Levels and mission scripts | [Levels](levels/README.md) and [mission scripting](levels/scripting/README.md) |
 | Engine architecture | [Engine](engine/README.md) and the [mapped-systems routing table](engine/mapped-systems.md) |
+| Real time and replay determinism | [Where the retail game depends on real time](engine/runtime-time-dependence.md) |
 | Retail binary findings | [Static findings index](engine/static-findings-index.md) and the [retail specimen baseline](platforms/pc/retail-specimen-baseline.md) |
 | PC demo versus retail | [Build comparison](platforms/demo/demo-vs-retail.md) |
 | Stuart's source | [Source-code index](engine/source/README.md) and the [source synthesis](engine/source/stuart-source-synthesis.md) |
