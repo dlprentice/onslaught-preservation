@@ -1,7 +1,7 @@
 # Attribution & Preservation Contributors
 
 Status: active — attribution, preservation credits and licence boundaries
-Last updated: 2026-11-06 (two unsourced status lines and a change-history sentence removed; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-11-06 (deten credited for the runtime time-dependence findings; earlier: two unsourced status lines and a change-history sentence removed; research-campaign records and decompiler-style code removed)
 Summary: who contributed what, and the licence boundaries of this documentation and the reference material it quotes.
 Evidence: SOURCE — contributors' public credits and published repositories
 
@@ -65,6 +65,12 @@ Evidence: SOURCE — contributors' public credits and published repositories
   2026-07-22): diagnosed the white wash over impact and explosion sprites in the
   first-flight view. The fix was written independently on `main` from that
   diagnosis, so no PR #2 text is carried; the diagnosis is credited here.
+
+### deten
+- [Where the retail game depends on real time](../engine/runtime-time-dependence.md): the places where real time,
+  or the PC's state, changes what the retail executable does under replay, measured with the fixed-step test harness
+  of the public [battle-engine-aquila-rebuild](https://github.com/deten/battle-engine-aquila-rebuild) project, and
+  what removes each one.
 
 ### Early Discord/community researchers
 - Community members including Jeppi, Baworo, Antares, NDjeneralBN, min473, and others contributed archival finds, research leads, modding discussion, or preservation interest.
