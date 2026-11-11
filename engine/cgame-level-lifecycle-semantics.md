@@ -1,7 +1,7 @@
 # `CGame` level-lifecycle semantic recovery
 
 Status: active — bounded semantic recovery
-Last updated: 2026-11-06 (volatile counts left out of the header; demo RunLevel status stated once; earlier: the Platform.h digest's dropped last digit restored, rehashed at the pinned commit; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-11-06 (volatile counts left out of the header; demo RunLevel status stated once)
 Evidence: MEASURED — pristine retail bodies, direct calls, state writes, strings,
 and demo bodies (counted and stated in the body); SOURCE — pinned `game.cpp`,
 `game.h`, and `Platform.h`; UNKNOWN — exact source-revision identity and runtime

@@ -2,7 +2,7 @@
 
 Status: historical — controlled copied-runtime observations
 Date: 2026-07-26
-Last updated: 2026-11-06 (Specimen and Evidence lines added, the capture target named, undefined terms glossed, withdrawn and superseded passages marked or removed, unreconciled counts flagged; earlier: historical probe tooling availability clarified)
+Last updated: 2026-11-06 (Specimen and Evidence lines added, the capture target named, undefined terms glossed, withdrawn and superseded passages marked or removed, unreconciled counts flagged)
 Summary: four questions (sections 1 to 4) that static reading could not settle, settled by reading a running copy under CDB (Microsoft's console debugger); section 5 follows up section 2.
 Specimen: `BEA.exe`, SHA-256 `e1436ef7e0ad9ccbddd43aaaca952f6e84d4b1a282835cead745efcfc32fadf4`, the capture target: pristine plus the four-byte `force_windowed` patch and nothing else. It is not the pristine specimen (`BEA.exe.original.backup`, SHA-256 `74154bfa…`); see the [retail specimen baseline](../platforms/pc/retail-specimen-baseline.md).
 Evidence: MEASURED — controlled runtime reads and device-call records of the capture target (sections 1 to 5); INFERRED — the section 3 attribution of the residual pixels to HUD overlay.

@@ -1,7 +1,7 @@
 # Battle Engine Aquila engine architecture
 
 Status: active — first-party architecture synthesis
-Last updated: 2026-11-11 (folder map added)
+Last updated: 2026-11-11 (folder map added; dated sections reworded as present-tense reference)
 Evidence: SOURCE — Jeremy Longley's first-party contemporary 47-slide Lost Toys
 GDC deck; MEASURED — exact PC retail strings, RTTI, source-path remnants, and
 the current function inventory; UNKNOWN — console-binary joins and every
@@ -47,7 +47,7 @@ Retained PowerPoint (private copy: `<maintainer evidence>/…`; file name `20030
 | Slides | 47 |
 | PPT bytes | 195,072 |
 | PPT SHA-256 | `3b2e08607fd881dfefb31395b49de91a68ec02dee9554714f6a97d029165713e` |
-| Historical extracted presentation directory | 77 files / 751,853 bytes, recorded August 11; not remeasured October 12 |
+| Historical extracted presentation directory | 77 files / 751,853 bytes, recorded August 11; not remeasured since |
 | Historical sorted directory-manifest SHA-256 | `1254ffd317766b395eef9d61473db8ce274868032eb5c663099c49df36abc0e0` |
 
 All 47 archived slide pages were recoverable. The local ordered transcript and
@@ -60,12 +60,12 @@ edited/simplified and sometimes intentionally place logic where it would not
 really live. This report therefore separates architecture claims, illustrative
 pseudocode, and independently recovered production identities.
 
-### Complete slide reread — October 12
+### Slide-by-slide reading of the deck
 
-The retained PPT was freshly hashed to the identity above. An isolated,
+The retained PPT matches the identity above. An isolated,
 headless LibreOffice conversion of a private copy produced 47 PDF pages;
-all 47 pages' text and rendered images were inspected. The original was
-unchanged. Conversion, text and images are private evidence under
+all 47 pages' text and rendered images were inspected, and the original was
+left unchanged. Conversion, text and images are private evidence under
 `<maintainer evidence>/retained-gdc-presentation-root-20261012/`.
 This reread verifies the deck's contents, not the inherited PC binary joins below.
 
@@ -291,10 +291,10 @@ schedules and requirements. Platform-specific input, startup, save, display,
 and error-handling differences may therefore be certification work rather than
 evidence of a different high-level engine.
 
-## Evidence boundaries and next joins
+## Evidence boundaries and open joins
 
-Positive PC matches do not establish the Xbox or PS2 implementation. The next
-cheapest architecture work is:
+Positive PC matches do not establish the Xbox or PS2 implementation. These joins are still open, each with its
+cheapest check:
 
 1. search Xbox XBE strings/RTTI for sound-manager/sample subclasses and compare
    their vtable/call shape with PC;

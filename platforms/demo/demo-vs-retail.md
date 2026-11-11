@@ -1,7 +1,7 @@
 # PC demo versus PC retail
 
 Status: active, measured cross-build evidence over the dated 2026-08-11 census
-Last updated: 2026-11-06 (the census date corrected to 2026-08-11, the placeholder path replaced, the resource 201 header written as header id and mode field; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-11-06 (the census date corrected to 2026-08-11, the placeholder path replaced, the resource 201 header written as header id and mode field)
 Evidence: MEASURED — exact executable/archive hashes, independently recounted
 MSVC RTTI/vtables, a 2,127-target virtual census, a conservative 8,086-row
 cross-build function-address map, and exact multi-range, opcode-factory, and
