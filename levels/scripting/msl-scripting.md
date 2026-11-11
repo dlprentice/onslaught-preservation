@@ -1,7 +1,7 @@
 # MSL Mission Scripting Language
 
 Status: active — the `.msl` language reference: syntax conventions and corpus observations, not runtime proof
-Last updated: 2026-11-06 (corpus checks: race threshold, Fenrir slot blocks, submarine placement, debug and vars lines; unchecked text labelled)
+Last updated: 2026-11-11 (pointers to the script-native pages; earlier, 2026-11-06: corpus checks: race threshold, Fenrir slot blocks, submarine placement, debug and vars lines; unchecked text labelled)
 Summary: the `.msl` mission language's conventions, command families and examples, with corpus observations labelled as such.
 
 **Battle Engine Aquila** uses a custom `.msl` mission language for objectives,
@@ -343,6 +343,8 @@ UnHighlightHudPart(HUD_COMPASS);  // Stop flashing
 // HUD_BATTLE_LINE_MAP, HUD_RADAR, HUD_CURRENT_WEAPON
 ```
 
+What the part natives store is described in [the HUD natives](native-hud-and-objectives.md#hud-part-flashing).
+
 ### Variables and UI Display
 
 ```msl
@@ -370,6 +372,9 @@ and 78; see the
 `144-entry native registry` (archived research record, not published).
 Those bindings and these authored examples do not by themselves prove visible
 HUD output or rebuild parity.
+
+What the four variable natives do to the four on-screen text rows is described in
+[the HUD natives](native-hud-and-objectives.md#the-four-text-slots).
 
 ### Timing
 
