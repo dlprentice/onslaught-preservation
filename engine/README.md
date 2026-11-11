@@ -1,7 +1,7 @@
 # Battle Engine Aquila engine architecture
 
 Status: active — first-party architecture synthesis
-Last updated: 2026-11-06 (Specimen line added; source-path strings reduced to file names; inventory counts cited to onslaught-decomp at 76e277d; earlier: the private copy's location is named only as maintainer evidence)
+Last updated: 2026-11-11 (folder map added)
 Evidence: SOURCE — Jeremy Longley's first-party contemporary 47-slide Lost Toys
 GDC deck; MEASURED — exact PC retail strings, RTTI, source-path remnants, and
 the current function inventory; UNKNOWN — console-binary joins and every
@@ -14,6 +14,25 @@ pattern, while the deck's exact `CShader` and console sound-manager names remain
 unconfirmed proposals/search seeds.
 
 Specimen: pristine PC retail `BEA.exe`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
+
+## What this folder holds
+
+This page is the architecture synthesis built on the GDC deck, below. The rest of the folder is routed here.
+
+| Where | What it covers |
+| --- | --- |
+| [Mapped systems](mapped-systems.md) | From a system to the smallest current document that owns it. Start here when you know the subsystem but not the page. |
+| [Static findings index](static-findings-index.md) | The static and byte-level findings about the Steam `BEA.exe`. |
+| [Controlled runtime observations](controlled-runtime-observations.md) | What controlled runs of a copied retail build measured on 2026-07-26, and their limits. |
+| [Where the retail game depends on real time](runtime-time-dependence.md) | The places where real time or the PC's state changes what the original does under replay, and what removes each one. |
+| [Level lifecycle](cgame-level-lifecycle-semantics.md) | The `CGame` level and restart lifecycle: source identities, ownership boundaries, return codes and bounded retail behaviour. |
+| [High-impact call chains](high-impact-call-chain-appendix.md) | Static chains with their consequence for save and options persistence, the world lifecycle and text lookup. |
+| [`world/`](world/README.md), with its [contracts](world/contracts/README.md) | Level lifecycle, the event scheduler and world loading. |
+| [`render/`](render/README.md), with [terrain](render/terrain/README.md) | Render resources, trees, patches, palettes, particles, view distance and the default Direct3D state. |
+| [`frontend/`](frontend/README.md) | Front-end pages, the HUD overlay and front-end video. |
+| [`audio/`](audio/README.md) | The music and sound managers and the PC sound back end. |
+| [`io/`](io/README.md) | File buffering, memory and I/O services. |
+| [`source/`](source/README.md) | Notes on Stuart Gillam's published source. |
 
 ## First-party source
 

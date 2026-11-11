@@ -1,7 +1,7 @@
 # Mapped systems
 
 Status: active — routing table
-Last updated: 2026-10-22 (retired AppCore/WinUI tools in the past tense)
+Last updated: 2026-11-11 (replay determinism row added; the source tree is no longer called a submodule)
 Summary: the smallest current evidence owner for each system, and the code that consumes it.
 
 This page routes implementation work to the smallest current static evidence
@@ -25,6 +25,7 @@ analysis to runtime proof.
 | Audio, media, cutscenes, camera | `audio-media-cutscene-static-review-2026-05-26.md` (archived research record, not published) | media browser and research |
 | Assets, AYA chunks, mission text | [`../formats/game-assets-index.md`](../formats/game-assets-index.md) | guarded exporters (`tools/`) |
 | Local multiplayer evidence | [`../platforms/local-multiplayer-static-runtime-contract.md`](../platforms/local-multiplayer-static-runtime-contract.md) | copied-profile split-screen preset only |
+| Replay determinism and real-time dependence | [`runtime-time-dependence.md`](runtime-time-dependence.md) | the contributor's external test harness (named on that page); no code in this project's repositories reads it |
 | Function-level identities | `_index.md` (in the decompilation notes, not yet published) | source/evidence lookup |
 
 ## Claim boundary
@@ -34,8 +35,8 @@ formats, and bounded structures visible in the analyzed specimen. It does not
 by itself establish runtime behavior, exact object layouts, source-body
 identity, patch safety, visual parity, online play, or reconstruction parity.
 
-Stuart's source and the pinned `references/Onslaught` submodule inform names and
-hypotheses but are not retail Steam proof. Controlled runtime observations must
+Stuart's source (the pinned `references/Onslaught` tree, which this repository does not contain) informs names and
+hypotheses but is not retail Steam proof. Controlled runtime observations must
 use a verified copied target and record specimen identity; proprietary payloads
 and bulky captures remain outside Git.
 

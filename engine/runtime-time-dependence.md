@@ -78,3 +78,10 @@ measured on the original alone.
   whole-session tour `sess_win`. The first may be multisampling edge noise at polygon edges, which already varies by up
   to 90 pixels between runs; the second was recorded before per-thread read counts and may be the clock-read row.
 - **Other hardware.** Every observation here is from one PC: Windows 11 and an NVIDIA RTX 5080.
+
+## Related
+
+- [Controlled runtime observations](controlled-runtime-observations.md): an earlier set of controlled runs of a copied retail build, with their limits.
+- [Retail specimen baseline](../platforms/pc/retail-specimen-baseline.md): the specimen named in the header.
+- [Mapped systems](mapped-systems.md): where each system's evidence is kept.
+- [Attribution](../history/attribution.md): the contributor's credit.

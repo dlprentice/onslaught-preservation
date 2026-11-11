@@ -1,7 +1,7 @@
 # Reference Source Analysis
 
 Status: active — folder index
-Last updated: 2026-11-06 (snapshot and pin relation stated, reference fork named, manifest identified; the earlier source commit is named beside the current pin; fetch step for the pinned fork added; earlier: external source references and current rebuild provenance clarified)
+Last updated: 2026-11-11 (quick-reference pages linked)
 Summary: how the notes on Stuart's pinned external source are organised and where to find the current rebuild's
 implementation and licence boundary.
 
@@ -46,6 +46,10 @@ Then read `references/Onslaught/<file>` as `../onslaught-src/<file>`; the fork k
   [controllers](frontend/controller-system.md)
 - I/O ([index](io/README.md)): [storage](io/storage-system.md), [chunker](io/chunker-system.md),
   [events](io/event-system.md)
+
+Quick-reference pages for the source as a whole:
+[singletons and subsystem ownership](engine-singletons.md), [file organisation](source-files.md),
+[class hierarchy and thing types](source-hierarchy.md) and [key function signatures](source-key-functions.md).
 
 The physical-file byte and line manifest and the parser census in
 [`stuart-source-synthesis.md`](stuart-source-synthesis.md), both counted at commit `5352a81`,
