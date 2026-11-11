@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-06 (real-time dependence under replay linked; earlier: evidence labels defined; retail addresses and patch bytes moved out of the summary rows; the Toolkit's phase-out plan for the companion stated; the no-game-data sentence states the short quoted strings; patch notes marked historical; related projects linked)
+Last updated: 2026-11-11 (patch-notes sentence reworded)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
@@ -58,7 +58,7 @@ shipped strings or tables; the grade is defined in the source synthesis's [evide
 These documents record where a byte lives, which function owns it, what the clean bytes are, and what was observed
 when a copied executable carried the change. An observation covers only the copy it was made on. Applying a patch
 to an installed game is the player's own choice and needs a verified backup first; the pristine
-`BEA.exe.original.backup` is never a target. These notes are historical analyses and now the record: no maintained
+`BEA.exe.original.backup` is never a target. These notes are historical analyses: no maintained
 tool applies them. The patch catalogue of the retired AppCore editor (Onslaught-Career-Editor
 [`4ac3c9ae`](https://github.com/dlprentice/Onslaught-Career-Editor/tree/4ac3c9ae32d97c1293858c49bf9cc485eb814f28), `patches/`) was removed, and the companion app no longer patches executables.
 

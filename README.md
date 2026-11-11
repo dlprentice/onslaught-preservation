@@ -1,7 +1,7 @@
 # Onslaught preservation
 
 Status: active — the repository's front page
-Last updated: 2026-11-06 (the mirror index defined; contribution routing, evidence labels, how to check a specimen, the earlier fork commit and the second and third Toolkit pins stated; the companion's planned phase-out stated; earlier: the rebuild's measured comparison scope is linked to its current record; earlier: onslaught-godot described as its own README describes it; earlier: related projects linked; Onslaught-Career-Editor citations pinned to one commit)
+Last updated: 2026-11-11 (headers described as present on every document; the check command named on the front page)
 Summary: what this repository documents about *Battle Engine Aquila*, where to start in each section, how to read a
 finding, the licence, related projects and how to contribute.
 
@@ -37,9 +37,8 @@ patch site, as [CONTRIBUTING.md](CONTRIBUTING.md) allows.
 
 ## How to read a finding
 
-- Each document opens with `Status:`, `Last updated:` (or `Date:`) and `Summary:` lines. Older documents that predate
-  the convention have no header yet; their dates are in the text. Some documents carry a
-  `Verdict:` in place of the `Summary:`.
+- Each document opens with `Status:`, `Last updated:` (or `Date:`) and `Summary:` lines; some carry a
+  `Verdict:` in place of the `Summary:`. A dated note quotes the counts and names of its own time.
 - A finding's `Evidence:` line starts with one of four labels. `MEASURED`: read from the shipped game, by a controlled
   runtime capture, a byte comparison, a table read out of shipped data, or a test that asserts a recovered law.
   `SOURCE`: backed by the pinned Onslaught source, with file and line; it shows shape, ownership and intent, and does not
@@ -121,4 +120,6 @@ Credits are in [`history/attribution.md`](history/attribution.md).
 Corrections and new findings are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) first: it says
 [where each kind of work belongs](CONTRIBUTING.md#where-to-contribute), contributions come in under the same licence,
 every claim needs evidence, and game files, decompiler output and disassembly listings with raw bytes are never
-accepted. Security problems and leaked private material go through [`SECURITY.md`](SECURITY.md).
+accepted. Before a pull request, run `python3 tools/check_docs.py --changed` (Python 3, standard library only); it checks
+links, anchors, headers and machine paths. Security problems and leaked private material go through
+[`SECURITY.md`](SECURITY.md).
