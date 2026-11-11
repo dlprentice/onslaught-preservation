@@ -1,7 +1,7 @@
 # Unit and Battle Engine damage and contact
 
 Status: active — subsystem description of how damage, repair, shields and invulnerability are applied and how unit contact is admitted; no full-game observation
-Last updated: 2026-11-11 (new document, written from the Toolkit's frozen function notes and checked against the decompilation's source)
+Last updated: 2026-11-11 (new document, written from the frozen notes formerly in the Toolkit's `reverse-engineering/` folder and checked against the decompilation's source)
 Summary: the order of operations when something damages or repairs the player's Battle Engine and any other unit (shields, life, augmentation, death, shake, invulnerability, radio warnings), the rules for admitting a unit's contact with the thing it stands on, and the events a unit handles; with the cases that were run on the original function bodies and what remains open.
 Evidence: SOURCE — Stuart's pinned `BattleEngine.cpp` (the Battle Engine's `Damage`), which has no counterpart for `Unit.cpp`; MEASURED — the decompilation's source for these four functions is listed as byte-matched against the retail executable, and the complete original bodies of `CBattleEngine::Damage` and `CUnit::Damage` were run in an isolated harness with authored inputs (41 and 61 cases); INFERRED — the consequences drawn from that order, each marked where it is drawn; UNKNOWN — everything the open questions list, including every question about live play.
 Specimen: pristine Steam `BEA.exe`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750` (see the [retail specimen baseline](../platforms/pc/retail-specimen-baseline.md)).
@@ -28,12 +28,15 @@ for invulnerability is and how a career sets it is in [god mode](cheats/god-mode
   order; it does not give values, and it does not say what the names of unnamed members mean. The decompilation's text for
   `CBattleEngine::Damage` is identical to Stuart's apart from the address comment (compared line by line when this page was
   written). Where the decompilation still calls a member `mUnknown…`, this page describes its role and does not use the placeholder.
-- **Isolated execution of the original bodies.** For `CBattleEngine::Damage`, the complete original function (with the
-  three helpers it calls for shake and random numbers) was run unchanged in an emulator, on authored objects, a null
-  attacker and a recording stand-in for the death routine: 41 cases, all as expected
-  (`<maintainer evidence>/re-audit-20260926/battleengine-damage/run-iekrvvq7/damage.json`, SHA-256
-  `f6a2aab65ef85d1558332a3a3605845cd786a7c1c8949149dac52e9b2a6c130d`). For `CUnit::Damage`, the original function and
-  the one squad helper it calls were run the same way, with every other callee (virtual hooks, random numbers, mesh lookup,
+- **Isolated execution of the original bodies.** For `CBattleEngine::Damage`, the original function and its five callees
+  (the game's random generator, the C runtime's `rand`, the Battle Engine's shake routine, the cockpit's shake routine
+  and the controller-rumble return) were assembled unchanged into a 32-bit Linux program and run natively under a
+  syscall filter (read, write and exit only), on authored objects, a null attacker and a recording stand-in for the death
+  routine: 41 cases, all as expected
+  (`<maintainer evidence>/test-runs/re-audit-20260926/battleengine-damage/…/damage.json`, SHA-256
+  `f6a2aab65ef85d1558332a3a3605845cd786a7c1c8949149dac52e9b2a6c130d`). The game's draw count there is inferred from the final
+  seed and the static path, not counted directly. For `CUnit::Damage`, the original function and the one squad helper it
+  calls were run in an emulator (Unicorn), with every other callee (virtual hooks, random numbers, mesh lookup,
   name comparison, effects, allocation, text) replaced by recording stubs: 50 cases and 11 further controls, all as expected
   (`<maintainer evidence>/unit-damage-branch-probe-root-20260930.json`, SHA-256
   `834a7233576e9e6f514d5eca52551bcd31e48300af12d77c57a88af34322f219`, and
@@ -45,8 +48,10 @@ for invulnerability is and how a career sets it is in [god mode](cheats/god-mode
   of the Battle Engine's `Damage` and its stores, in the order shields, augmentation, life, last-damage time, energy
   (an archived research record, not published). That is the order in which the source's stages below write those fields.
   The capture has gaps, so it does not establish the complete set of writes.
-- **The PC demo.** The demo executable's twin of each of these bodies has zero normalized instruction differences
-  ([demo against retail](../platforms/demo/demo-vs-retail.md)); that shows the code is not an artefact of one build.
+- **The PC demo.** The demo executable's twins of `CBattleEngine::Damage` and of the shared unit damage body (listed there
+  under the name `CUnit::ApplyDamage`) have zero normalized instruction differences
+  ([demo against retail](../platforms/demo/demo-vs-retail.md)); that shows those two bodies are not an artefact of one build.
+  That page has no row for `CUnit::Hit` or `CUnit::HandleEvent`.
 
 ## Where the Battle Engine's Damage comes from
 
@@ -55,8 +60,8 @@ Besides weapons, the engine calls `Damage` on itself and others:
 - **Ground impact.** `CBattleEngine::DeclareOnGround` damages the engine with `speed × 16 × cos²`, where the cosine is
   between its velocity and the ground normal, with no source and the shield flag false, so the hit goes to life and not
   to shields. It does nothing while the engine is dying (it explodes instead), while it stands on an object, or in walker
-  state during a dash. It applies only above a speed of 0.2 in jet state or 0.4 in walker state, and then the velocity is
-  scaled by `1 - cos²`; below that speed, in jet state, the velocity is multiplied by 0.9. Evidence: SOURCE, `references/Onslaught/BattleEngine.cpp:2949-2992`, the same text
+  state during a dash. It applies only above a speed of 0.2 outside walker state (jet and both morphing states) or 0.4 in walker
+  state, and then the velocity is scaled by `1 - cos²`; below that speed, in jet state only, the velocity is multiplied by 0.9. Evidence: SOURCE, `references/Onslaught/BattleEngine.cpp:2949-2992`, the same text
   in the decompilation; MEASURED for the call itself: the complete retail `DeclareOnGround` was identified as the caller
   of slot 40 with a computed amount, a null source, a false shield flag and -1.
 - **Thruster scorch.** With thrusters on, the engine damages every unit within a radius of 4 that is not itself, whose
@@ -133,10 +138,16 @@ that a reimplementation does not rely on the C reading.
 
 ## Every other unit: `CUnit::Damage`
 
-The base implementation serves units, buildings, vehicles and aircraft alike. Subclasses that override slot 40 forward to it:
+The base implementation serves units, buildings, vehicles and aircraft alike. Subclasses that override slot 40 mostly forward to it; the ones read for this page (decompilation source, read statically)
+are, and the list is not claimed to be complete:
 `CBuilding::Damage` first notes the time and may change its animation, then forwards when the building has a segments
-controller or is not dying; `CHiveBoss::Damage` ignores damage whose source is an explosion and forwards the rest unchanged
-(decompilation source, read statically). The steps run in this order; "returns" means the later steps do not run.
+controller or is not dying; `CHiveBoss::Damage` ignores damage whose source is an explosion and forwards the rest unchanged;
+`CAirUnit::Damage` forwards, then once the unit is dying and has a smoke effect it starts that effect at one of the unit's
+smoke emitters, flagged important when the cause was a round fired by a Battle Engine (it draws from the game's random
+stream to pick the emitter when there are several); `CInfantryUnit::Damage` ignores all damage while the unit is dying
+(stronger than step 2), knocks the unit down and throws it away from the cause when that is an explosion, a round with an
+explosion radius or a Battle Engine, then forwards, and picks a directional death animation when the forwarded hit killed
+a unit that was not thrown. The steps run in this order; "returns" means the later steps do not run.
 
 1. **Squad notification.** If the unit belongs to a squad, the source is ammunition and the ammunition's owner is a unit,
    the squad's "recently attacked" time is set to the event clock plus 5 seconds. (An earlier reading, that this wrote a
@@ -162,8 +173,10 @@ controller or is not dying; `CHiveBoss::Damage` ignores damage whose source is a
    Whether any shipped unit relies on it is not checked here.
 7. **Segmented units.** A unit with a segments controller hands the part index, the amount and the source to it and
    returns; steps 8 to 10 do not run for it.
-8. **Hook, then shields.** A virtual hook (slot 107) receives the amount: it raises the unit's recent-damage level by
-   100 × the amount (capped at 100), and event 4005 lowers it by 10 per frame; `GetShouldDoHitEffect` returns the level as
+8. **Hook, then shields.** A virtual hook (slot 107) receives the amount. Read statically (the isolated runs stubbed this hook): it adds the
+   whole-number part of 100 × the amount to the unit's recent-damage level (so a hit under 0.01 adds nothing), capped at
+   100, queues event 4005 only when the level was zero before the hit, and `CComponent`'s override also forwards the amount to
+   its parent. Event 4005 lowers the level by 10 per frame; `GetShouldDoHitEffect` returns the level as
    the strength of the hit effect the mesh renderer asks for (`references/Onslaught/MeshRenderer.cpp:592`). Then, only
    when the shield flag is true, a hit no larger than the shields comes off the shields **at full value (there is no
    efficiency here) and returns**; a larger hit empties the shields and the rest goes on. With the flag false the shields
@@ -180,7 +193,9 @@ controller or is not dying; `CHiveBoss::Damage` ignores damage whose source is a
     life becomes the maximum; otherwise life rises by it. Shields and the vulnerability flag play no part; a unit at zero or
     below is not revived (measured: at, below and above the maximum, and with shields on both sides of 2).
 12. **Deferred death.** A profile with `Retreat` and a life below zero calls another hook (slot 100) here, for
-    damage and repair paths that did not return earlier.
+    damage and repair paths that did not return earlier. Read statically, that hook is the retreat move: `CUnit`'s version
+    sends the unit to the nearest safe side (`FindNearestSafeSide`, then `GoToPoint`) and sets deploy state 1 unless the
+    state is already 1 or 2, and `CGillM` overrides it to walk back to where it came up. It does not mark the unit dying.
 13. **Radio warnings.** Only profiles carrying `Wingman` take this path. It draws **one number from the game's shared
     random stream, modulo 3, before any threshold is looked at**, so such a unit consumes a random number on every call
     that reaches this step, whether or not a line is played (measured: one draw in every case). The draw chooses one of three lines for the speaker
@@ -198,8 +213,8 @@ controller or is not dying; `CHiveBoss::Damage` ignores damage whose source is a
     construction clears the three flags (searched in the decompilation's source), so a unit that is repaired does not repeat
     a line. Whether a line is actually shown or heard was not observed.
 
-This page replaces the Toolkit's frozen notes on these functions. Those notes keep earlier readings that were later
-corrected and that this page does not repeat: the nexus and weak-point name tests taken the wrong way round, warning
+This page replaces the frozen notes on these functions that were in the Toolkit's `reverse-engineering/` folder (they remain in
+the Toolkit's Git history). Those notes kept earlier readings that were later corrected and that this page does not repeat: the nexus and weak-point name tests taken the wrong way round, warning
 thresholds of 0.25, 0.5 and 1.0 of maximum that re-arm, a repair that depends on shields, a nonpositive Battle Engine
 amount that returns at once, and a damage cooldown written into the damaged unit.
 
@@ -213,12 +228,17 @@ When a unit's collision with another thing is reported, `CUnit::Hit` runs these 
 2. If the other thing is a unit, a per-frame "touched by a unit" marker is set. `CUnit::Move` clears it at the start of
    each frame, and no function in the decompilation's source reads it.
 3. **Standing on something.** If the other thing can be walked on, a collision report exists with its first word
-   non-zero, and the unit's `Gravity` query is above zero (`CPlane` and `CBomber` return a small positive value only while dying and 0
-   otherwise, in the decompilation's `unit.h`), the contact normals are tested against straight down (the vertical axis is Z):
+   non-zero, and the unit's `Gravity` query is above zero, the contact normals are tested against straight down (the vertical axis is Z):
    - if any contact's normal has `-Z` above **0.89** (about 27 degrees from level), the unit is standing on it;
    - if none does and the report holds **more than one** contact, the first **three** normals are added, normalised, and
      the unit stands if `-Z` of the result is above **0.69** (about 46 degrees).
    Standing means `DeclareOnObject(other)` followed by `DeclareOnGround()`.
+
+   The `Gravity` gate is wider than one class (decompilation source, read statically): `CThing::Gravity` returns a small
+   positive value by default, so ground units pass it, while the aircraft classes return zero unless the unit is dying.
+   `CAirUnit::Gravity` returns a value that depends on the unit's size while dying; `CPlane`, `CBomber`, `CDiveBomber`
+   and `CCarver` return a fixed small positive value only while dying. Other classes override it too: `CHiveBoss` always
+   returns a small positive value, and `CCannon` returns zero, so a cannon never takes this branch.
 4. The base class's `Hit` always runs afterwards.
 
 Two details matter to a reimplementation.
@@ -249,12 +269,17 @@ handle goes to the base class. Four event numbers are handled; the decompilation
 | Event | What the handler does |
 | --- | --- |
 | 4001 | Updates the unit's weapon pitch: toward the AI's target when it has one and the current weapon fires a round, otherwise back to the rest value once ten seconds have passed since the last target, clamped between -π/2 and π. It then queues 4001 again after a random delay under 0.1 s. It does nothing, and does not requeue, while its enabling flag is clear or the unit is dying. |
-| 4003 | Sets a flag if a current camera of a present player is within 50 units of the unit (the squared distance is below 2500; equality does not count), then queues 4003 again after `3 + a random fraction` seconds (3 to under 4). The random number is drawn after the camera tests. The first 4003 is queued on the next frame when the unit is initialised. The flag selects a code path in `CUnit::GetEmitter`. |
+| 4003 | Sets a flag if a current camera of a present player is within 50 units of the unit (the squared distance is below 2500; equality does not count), then queues 4003 again after `3 + a random fraction` seconds (3 to under 4). The random number is drawn after the camera tests. The first 4003 is queued on the next frame when the unit is initialised. The flag marks the unit as near a player's camera and several routines read it (decompilation source, read statically):
+`CUnit::GetEmitter` takes a different path when it is clear, `CInfantryUnit::SetAnimMode` does nothing without it (infantry
+animate only near a camera) and `CInfantryUnit::Move` acts only with it, and `CUnitAI` picks a re-plan delay of 1.5 to
+under 2.5 seconds with it and 3 to under 5 without. |
 | 4004 | Spawns the unit's configured explosion at its position, then schedules the unit's shutdown (`AddShutdownEvent`). |
 | 4005 | Lowers the recent-damage level (step 8 above) by 10 and queues itself for the next frame while the level is above zero, otherwise sets it to zero. |
 
-Event 4004 has two producers in the decompilation's source, both unit destruction paths aimed at the unit itself: the
-component's trigger handler queues it 7.0 seconds ahead, and the mech's die process queues it 3.5 seconds ahead. Its
+Event 4004 has two producers in the decompilation's source, both unit destruction paths aimed at the unit itself:
+`CComponent::StartDieProcess` queues it 7.0 seconds ahead for a component whose profile carries `Big` and does not fall away
+from its parent (the profile flag for falling away gives the component a velocity instead), and the mech's die process
+queues it 3.5 seconds ahead. Its
 explosion call is named `CUnit::SpawnExplosion` in the decompilation, which is the naming authority and which this page
 follows; an earlier note called it a pickup spawner. All of this is static: no frequency or presentation was observed.
 
@@ -273,4 +298,4 @@ follows; an earlier note called it a pickup spawner. All of this is static: no f
 - **Which units carry a `nexus` or `weakpoint` part**, and so whether the multiplier and the restriction matter in shipped levels.
 - **Contact from real geometry.** Captured contact reports from the collision query, with the live floating-point
   setting, replayed through the threshold block.
-- **Event names.** The authored names of 4001, 4003, 4004 and 4005, and what the 4003 flag changes in `GetEmitter`.
+- **Event names.** The authored names of 4001, 4003, 4004 and 4005, and what exactly the near-camera flag changes in the first branch of `CUnit::GetEmitter`.

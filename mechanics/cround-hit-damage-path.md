@@ -784,7 +784,7 @@ and the pristine specimen, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334e
   status 10 and write no result, which shows only that the count gate works.
 
 Still open: how often rounds take this route, the other 165 deliveries and eight receiver matches, the effects of the two calls in `CRound::Shutdown`,
-whether the release completes, and rebuild parity. Receipt: `<maintainer evidence>/cround-event2000-two-window-c2-addendum-20260813-v3/evidence.ready.json`,
+whether the release completes, and rebuild parity. Receipt: `<maintainer evidence>/…/evidence.ready.json`,
 SHA-256 `513eb42dc7438167cb5f4329a03bbd763dc5038fb0ac5f649177fd8b42a60357`.
 
 ## Remaining evidence boundary
