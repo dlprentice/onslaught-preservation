@@ -2,7 +2,7 @@
 
 Status: active — static description of how a segmented building or boss takes damage and when its death starts; no runtime capture of the whole path
 Last updated: 2026-11-11 (new page)
-Evidence: MEASURED, static — every function named below is in the byte-matching decompilation, and the original-code cases on the Level 100 Warehouse (linked below) agree where they overlap; one field read was repeated on the retail executable for this page. SOURCE — only the lines of Stuart's source cited for the crosshair rule and under "Aim position". UNKNOWN — live behaviour on a real building, listed under "Open questions".
+Evidence: MEASURED, static — every function named below is in the byte-matching decompilation, and the static reads and fixture tests of the Level 100 Warehouse section (linked below) agree where they overlap; one field read was repeated on the retail executable for this page (described under "Corrections to earlier notes"). Nothing on this page, the Warehouse section included, is a runtime measurement of the controller. SOURCE — only the lines of Stuart's source cited for the crosshair rule and under "Aim position". UNKNOWN — live behaviour on a real building, listed under "Open questions".
 Summary: how a unit built from destroyable segments divides its life between segments, what a hit does, the two thresholds (30% starts the unit's death, 50% sets a latch), what the death cascade does when the unit dies by another route, which segment the aim point uses, and what the part-availability test returns. Break ordering is in the [static contract](destroyable-segments-static-contract.md).
 Specimen: pristine Steam `BEA.exe`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`
 
@@ -10,9 +10,10 @@ A *segmented unit* is a unit whose mesh is built from parts that break separatel
 parts and the Hive Boss. It has a *controller* that keeps one *segment* per mesh part, and its life is the life of those
 segments, not a single number. This page is about the numbers: how life is divided, what one hit changes, and what the
 two thresholds do. How a segment breaks (the order of rubble, effects, spawner removal and child scheduling) is in the
-[destroyable segments static contract](destroyable-segments-static-contract.md). The original-code cases on the Level 100
-Warehouse, which exercise the same controller with supplied inputs, are in
-[the Warehouse section of the `CRound::Hit` note](cround-hit-damage-path.md#warehouse-segmented-explosion-report).
+[destroyable segments static contract](destroyable-segments-static-contract.md). The Level 100 Warehouse section, which holds static reads of the
+same retail bodies plus fixture tests of the Toolkit's earlier rebuild reference using real Warehouse part data, is
+[in the `CRound::Hit` note](cround-hit-damage-path.md#warehouse-segmented-explosion-report). It is not a runtime
+measurement either.
 
 ## How to read the evidence here
 
@@ -27,11 +28,12 @@ Warehouse, which exercise the same controller with supplied inputs, are in
   lists them). A byte match says what the function does as code. It does not say which game situations reach it, and
   it does not give the original source's names: the decompilation names some of these methods by their position
   because the original name is unknown, and this page calls them by their role.
-- The maintainer's earlier static reads of the same retail bodies agree with every threshold and ordering below
-  (archived research record, not published). Where one of those reads disagreed with the decompilation, this page
+- The maintainer's earlier static reads of the same retail bodies (the Toolkit's former frozen per-function notes,
+  removed 2026-11-11) agree with every threshold and ordering below. Where one of those reads disagreed with the decompilation, this page
   follows the decompilation and says so ("Corrections").
 - Stuart's published source has no copy of any segment file (the decompilation's file headers say so). Nothing here is
-  measured at runtime except what the Warehouse note above records.
+  measured at runtime; the Warehouse note above is static reading and fixture tests, not a capture of the original
+  game.
 
 ## The pieces
 
@@ -49,9 +51,9 @@ damage-level meshes of one part share that part's segment. (Decompilation: `CDes
 
 | Type | Chosen when | What a hit does |
 | --- | --- | --- |
-| Core | the part name starts with `core` or `CORE`; the first one met is the root, called core 1 | core 1 ignores damage; every other core takes it, and at zero health spawns rubble and breaks |
+| Core | the part name starts with `core` or `CORE`; the first one met is the root, called core 1 (a top-level part that is not a core creates no root) | core 1 ignores damage; every other core takes it, and at zero health spawns rubble and breaks |
 | Swap | the part has damage-level meshes chained to it | takes damage; a change of damage stage spawns rubble, and at zero health it breaks |
-| Extra | any other part | takes damage; at zero health it notes the direction the attacker was moving and breaks |
+| Extra | any other part | takes damage; at zero health it notes the direction the damage source was moving (its own last-frame motion, usually the round's) and breaks |
 | Extra using its mesh | the part name starts with `x1` or `X1` | as Extra; its own mesh is thrown out as rubble |
 | Component | an attached component unit | ignores damage; breaking it starts the component unit's death |
 
@@ -92,7 +94,7 @@ share to the active sum. The active sum falls only when a segment's health reach
 invulnerable, or when a core above it starts to fall. The thresholds therefore trip on how many segments have been
 destroyed, weighted by their shares, and not on accumulated wear. The total-health sum, by contrast, falls with every
 point of damage; the target health bar is that sum divided by the cached total, clamped to the range 0 to 1
-(`CUnit::GetLifeUnknown4f9a40` over `CUnit::GetMaxLife`, in `CHud::RenderTargetIndicator`).
+(the unit's total-health query, which the decompilation names by its address, over `CUnit::GetMaxLife`, in `CHud::RenderTargetIndicator`).
 
 Two helper rules complete the picture. When no segment of the unit is vulnerable, the controller's life query returns 1.0
 and its maximum query returns 1.0 instead of summing, so such a unit reads as alive at full life.
@@ -107,7 +109,7 @@ The cached total is set when the controller is built and refreshed from the *act
 ## What one hit does
 
 `CUnit::Damage` runs its own unit-level checks first (they belong to the unit-damage description, not to this page). For
-a unit that has a controller it then passes the part index, the amount and the source to the controller's `Damage` and
+a unit that has a controller, and only for a positive amount (zero or negative amounts take the repair branch), it then passes the part index, the amount and the source to the controller's `Damage` and
 returns: the shield and life handling of an ordinary unit never runs for a segmented unit. `CBuilding`'s override of
 `Damage` forwards to `CUnit::Damage` whenever the building has a controller, even while it is dying. The controller's
 `Damage` does this, in order:
@@ -124,7 +126,7 @@ returns: the shield and life handling of an ordinary unit never runs for a segme
      as already destroyed, and a root with no children at all logs a warning and counts as destroyed too; or
    - *the active health is strictly below 30% of the cached total.* The 0.3 is a double-precision constant, so the
      product is formed in double precision and compared strictly: exactly 30% does not trip it. The Warehouse note
-     records the same comparison from the original code.
+     records the same comparison from its static read of the retail body.
 5. **The latch step.** If the latch is not already set, it is set when the life query (active health, or 1.0 with no
    vulnerable segment) is strictly below half of the maximum query (the cached total, or 1.0). With no vulnerable
    segment the pair is 1.0 against 0.5, so the latch cannot be set in that state.
@@ -175,9 +177,10 @@ that the decompilation names by its position. This page calls it the *death casc
 So the cascade is a catch-up for a unit that dies while it is still mostly intact. The ordinary route, a hit that
 passes the death check in `Damage`, enters `StartDieProcess` with the same condition already true, so one of the two vetoes
 fires and the cascade does nothing. Any other route into `StartDieProcess` on a segmented unit that is still above 30%
-gets the full effect. The decompilation shows two such routes, the `START_DIE_PROCESS` event that any thing can be sent
-and a spawned unit's AI after its spawner has died; whether either reaches a segmented unit in the shipped levels was
-not traced. The sequence is: make everything vulnerable, so the damage cannot be refused; then knock out the root's direct
+gets the full effect. The decompilation shows three such routes: the `START_DIE_PROCESS` event that any thing can be sent,
+its mission-script source `IScript::Die` (which posts that event to the script's owner for the next frame), and a spawned
+unit's AI after its spawner has died. Which shipped scripts call `Die` on a segmented unit, and whether the other routes
+reach one, was not traced. The sequence is: make everything vulnerable, so the damage cannot be refused; then knock out the root's direct
 children with the huge amount; then let each child's break pass the order down. Deeper segments are not damaged by
 the cascade itself: a break orders the segment's own children to break, at once under a core, after a random delay of
 up to a second under a Swap segment, and after a random delay of up to a fifth of a second under the other types, the
@@ -199,15 +202,16 @@ a building, 10.0 for the Hive Boss) it spawns rubble and breaks. If a core is to
 falling core, that call does nothing. While it falls it is excluded from both sums, which is
 the "under a falling core" rule above, and the motion controller drops and tilts its part by the distance fallen
 (`CDestroyableCoreSegment::Break`, `HandleEvent`, `CanBreak`, `CDestructableSegmentsController::GetCoreFall`,
-`CDestructableSegmentsMotionController::GetPartTransform`). The Warehouse note records a positive-health core entering
-this state and being left out of the sums. The fall's timing and the rubble it produces have not been observed in a running game.
+`CDestructableSegmentsMotionController::GetPartTransform`). The Warehouse note's static reading also excludes a positive-health
+falling core from the active sum. The fall's timing and the rubble it produces have not been observed in a running game.
 
 ## Part availability
 
-The motion controller of a segmented unit has a virtual that sets bit 0 of a per-part flags word. The base class's
+The motion controller of a segmented unit has a virtual that writes bit 0 of a per-part flags word. The base class's
 comment in the decompilation says bit 0 hides the part from collision; the mesh collision volume and the static-shadow
-builder both read it. The segmented unit's version sets the bit for a part that is chained to another, and otherwise
-sets it when the controller's `CanUse` says the part is not usable. It changes no other bit.
+builder both read it. The segmented unit's version sets bit 0 for a part that is chained to another. For any other part
+it sets bit 0 when the controller's `CanUse` says the part is unusable and clears it otherwise. It changes no other
+bit (`CDestructableSegmentsMotionController::Unknown6`).
 
 `CanUse(part)` returns:
 
@@ -229,12 +233,12 @@ The unit method `CUnit::GetTargetablePos` returns the point at which things aim.
 the controller's `GetCentre`, otherwise the unit's centre. `GetCentre` visits the mesh parts in ascending order and keeps
 the part whose segment is a core with health above zero and with the highest core number (a tie keeps the earlier part),
 then evaluates that part's world pose for the point. With no such part, it returns the unit's centre position. Core 1
-has zero health, so it is never chosen: once every core above the first is destroyed, the aim point falls back to the
+has zero health, so it is never chosen (unless a script gives it health): once every core above the first is destroyed, the aim point falls back to the
 unit's centre. The Hive Boss overrides `GetTargetablePos` with the centre, so it never uses this selection. The
 callers include the AI classes (`DiveBomberAI`, `GroundAttackAI`, `MechAI` and others, on their targets) and, in Stuart's
 source, `CBattleEngine::UpdateAutoAim` at
 [`references/Onslaught/BattleEngine.cpp:2382`](https://github.com/dlprentice/Onslaught/blob/c3d8ac464259942b83fa8aa7f867c856e77b734d/BattleEngine.cpp#L2382),
-although Stuart's auto-aim clears its target when that target is a building
+although Stuart's auto-aim (`CBattleEngine::HandleAutoAim`) clears its target when that target is a building
 ([`BattleEngine.cpp:2585-2590`](https://github.com/dlprentice/Onslaught/blob/c3d8ac464259942b83fa8aa7f867c856e77b734d/BattleEngine.cpp#L2585-L2590)).
 How [Battle Engine aiming](battleengine/battle-engine-aiming.md) uses the point is in its own note.
 (Decompilation: `CDestructableSegmentsController::GetCentre`, `CUnit::GetTargetablePos`, `CHiveBoss::GetTargetablePos`.)
@@ -243,19 +247,22 @@ How [Battle Engine aiming](battleengine/battle-engine-aiming.md) uses the point 
 
 | Native | Effect on the controller (`IScript::…` in the decompilation) |
 | --- | --- |
-| `SetSegmentHealth` | sets the named segment's *current* health only; no refresh of the cached total. Setting zero removes the segment from the active sum without marking it destroyed |
+| `SetSegmentHealth` | sets the named segment's *current* health only; no refresh of the cached total. Setting zero removes the segment from the active sum without marking it destroyed; its next hit breaks it, even if it is not vulnerable (the Core, Swap and Extra overrides test health after the base step) |
 | `SetAllSegmentsHealth` | the same for every segment |
 | `ResetSegmentHealth` | sets the named segment's current and maximum health, then refreshes the cached total from the active sum |
 | `SetSegmentVulnerable` | sets the named segment's flag, then refreshes the cached total from the active sum |
 | `SetAllSegmentsVulnerable` | sets the flag on every segment, then refreshes the cached total |
 | `HalfDestroy` | the random burst above |
-| `GetRealHealth` | returns the total-health sum (`CUnit::GetLifeUnknown4f9a40`; the unit's own life for a unit with no controller) |
+| `Die` | starts the owner's death on the next frame (it posts `START_DIE_PROCESS` to the owner; `IScript::Die`). On a segmented unit that is still above 30% and has a live core child, this runs the death cascade |
+| `GetRealHealth` | returns the total-health sum (through the unit's total-health query, which the decompilation names by its address; the unit's own life for a unit with no controller) |
 
-Each native does nothing unless the script's owner is a unit with a controller. They name the segment by its mesh-part
+The five segment-health and vulnerability natives (`SetSegmentHealth`, `SetAllSegmentsHealth`, `ResetSegmentHealth`, `SetSegmentVulnerable`, `SetAllSegmentsVulnerable`) do nothing unless the script's owner is a unit with a controller; `HalfDestroy` and `GetRealHealth` also work on a plain unit, as their rows say. They name the segment by its mesh-part
 name, and a name with no segment logs a fatal-error message and changes nothing. The registry rows are in
 [`levels/scripting/mission-script-command-registry.tsv`](../levels/scripting/mission-script-command-registry.tsv).
 
 ## Corrections to earlier notes
+
+"Earlier notes" below means the Toolkit's former frozen per-function notes (removed 2026-11-11).
 
 - The existing [static contract](destroyable-segments-static-contract.md) names several of these functions with older
   working names. The correspondence, so that readers can join the two: the controller dispatch row is `Damage`; the
@@ -263,13 +270,14 @@ name, and a name with no segment logs a fatal-error message and changes nothing.
   bulk refresh is `SetAllSegmentsVulnerable`, and the flag it writes is the *vulnerable* flag (it is called an active
   flag in the earlier notes).
 - The earlier notes on the active sum describe its contribution as the segment's *remaining* life. The retail body reads
-  the *maximum* health field for that contribution, and the current-health field only for the not-zero test (repeated
-  directly on the pristine specimen for this page, which also found the total-health sum reading the current field).
+  the *maximum* health field for that contribution, and the current-health field only for the not-zero test (one read repeated for this page on the pristine specimen: the two sum bodies were read for which health field they
+  load, with no disassembly kept; it found the active sum loading the maximum field and the total-health sum the current
+  one).
   The Warehouse note's description of the same sum ("initial values for enabled, non-collapsing segments whose current
   health is nonzero") agrees with the maximum-health reading.
-- An earlier note names the part-availability predicate with a `CUnitAI__` prefix; its receiver is the segment
+- An earlier note (in the Toolkit's former frozen notes) names the part-availability predicate with a `CUnitAI__` prefix; its receiver is the segment
   controller, which the motion controller's constructor stores (so the method is the controller's `CanUse`).
-- An earlier note names the aim-position method `CDiveBomber__SelectTarget`, and one version described a
+- An earlier note (in the Toolkit's former frozen notes) names the aim-position method `CDiveBomber__SelectTarget`, and one version described a
   distance-and-allegiance target search. The method selects no target: it returns a position for the unit it belongs to,
   and the dive-bomber AI is one of several callers.
 - An earlier note read the missing-part branch of the controller's `Damage` as falling through to the latch step even when
@@ -278,7 +286,7 @@ name, and a name with no segment logs a fatal-error message and changes nothing.
 ## Evidence boundary
 
 All of the above is static: what the code does, read from matched reconstructions and from the retail bodies the
-maintainer read earlier. The Level 100 Warehouse cases exercise parts of the same code with supplied inputs. No
+maintainer read earlier. The Level 100 Warehouse section is static reading plus fixture tests of the earlier rebuild reference, not a runtime measurement. No
 controlled runtime capture of a segmented unit taking real hits, crossing 30% or 50%, or dying by the cascade is part
 of this page's evidence, and a threshold result stated here is a statement about what the code computes, not a measured
 player-visible event. The earlier research records also hold coverage-only traces showing that the random-burst
