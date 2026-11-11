@@ -1,31 +1,36 @@
 # Mapped systems
 
 Status: active — routing table
-Last updated: 2026-11-11 (replay determinism row added; the source tree is no longer called a submodule)
-Summary: the smallest current evidence owner for each system, and the code that consumes it.
+Last updated: 2026-11-11 (replay determinism row added; the source tree is no longer called a submodule; the code column points at the current repositories)
+Summary: the smallest current evidence owner for each system, and where related code lives in the public projects.
 
 This page routes implementation work to the smallest current static evidence
 owner. It is not a function-completion ledger and does not promote static
 analysis to runtime proof.
 
+Related code lives in the [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) companion
+(`companion/`), the [onslaught-godot](https://github.com/dlprentice/onslaught-godot) rebuild (`OnslaughtRebuild.Parity` is
+its simulation, `OnslaughtRebuild.Host` its presentation) and the [onslaught-ce](https://github.com/dlprentice/onslaught-ce)
+native port (`port/`). A name in the last column is where to look, not a statement that the code cites the page.
+
 ## Canonical system owners
 
-| System | Evidence owner | Implementation consumer (Onslaught-Career-Editor `51129bab` unless named) |
+| System | Evidence owner | Related code (companion unless named) |
 | --- | --- | --- |
-| Career save layout, grades, unlocks, kills | [`../saves/README.md`](../saves/README.md) | companion `CareerSave` (the retired AppCore `BesFilePatcher` before it) |
-| Options and control bindings | [`../saves/save-options-startup-compatibility.md`](../saves/save-options-startup-compatibility.md) | companion `OptionsFile` (the retired AppCore `ConfigurationEditorService` before it) |
+| Career save layout, grades, unlocks, kills | [`../saves/README.md`](../saves/README.md) | companion `Careers/CareerSave.cs` (the retired AppCore `BesFilePatcher` before it) |
+| Options and control bindings | [`../saves/save-options-startup-compatibility.md`](../saves/save-options-startup-compatibility.md) | companion `Options/OptionsFile.cs` (the retired AppCore `ConfigurationEditorService` before it) |
 | Executable identity and patch regions | [`../platforms/pc/executable-analysis.md`](../platforms/pc/executable-analysis.md) and focused patch notes | none now; the retired AppCore patch catalogue and `BinaryPatchEngine` used it |
-| BattleEngine movement, morph, weapons, units | [`../mechanics/unit-battleengine-gameplay-static-contract.md`](../mechanics/unit-battleengine-gameplay-static-contract.md) | rebuild Core policies and copied-target research |
-| Target acquisition | [`../mechanics/battleengine/battleengine-target-acquisition-static-contract-v1.md`](../mechanics/battleengine/battleengine-target-acquisition-static-contract-v1.md) | deterministic rebuild targeting work |
-| PhysicsScript | [`../formats/physics-script-static-contract.md`](../formats/physics-script-static-contract.md) | parser/schema and rebuild interface work |
-| MissionScript / IScript | [`../levels/scripting/missionscript-iscript-static-contract.md`](../levels/scripting/missionscript-iscript-static-contract.md) | scripting format/schema work |
-| Frontend, input, HUD | [`frontend/hud-frontend-overlay-static-contract.md`](frontend/hud-frontend-overlay-static-contract.md) | UI/rebuild interpretation only |
-| Meshes, resources, render bridge | [`render/mesh-resource-render-static-contract.md`](render/mesh-resource-render-static-contract.md) and [`render/render-resource-bridge-static-contract.md`](render/render-resource-bridge-static-contract.md) | asset parsing and rebuild rendering adapters |
+| BattleEngine movement, morph, weapons, units | [`../mechanics/unit-battleengine-gameplay-static-contract.md`](../mechanics/unit-battleengine-gameplay-static-contract.md) | onslaught-godot `OnslaughtRebuild.Parity` and onslaught-ce `port/` |
+| Target acquisition | [`../mechanics/battleengine/battleengine-target-acquisition-static-contract-v1.md`](../mechanics/battleengine/battleengine-target-acquisition-static-contract-v1.md) | onslaught-godot `OnslaughtRebuild.Parity` and onslaught-ce `port/` |
+| PhysicsScript | [`../formats/physics-script-static-contract.md`](../formats/physics-script-static-contract.md) | onslaught-godot `OnslaughtRebuild.Parity` (`Physics`) |
+| MissionScript / IScript | [`../levels/scripting/missionscript-iscript-static-contract.md`](../levels/scripting/missionscript-iscript-static-contract.md) | onslaught-godot `OnslaughtRebuild.Parity` (`Script`) |
+| Frontend, input, HUD | [`frontend/hud-frontend-overlay-static-contract.md`](frontend/hud-frontend-overlay-static-contract.md) | onslaught-godot `OnslaughtRebuild.Host` (`HudView`, `FrontEndView`) |
+| Meshes, resources, render bridge | [`render/mesh-resource-render-static-contract.md`](render/mesh-resource-render-static-contract.md) and [`render/render-resource-bridge-static-contract.md`](render/render-resource-bridge-static-contract.md) | onslaught-godot `OnslaughtRebuild.Parity` (`Mesh`, `Render`) and `OnslaughtRebuild.Host` (`MeshView`) |
 | Texture/resource decode | [`../formats/texture-resource-decode-static-contract.md`](../formats/texture-resource-decode-static-contract.md) | asset inspection/export tooling |
 | Audio, media, cutscenes, camera | `audio-media-cutscene-static-review-2026-05-26.md` (archived research record, not published) | media browser and research |
 | Assets, AYA chunks, mission text | [`../formats/game-assets-index.md`](../formats/game-assets-index.md) | guarded exporters (`tools/`) |
 | Local multiplayer evidence | [`../platforms/local-multiplayer-static-runtime-contract.md`](../platforms/local-multiplayer-static-runtime-contract.md) | copied-profile split-screen preset only |
-| Replay determinism and real-time dependence | [`runtime-time-dependence.md`](runtime-time-dependence.md) | the contributor's external test harness (named on that page); no code in this project's repositories reads it |
+| Replay determinism and real-time dependence | [`runtime-time-dependence.md`](runtime-time-dependence.md) | none cites it yet. The measurements came from the contributor's own test harness (linked on that page); onslaught-ce's present clock (`port/platform/common/clock.cpp`) is related work in the same area |
 | Function-level identities | `_index.md` (in the decompilation notes, not yet published) | source/evidence lookup |
 
 ## Claim boundary
