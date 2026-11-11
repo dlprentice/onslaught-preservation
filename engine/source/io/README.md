@@ -1,4 +1,4 @@
-# I/O Systems Index
+# I/O systems index
 
 Status: active — folder index
 Last updated: 2026-11-06 (header added; description corrected to chunk readers, event dispatch and storage; pointer to the retail I/O folder added)

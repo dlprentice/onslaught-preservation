@@ -1,4 +1,4 @@
-# Frontend Systems Index
+# Frontend systems index
 
 Status: active — folder index
 Last updated: 2026-11-06 (header added; title and prose spelling aligned with the other source notes)

@@ -1,4 +1,4 @@
-# Reference Source Analysis
+# Reference source analysis
 
 Status: active — folder index
 Last updated: 2026-11-11 (quick-reference pages linked)

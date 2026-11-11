@@ -1,4 +1,4 @@
-# Binary Analysis
+# Static findings index
 
 Status: living index of the static and byte-level findings
 Last updated: 2026-11-06 (unpublished index entries marked not yet published; earlier: historical debugger runbook availability clarified)

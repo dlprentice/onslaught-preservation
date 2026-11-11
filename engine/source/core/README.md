@@ -1,4 +1,4 @@
-# Core Systems Index
+# Core systems index
 
 Status: active — folder index
 Last updated: 2026-11-06 (status header added; index links checked against this folder)

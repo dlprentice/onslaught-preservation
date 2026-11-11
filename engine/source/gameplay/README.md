@@ -1,4 +1,4 @@
-# Gameplay Systems Index
+# Gameplay systems index
 
 Status: active — folder index
 Last updated: 2026-10-21 (index as first published)
