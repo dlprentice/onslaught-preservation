@@ -1,15 +1,19 @@
-# Game Mechanics
+# Game mechanics
 
 Status: active — index of accepted mechanics measurements and contracts
-Last updated: 2026-11-11 (entries grouped by subject; unpublished records listed together)
+Last updated: 2026-11-06 (the folder indexes and the top-level static contracts routed, cheat codes marked not yet published, shorthand glossary added; earlier: links updated for the onslaught-preservation layout)
 Summary: routes to each accepted game-mechanics owner; every owner states its own
 specimen, procedure and limits.
 
-This area keeps accepted measurements and source/static context that materially
-support product or deterministic [Core](../INDEX.md#terms) behavior.
+This area keeps accepted measurements and source/static context about how the game plays, for the companion, the
+rebuild and the native port.
 
-Folder indexes: [Battle Engine](battleengine/README.md), [unit AI](ai/README.md), [career rules](career/README.md),
+## Folders
+
+[Battle Engine](battleengine/README.md), [unit AI](ai/README.md), [career rules](career/README.md),
 [weapons](weapons/README.md) and [cheats](cheats/README.md).
+
+## Documents
 
 ### Battle Engine
 
@@ -33,7 +37,9 @@ Folder indexes: [Battle Engine](battleengine/README.md), [unit AI](ai/README.md)
 - [`CRound::Hit`, configured explosion creation and `CExplosion::Hit`](cround-hit-damage-path.md)
 - [`CController` shared mapping and dispatch](controller-shared-semantics.md)
 
-### Levels (the documents live in [`levels/`](../levels/README.md))
+### Levels
+
+The level documents live in [`levels/`](../levels/README.md).
 
 - [Level 100 final drone wave, Help Player turrets and abort](../levels/level100-final-drone-wave.md)
 - [Level 100 construction order: shared draws and queued events](../levels/level100-construction-order.md)
@@ -46,8 +52,7 @@ Folder indexes: [Battle Engine](battleengine/README.md), [unit AI](ai/README.md)
 These records are kept privately: cheat codes (not yet published); campaign scalar status, jet forward response and jet
 energy response (archived research records, not published).
 
-Each measurement is limited to its stated specimen and procedure. Core mapping
-does not claim broader parity. Superseded measurements and plans live in Git
+Each measurement is limited to its stated specimen and procedure and claims no broader parity. Superseded measurements and plans live in Git
 history.
 
 ## Shorthand used in these notes

@@ -38,7 +38,7 @@ patch site, as [CONTRIBUTING.md](CONTRIBUTING.md) allows.
 ## How to read a finding
 
 - Each document opens with `Status:`, `Last updated:` (or `Date:`) and `Summary:` lines; some carry a
-  `Verdict:` in place of the `Summary:`. A dated note quotes the counts and names of its own time.
+  `Verdict:` in place of the `Summary:`. A dated note's counts and names are those of its date; read it as history.
 - A finding's `Evidence:` line starts with one of four labels. `MEASURED`: read from the shipped game, by a controlled
   runtime capture, a byte comparison, a table read out of shipped data, or a test that asserts a recovered law.
   `SOURCE`: backed by the pinned Onslaught source, with file and line; it shows shape, ownership and intent, and does not

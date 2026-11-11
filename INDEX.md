@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-11 (patch-notes sentence reworded)
+Last updated: 2026-11-06 (real-time dependence under replay linked; earlier: evidence labels defined; retail addresses and patch bytes moved out of the summary rows; the Toolkit's phase-out plan for the companion stated; the no-game-data sentence states the short quoted strings; patch notes marked historical; related projects linked)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
