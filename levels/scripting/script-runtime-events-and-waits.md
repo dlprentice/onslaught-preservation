@@ -21,7 +21,7 @@ the game doing it. The command vocabulary is in the [command registry](mission-s
 language in [MSL mission scripting language](msl-scripting.md), and the bounded static boundary in the
 [MissionScript / IScript static contract](missionscript-iscript-static-contract.md). Following a waypoint path is
 [its own page](follow-waypoint-commands.md); the effect of individual commands is in the
-[registry corrections](mission-script-registry-corrections.md) for 34 of them.
+[command signatures and behaviour page](mission-script-registry-corrections.md) for 34 of them.
 
 ## What runs a script
 
@@ -68,7 +68,10 @@ whether the native returns a value. The instruction does the following (`CInstru
    object", pushes the integer 0 in place of a result, discards the arguments and does not call the native.
 3. Otherwise it calls the native as a method of the script object with three arguments, in this order: the argument
    array, the argument count and a pointer to a result slot. The count is the call site's, not the registry's; the
-   natives index the array directly and do not check it.
+   natives index the array directly and do not check it. The shared array has room for 7 values (the decompilation's
+   `gScriptFunctionArgs`, sized to the registry record's seven type slots), and the call instruction does not compare the call
+   site's count with that size, so a call site that pushed more than 7 arguments would write past the array. No shipped
+   script is known to do so; none was checked.
 4. It deletes the argument values, so a native that wants to keep one must clone it.
 5. It delivers the result. A native whose call site expects a value but left the result slot empty logs "ERROR: function
    '`<name>`' was expecting return value!" and pushes nothing. A native whose call site expects no value pushes the
@@ -79,14 +82,14 @@ whether the native returns a value. The instruction does the following (`CInstru
 Two consequences matter to script authors. First, the current-target mechanism is how `thing.Command()` works: a
 separate pointer instruction stores the receiver, and the very next native call acts on it and then reverts. Most
 natives act on that thing without checking its type, and the checks they do make are listed in the
-[registry corrections](mission-script-registry-corrections.md). Second, a native that suspends the script (the wait
+[command signatures and behaviour](mission-script-registry-corrections.md). Second, a native that suspends the script (the wait
 commands) cannot deliver its result to the live operand stack, because that stack is emptied when the run ends. The
 call instruction therefore pushes the result or placeholder onto the saved copy's stack when the stop flag is set, so
 the resumed script finds it.
 
 The registry record for each native holds, in the decompilation's table, the command name, its declared argument count,
 whether it returns a value, up to seven declared argument types, a return type and the handler. The declared counts and
-types are listed in the [registry corrections](mission-script-registry-corrections.md); this page does not claim that
+types are listed in the [command signatures and behaviour](mission-script-registry-corrections.md); this page does not claim that
 the interpreter enforces them at run time, and the call path above does not.
 
 Evidence: MEASURED (static) — `CInstructionOP_CALL::Execute`, `CInstructionOP_POINTER::Execute`, the `gScriptFunctions`
@@ -99,27 +102,38 @@ A compiled script has 13 event slots. Each holds the entry point of a handler, o
 code raises). The names are the ones the decompilation gives the table; they match the lifecycle callbacks written in
 mission scripts. Raising an event for a slot with no handler does nothing: the call returns at once and discards the
 event's argument. Before the first event a script object ever runs, the compiled file-scope initialisation code (the
-`vars` defaults) runs once, when the code has any.
+`vars` defaults) runs once, when a flag in the compiled script is set (`CVM::CallEvent`; the decompilation leaves the flag
+unnamed, and it is read from the compiled file). INFERRED: the flag is set when the file has such initialisation code;
+no compiled script was checked for it.
 
 | Slot | Event | Raised by | Argument |
 | --- | --- | --- | --- |
 | 0 | `init` | the thing's `INIT_SCRIPT` event, queued for the next frame by `SetScript` when the script object is created | none |
-| 6 | `ready` | the thing's `READY_SCRIPT` event, queued one frame after `init`, for things that are not units. Units never get it | none |
+| 6 | `ready` | the thing's `READY_SCRIPT` event. For a thing that is not a unit, queued for the next frame by the `init` handler (`CComplexThing::HandleEvent`). For a unit, queued by its AI: when the AI is built for a unit that has a script and was not released by a spawner, and when a spawned unit stops following its emitter's path (`CUnitAI`'s constructor and its follow-emitter handler) | none |
 | 1 | `arrived` | the end of a path followed by `FollowWaypoint` (not `FollowWaypointWait`) | the second `FollowWaypoint` argument, as an integer |
 | 2 | `timer` | the script's own timer message, scheduled by `SetTimer` | none |
-| 3 | `died` | the thing's shutdown scheduling (`AddShutdownEvent`), which then deletes the script object | none |
-| 4 | `hit` | the thing's `Hit`, when the other thing is a complex thing and the script exists | the other thing |
+| 3 | `died` | see the list after the table: each raiser deletes the script object right afterwards | none |
+| 4 | `hit` | `CComplexThing::Hit`, when the other thing is a complex thing and the script exists; also relayed to a squad's script when one of its members is hit (the squad's member-hit method, called from `CUnit::Hit`) | the other thing |
 | 5 | `started_dying` | the die process of features and of units. Other complex things do not raise it: their die process schedules shutdown first, which deletes the script object | none |
 | 7 | `shutdown` | the thing's `SHUTDOWN` event, only while the game state is at most "playing" and only if the script object still exists | none |
 
 Notes on the table:
 
-- `hit` and `arrived` are skipped, not queued, if the interpreter is already running when they are raised. Whether
-  that can happen in play is open (see the end).
+- `hit`, `arrived` and `timer` are skipped, not queued, if the interpreter is already running when they reach the
+  script (`IScript::Hit`, `IScript::Arrived`, and the timer case of `IScript::HandleEvent`). Whether that can happen in
+  play is open (see the end).
+- `died` is raised from these places, and every one of them deletes the script object straight after raising it:
+  `CComplexThing::AddShutdownEvent` (which `CThing::StartDieProcess` reaches for a plain complex thing that has no die
+  process of its own); `CUnit::Remove`; `CBuilding::HandleEvent`, on the event that `CBuilding::StartDieProcess`
+  schedules for the next frame when the building has a script (`CHiveBoss::HandleEvent` has the same body and the linker
+  folds the two into one function); `CBattleEngine::StartDieProcess`; and the explode path of `CMine`. A search of the
+  decompilation for calls of `IScript`'s `Died` found these and no others.
 - Because `died` deletes the script object, a thing that dies the ordinary way never raises `shutdown`; `shutdown`
   is reached when something schedules the thing's `SHUTDOWN` event while the script object is still alive, for example
   the `Shutdown` command.
-- A thing that is a unit gets `init` but never `ready`. The [level 100 construction order](../level100-construction-order.md)
+- A unit gets `init` from the thing's own scheduling and `ready` from its AI, as the table says, so a unit built
+  without a `CUnitAI` never raises `ready`. The order of a unit's `init` and `ready` inside one frame depends on when each
+  event was queued and is open: nobody has traced it for a shipped unit. The [level 100 construction order](../level100-construction-order.md)
   lists the first-frame events things get when a level is built.
 - The built-in events are separate from named events. `PostEvent("name")` schedules a named event for the next frame; its
   listeners are the `event("name")` functions registered at `init`, and the match is an exact, case-sensitive string
@@ -134,10 +148,13 @@ mechanism without any shipped use.
 
 Evidence: MEASURED (static) — `CComplexThing::SetScript`, `CComplexThing::HandleEvent`,
 `CComplexThing::AddShutdownEvent`, `CComplexThing::StartDieProcess`, `CComplexThing::Hit`, `CFeature::StartDieProcess`,
-`CUnit::StartDieProcess`, the `IScript` notification methods, `CVM::CallEvent`, `CScriptEventNB::PostEvent`.
-MEASURED (corpus) for the last paragraph, from private receipts. The statement that nothing else raises these events was
-not proved by a whole-program search for this page; the cheapest check is a search of the decompilation for other
-callers of the `IScript` notification methods.
+`CUnit::StartDieProcess`, `CUnit::Remove`, `CUnit::Hit`, `CBuilding::StartDieProcess`, `CBuilding::HandleEvent`,
+`CBattleEngine::StartDieProcess`, `CUnitAI` (constructor and follow-emitter handler), the `IScript` notification methods,
+`CVM::CallEvent`, `CScriptEventNB::PostEvent`. For who raises each event, a search of the decompilation's source for every
+call of the `IScript` notification methods (`Init`, `Ready`, `Arrived`, `StartedDying`, `Hit`, `Died`, `Shutdown`) found the
+callers named above, and `Arrived` is called only from the waypoint-following code described in
+[follow waypoint commands](follow-waypoint-commands.md). A search finds only what the decompilation contains.
+MEASURED (corpus) for the last paragraph, from private receipts.
 
 ## Commands that only schedule an event
 
@@ -198,7 +215,10 @@ current event time plus the delay. The resume handler restores the copy and cont
 
 Runtime observation (MEASURED, runtime, one case): a time-travel trace of a copied runtime of a Level 100 play-through,
 on an executable that differs from the pristine specimen only in one four-byte field, recorded one call of the `Pause`
-native. At its entry the interpreter's stop flag was clear and the script object's list of saved copies was empty; at
+native. Specimen for this observation: the maintainer's patched lab copy of `BEA.exe`, SHA-256
+`e1436ef7e0ad9ccbddd43aaaca952f6e84d4b1a282835cead745efcfc32fadf4`, which differs from the pristine specimen in exactly
+four contiguous bytes (checked now by byte comparison); the trace's own executable was not hashed when it was recorded, so
+this is the copy that fits the description, not a proved identity. At its entry the interpreter's stop flag was clear and the script object's list of saved copies was empty; at
 its return the flag was set and the list held one copy; the return went to the interpreter's call instruction. The
 trace file is not retained and the receipts are held privately (`<maintainer evidence>/`); the trace did not decode the
 delay or the scheduled time, so those rest on the static reading above. In the maintainer's corpus count the Level 100 scripts
@@ -232,15 +252,25 @@ third arguments are the arguments of the thing's animation call. The pinned `thi
 
 The script resumes when the thing's animation reports that a non-looping animation reached its end. The animation
 update calls the thing's "finished playing" function only when the animation is neither a looping mode nor forced to
-loop, so `forceLooped` true, or a looping animation, never resumes the script. Several classes override that function
-and consume some animations themselves without passing the notification on: units for deploy, undeploy, pre-fire and
-fire animations, buildings for their opening, closing, shutting and unshutting animations, components for their hit,
-retract, activate and deactivate animations, and the Battle Engine for every animation. A wait on an animation that its class consumes therefore does not resume.
+loop, so `forceLooped` true, or a looping animation, never resumes the script. Many classes override that function, and the animation wait resumes only if the override ends in the base function
+(`CComplexThing::FinishedPlayingCurrentAnimation`, the one that tells the script):
+
+- Four classes pass the notification on for animations they do not handle, and consume the ones they do: `CUnit` for
+  deploying, undeploying, pre-fire, firing and post-fire; `CBuilding` for opening, closing, shutting and unshutting;
+  `CComponent` for hit, retract, activate and deactivate; and `CBoat` for deploying and undeploying.
+- Eleven classes never call the base function at all, for any animation, so a `PlayAnimationWait` on a thing of one of them
+  never resumes: `CBattleEngine`, `CCarver`, `CCannon`, `CFenrir`, `CDiveBomber`, `CGroundAttackAircraft`, `CDropship`,
+  `CGillMHead`, `CInfantryUnit`, `CPlane` and `CSentinel`. Each override handles its own animation chain (for example `CFenrir` starts its shutdown
+  when its die animation ends, and `CCannon` switches from its activate animation to its active one) and returns without
+  notifying the script.
+
+A wait on an animation that its class consumes therefore does not resume.
 
 Evidence: MEASURED (static) — `CVM::operator=`, `CVM::Run`, `IScript::Pause`, `IScript::PlayCharMessageWait`,
 `IScript::PlayPCharMessageWait`, `IScript::PlayAnimationWait`, `IScript::FinishedPlayingAnim`,
 `IScript::HandleEvent`, `CMessageBox::HandleEvent`, `CAnimation::Process`, `CAnimation::SetAnimMode`,
-`CComplexThing::FinishedPlayingCurrentAnimation` and the class overrides named. MEASURED (runtime) for the one `Pause`
+`CComplexThing::FinishedPlayingCurrentAnimation` and the class overrides named (a search of the decompilation's source for
+`FinishedPlayingCurrentAnimation` lists every override; only the four named first call the base). MEASURED (runtime) for the one `Pause`
 call only. The overrides' effect on the animation wait is a static reading: no captured run has an animation wait on a
 consuming class.
 
@@ -248,7 +278,7 @@ consuming class.
 
 | Question | Cheapest check |
 | --- | --- |
-| Can `hit` or `arrived` be raised while the interpreter is running (so the guard drops them)? | Break on the guard in a copied runtime during a level with scripted hits and a path-following unit; or search for a call path that runs a script inside a native |
+| Can `hit`, `arrived` or `timer` be raised while the interpreter is running (so the guard drops them)? | Break on the guard in a copied runtime during a level with scripted hits and a path-following unit; or search for a call path that runs a script inside a native |
 | Does any shipped script wait on an animation whose class consumes the finished notification, leaving the script suspended? | List each shipped `PlayAnimationWait` call's animation name against the class of its target (the [animation usage census](../../formats/cmsh-animation-usage.md) lists the names), then run the matching level |
 | Does a wait inside a local call behave as the code reads? The run resets the local-call depth to zero on every resume, so a return from the local function after a resume would end the run instead of returning to the caller. The maintainer's census of shipped compiled scripts found no local-call instruction, so shipped content does not exercise it | Compile or patch a script that waits inside a local call in a copied runtime and watch the return |
 | Does the event manager ever run out of scheduled-event records during a message wait? | Read the record pool size and its high-water mark in a copied runtime during the busiest message level |

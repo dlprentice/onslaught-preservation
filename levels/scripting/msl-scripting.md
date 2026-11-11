@@ -1,7 +1,7 @@
 # MSL Mission Scripting Language
 
 Status: active — the `.msl` language reference: syntax conventions and corpus observations, not runtime proof
-Last updated: 2026-11-06 (corpus checks: race threshold, Fenrir slot blocks, submarine placement, debug and vars lines; unchecked text labelled)
+Last updated: 2026-11-11 (callback timing and PostEvent timing point to the runtime page; earlier: 2026-11-06 corpus checks, unchecked text labelled)
 Summary: the `.msl` mission language's conventions, command families and examples, with corpus observations labelled as such.
 
 **Battle Engine Aquila** uses a custom `.msl` mission language for objectives,
@@ -68,7 +68,7 @@ end_vars
 
 ## Special Functions (Lifecycle Callbacks)
 
-The corpus defines these callbacks by name; when the engine calls them is not established (see the [static contract](missionscript-iscript-static-contract.md)). The comments below give the intended use, not a measured call time:
+The corpus defines these callbacks by name. When the engine raises each one, and what raises it, is read from the decompilation in [mission script runtime](script-runtime-events-and-waits.md#the-built-in-events) (static evidence; no capture of the call times). The comments below give the intended use, not a measured call time:
 
 ```msl
 init()
@@ -114,7 +114,7 @@ event("Event Name")
 ### Posting Events
 
 ```msl
-PostEvent("Event Name");  // Fire event immediately
+PostEvent("Event Name");  // Schedule the event for the next frame (see the runtime page)
 ```
 
 ### Reserved/Built-in Events

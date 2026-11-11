@@ -28,8 +28,8 @@ Both commands find their first node with `CWaypointManager::FindNearest(name, po
 - It walks every loaded path in load order and takes the **first** path whose name equals the requested name,
   comparing without regard to case. A second path with the same name is never consulted.
 - Within that path it returns the node nearest to the position, by squared 3D distance, with a strict "smaller than"
-  against a running best that starts at 9,999,999. A tie therefore keeps the earlier entry in the path's list, and a
-  node farther than that starting value is never chosen. The path's list order and the start-node results are in
+  against a running best that starts at 9,999,999 (a squared distance, so about 3,162 units). A tie therefore keeps the
+  earlier entry in the path's list, and a node whose squared distance is not below that starting value is never chosen. The path's list order and the start-node results are in
   [named waypoint paths](../../mechanics/waypoint-paths.md#following).
 - An unknown name, or a path with no usable nodes, returns nothing.
 
@@ -106,8 +106,8 @@ for the call-site counts, from private receipts that need the retail data.
 ## Other builds
 
 The arrival test is the same on the PS2 and Xbox builds that were read. In each, only the flat distance is computed,
-the radius is 2 for the default, 4 for a squad-flagged thing and the unit class's own radius (2, 5 or 8) for units, and
-a node counts as reached only when the distance is strictly below the radius, so equality does not end a leg. Neither
+the radius is 2 for the default, 4 for a non-unit with an unnamed type flag and the unit class's own radius (2, 5 or 8)
+for units, and a node counts as reached only when the distance is strictly below the radius, so equality does not end a leg. Neither
 command supplies a radius. The three Level 100 radii (2, 5 and 8) match on every build read. One difference remains:
 when a node's next node is itself, the PC and PS2 builds log the self-link error and end the path, while the Xbox builds
 end the path without logging.
