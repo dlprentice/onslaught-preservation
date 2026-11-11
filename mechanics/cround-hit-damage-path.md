@@ -1,7 +1,7 @@
 # `CRound::Hit`, configured explosion creation, and `CExplosion::Hit`
 
 Status: active, bounded semantic contract
-Last updated: 2026-11-06 (earlier Core references labelled, byte runs removed, the Medium Pulse record named once, the 734-byte range kept inclusive; earlier: the binary64 constant given by value only; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-11-11 (a short section on two runtime windows of event 2000 added, and a pointer to the unit damage page; earlier: earlier Core references labelled, byte runs removed, the Medium Pulse record named once, the 734-byte range kept inclusive; earlier: the binary64 constant given by value only; earlier: research-campaign records and decompiler-style code removed)
 Evidence: MEASURED — pristine retail bytes, strict RTTI/vtables, exact data
 records, dated static exports, replicated runtime carriers, and independent
 PC-demo normalized bodies; SOURCE — pinned `CThing`/init layouts and virtual
@@ -752,6 +752,40 @@ In the earlier Core reference, Simulation now passes zero through the existing t
 charged-launch regression rejected the former Medium scatter and checks both
 the resulting direction and stream state. This does not establish every
 constructor/effect draw or the full game's random-stream phase.
+
+## Event 2000 on rounds: two retained runtime windows (2026-08-13)
+
+What a round does with the damage it carries once it reaches a target is in [unit and Battle Engine damage and
+contact](unit-damage-and-contact.md). This section is about what happens to the round afterwards: the beam path above
+schedules event 2000 (shutdown) for a round, and other paths reach it too.
+
+Evidence: MEASURED — two retained windows of a running copy of the game, reduced by a script that exits non-zero unless its
+counts match; the complete target bodies of the pristine specimen.
+Specimen: the runtime copy `BEA.exe`, SHA-256 `e1436ef7e0ad9ccbddd43aaaca952f6e84d4b1a282835cead745efcfc32fadf4` (the pristine
+specimen plus the four-byte windowed patch, described in the [controlled runtime observations](../engine/controlled-runtime-observations.md)),
+and the pristine specimen, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
+
+- **What was seen.** In one Level 521 window and one Level 512 window, after event 2000 was delivered to a round, the
+  game entered its memory-release routine from the call inside `CRound`'s scalar deleting destructor (the decompilation's address
+  table places that call there), and the first argument of both the call and the entry was the round itself. Only the
+  entry was seen in each window: no return was recorded, so this does not show that the release completed or what it did
+  to the heap.
+- **How the two were chosen.** The retained material holds 167 deliveries of event 2000 (161 in Level 521, 6 in Level 512)
+  and ten that fit the receiver test; the two windows are the sixth of nine in Level 521 (an arbitrary choice) and the only
+  one in Level 512. They are not a sample and say nothing about how often this happens.
+- **Replay and gaps.** Each replay produced 38 events and 13 call envelopes in a fixed order, of which only 3 per replay
+  have both entry and return; the other 10 have entry only. The route runs through `CRound::Shutdown`, whose ordinary return path calls
+  `CParticleEffectLink::Stop` and `CGenericActiveReader::SetReader` unconditionally (names from the decompilation's
+  matched-function table); what those two did in the windows was not measured.
+- **Identity.** The runtime copy and the pristine specimen differ at four bytes, all outside the ten bodies compared; those
+  ten bodies are byte-identical. That lets the static route facts transfer to the pristine specimen; it does not
+  transfer what happened at run time.
+- **Control.** Changing the expected entry count for one routine from four to five made the script report four, exit with
+  status 10 and write no result, which shows only that the count gate works.
+
+Still open: how often rounds take this route, the other 165 deliveries and eight receiver matches, the effects of the two calls in `CRound::Shutdown`,
+whether the release completes, and rebuild parity. Receipt: `<maintainer evidence>/cround-event2000-two-window-c2-addendum-20260813-v3/evidence.ready.json`,
+SHA-256 `513eb42dc7438167cb5f4329a03bbd763dc5038fb0ac5f649177fd8b42a60357`.
 
 ## Remaining evidence boundary
 
