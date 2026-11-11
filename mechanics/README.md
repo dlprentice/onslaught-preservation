@@ -1,43 +1,50 @@
 # Game Mechanics
 
 Status: active — index of accepted mechanics measurements and contracts
-Last updated: 2026-11-06 (the folder indexes and the top-level static contracts routed, cheat codes marked not yet published, shorthand glossary added; earlier: links updated for the onslaught-preservation layout)
+Last updated: 2026-11-11 (entries grouped by subject; unpublished records listed together)
 Summary: routes to each accepted game-mechanics owner; every owner states its own
 specimen, procedure and limits.
 
 This area keeps accepted measurements and source/static context that materially
 support product or deterministic [Core](../INDEX.md#terms) behavior.
 
-- [God mode](cheats/god-mode.md)
-- Cheat codes (not yet published)
-- Campaign scalar status (archived research record, not published)
-- [Released spawner squad-cycle contract](spawner-squad-cycle.md)
-- [Level 100 final drone wave, Help Player turrets and abort](../levels/level100-final-drone-wave.md)
+Folder indexes: [Battle Engine](battleengine/README.md), [unit AI](ai/README.md), [career rules](career/README.md),
+[weapons](weapons/README.md) and [cheats](cheats/README.md).
+
+### Battle Engine
+
 - [Battle Engine weapon stores, charge and firing state](battleengine/battle-engine-weapon-stores.md)
 - [Battle Engine auto-aim, launch position and Gun emitters](battleengine/battle-engine-aiming.md)
-- [Level 100 construction order: shared draws and queued events](../levels/level100-construction-order.md)
-- [World 110 construction order, transition and first frames](../levels/world-110-construction-order.md)
+- [Walker dash: the retail timing window](battleengine/walker-dash.md)
+- [Walker-to-jet timing](battleengine/walker-transform-morph-timing-v1.md)
+- [Target acquisition static contract](battleengine/battleengine-target-acquisition-static-contract-v1.md)
+- [Battle Engine configuration values](battleengine/battleengine-config-values.md)
+- [Unit, Battle Engine and gameplay static contract](unit-battleengine-gameplay-static-contract.md)
+
+### Combat, units and the world
+
+- [God mode](cheats/god-mode.md)
+- [Released spawner squad-cycle contract](spawner-squad-cycle.md)
 - [Named waypoint paths: loading, start node and following](waypoint-paths.md)
 - [Dropships: flight](dropship-flight.md)
 - [Dropships: landing, unloading and leaving](dropship-landing.md)
-- [Walker dash: the retail timing window](battleengine/walker-dash.md)
+- [Destroyable segments static contract](destroyable-segments-static-contract.md)
+- [`CWorldPhysicsManager::CreateExplosion` caller family](cexplosion-factory-callers.md)
+- [`CRound::Hit`, configured explosion creation and `CExplosion::Hit`](cround-hit-damage-path.md)
+- [`CController` shared mapping and dispatch](controller-shared-semantics.md)
+
+### Levels (the documents live in [`levels/`](../levels/README.md))
+
+- [Level 100 final drone wave, Help Player turrets and abort](../levels/level100-final-drone-wave.md)
+- [Level 100 construction order: shared draws and queued events](../levels/level100-construction-order.md)
+- [World 110 construction order, transition and first frames](../levels/world-110-construction-order.md)
 - [World 110 serialized initial-object seed admission](../levels/world-110-initial-constructor-seeds.md)
 - [World 110 authored player-start admission](../levels/world-110-player-start-admission.md)
-- [Target acquisition static contract](battleengine/battleengine-target-acquisition-static-contract-v1.md)
-- [Walker-to-jet timing](battleengine/walker-transform-morph-timing-v1.md)
-- Jet forward response (archived research record, not published)
-- Jet energy response (archived research record, not published)
-- [Battle Engine configuration values](battleengine/battleengine-config-values.md)
-- [Battle Engine folder index](battleengine/README.md)
-- [Unit AI folder index](ai/README.md)
-- [Career rules folder index](career/README.md)
-- [Weapons folder index](weapons/README.md)
-- [Cheats folder index](cheats/README.md)
-- [Destroyable segments static contract](destroyable-segments-static-contract.md)
-- [Unit, Battle Engine and gameplay static contract](unit-battleengine-gameplay-static-contract.md)
-- [`CWorldPhysicsManager::CreateExplosion` caller family](cexplosion-factory-callers.md)
-- [`CController` shared mapping and dispatch](controller-shared-semantics.md)
-- [`CRound::Hit`, configured explosion creation and `CExplosion::Hit`](cround-hit-damage-path.md)
+
+### Not published
+
+These records are kept privately: cheat codes (not yet published); campaign scalar status, jet forward response and jet
+energy response (archived research records, not published).
 
 Each measurement is limited to its stated specimen and procedure. Core mapping
 does not claim broader parity. Superseded measurements and plans live in Git
