@@ -1,0 +1,145 @@
+index	command	declaredArguments	argumentTypes	returnsValue	returnType
+0	FollowWaypoint	2	string,int	no	none
+1	FollowWaypointWait	1	string	no	none
+2	SetSpeed	1	float	no	none
+3	SpawnThing	4	string,string,int,string	no	none
+4	Pause	1	float	no	none
+5	PostEvent	1	string	no	none
+6	Rand	1	int	yes	int
+7	IsFriendly	0		yes	bool
+8	LevelLost	0		no	none
+9	LevelWon	0		no	none
+10	PlaySample	1	string	no	none
+11	Print	1	any	no	none
+12	Exists	1	thing	yes	bool
+13	Die	0		no	none
+14	GetThingRef	1	thing	yes	thing
+15	Activate	0		no	none
+16	PrintText	1	int	no	none
+17	AddMessage	2	int,float	no	none
+18	GetHealth	0		yes	float
+19	SetTimer	1	float	no	none
+20	GetDistToObj	1	thing	yes	float
+21	GetPlayer	1	int	yes	thing
+22	SetVisible	1	bool	no	none
+23	SetObjective	0		no	none
+24	SetAIState	1	int	no	float
+25	IsA	1	int	yes	bool
+26	Teleport	1	string	no	none
+27	PlayCutscene	1	string	no	none
+28	PlayCharMessage	3	int,int,float	no	none
+29	Deactivate	0		no	none
+30	UnsetObjective	0		no	none
+31	IsObjective	0		yes	bool
+32	SetVulnerable	1	bool	no	none
+33	NumContained	1	string	yes	int
+34	HighlightHudPart	1	int	no	int
+35	UnHighlightHudPart	1	int	no	int
+36	PlayCharMessageWait	3	int,int,float	no	none
+37	GetWeaponAmmo	0		yes	float
+38	GetWeaponName	0		yes	string
+39	GetWeaponCharge	0		yes	float
+40	GetNumUnits	2	int,int	yes	int
+41	SetAllegiance	1	int	no	none
+42	SetWindVector	3	float,float,float	no	none
+43	SetRainDensity	1	float	no	none
+44	SetSnowDensity	1	float	no	none
+45	SetLightningDensity	1	float	no	none
+46	SetHealth	1	float	no	none
+47	GetRatioBattleLineNodes	1	int	yes	float
+48	SetScript	1	string	no	none
+49	GetPos	0		yes	position
+50	SpawnParticle	2	string,position	no	none
+51	SetSegmentHealth	2	string,float	no	none
+52	SetAllSegmentsHealth	1	float	no	none
+53	PlayAnimation	3	string,bool,bool	no	none
+54	PlayAnimationWait	3	string,bool,bool	no	none
+55	GetMapHeight	1	position	yes	float
+56	GetWaterHeight	0		yes	float
+57	GetX	1	position	yes	float
+58	GetY	1	position	yes	float
+59	GetZ	1	position	yes	float
+60	SetX	2	position,float	yes	position
+61	SetY	2	position,float	yes	position
+62	SetZ	2	position,float	yes	position
+63	SetGoalPoint	1	position	no	none
+64	GetSafePos	0		yes	position
+65	GetComponent	1	int	yes	thing
+66	CreatePosition	3	float,float,float	yes	position
+67	GetFloatRand	0		yes	float
+68	SetVar	2	string,any	no	none
+69	Damage	1	float	no	none
+70	GameTime	0		yes	float
+71	IsEnemy	0		yes	bool
+72	Land	0		no	float
+73	SpawnersEmpty	0		yes	bool
+74	Dive	0		no	float
+75	Surface	0		no	float
+76	InitVariable	2	int,int	no	float
+77	SetVariable	3	int,float,float	no	float
+78	ShutdownVariable	1	int	no	float
+79	Shutdown	0		no	none
+80	GetEnergy	0		yes	float
+81	GetVariable	1	float	yes	int
+82	Retreat	0		no	none
+83	PrimaryObjectiveComplete	2	int,int	no	none
+84	SecondaryObjectiveComplete	2	int,int	no	none
+85	AddScore	1	int	no	none
+86	Attack	1	thing	no	none
+87	PrimaryObjectiveFailed	2	int,int	no	none
+88	SecondaryObjectiveFailed	2	int,int	no	none
+89	GetAngle	1	thing	yes	float
+90	PlayPCharMessage	4	int,int,float,int	no	none
+91	PlayPCharMessageWait	4	int,int,float,int	no	none
+92	GetInitialHealth	0		yes	float
+93	SpawnersInUse	0		yes	bool
+94	SetSpawnScript	1	string	no	none
+95	Stop	0		no	none
+96	Deploy	0		no	none
+97	Undeploy	0		no	none
+98	EnableWeapon	1	string	no	none
+99	DisableWeapon	1	string	no	none
+100	EnableFlightMode	0		no	none
+101	DisableFlightMode	0		no	none
+102	GetSquad	0		yes	thing
+103	GetTarget	0		yes	thing
+104	Normalise	1	position	yes	position
+105	Magnitude	1	position	yes	float
+106	LevelLostString	1	int	no	none
+107	IsFiring	0		yes	bool
+108	IsNumberBetween	3	float,float,float	yes	bool
+109	SetSegmentVulnerable	2	string,bool	no	none
+110	SetAllSegmentsVulnerable	1	bool	no	none
+111	GetRealHealth	0		yes	float
+112	SwitchMessagesOn	0		no	none
+113	SwitchMessagesOff	0		no	none
+114	Goto3PointPanCamera	5	thing,position,position,position,float	no	none
+115	Goto4PointPanCamera	6	thing,position,position,position,position,float	no	none
+116	GotoPlayerCamera	0		no	none
+117	GetConfiguration	0		yes	string
+118	AddHelpMessage	1	int	no	none
+119	SetGoodieState	2	int,int	no	none
+120	GetGoodieState	1	int	yes	int
+121	MPDeclarePlayerWon	1	int	no	none
+122	MPDeclareGameDrawn	0		no	none
+123	SetSlot	2	int,bool	no	none
+124	GetSlot	1	int	yes	bool
+125	InJetMode	0		yes	bool
+126	SetPlayerLives	2	int,int	no	none
+127	Launch	1	position	no	none
+128	HalfDestroy	0		no	none
+129	SetVelocity	1	position	no	none
+130	TriggerHitEffect	1	float	no	none
+131	GetNumber	0		yes	int
+132	SpawnEscapePod	0		no	none
+133	SetSlotSave	2	int,bool	no	none
+134	ResetSegmentHealth	2	string,float	no	none
+135	SetPos	1	position	no	none
+136	SetLockable	1	bool	no	none
+137	ToggleCockpit	0		no	none
+138	SetStealth	1	float	no	none
+139	TeleportOrientation	3	float,float,float	no	none
+140	EnableSpawner	1	string	no	none
+141	DisableSpawner	1	string	no	none
+142	SetName	1	string	no	none
+143	IsOverWater	0		yes	bool
