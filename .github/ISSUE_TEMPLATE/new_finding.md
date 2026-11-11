@@ -25,5 +25,8 @@ labels: enhancement
 
 
 
+<!-- This repository documents behaviour, formats and mechanics. A function's identity, naming or matching belongs in
+     onslaught-decomp's issues instead. -->
+
 <!-- Describe what the code does in your own words. Never attach or paste game files, decompiler output, disassembly with
      raw bytes, or captures containing retail bytes; if a receipt holds such material, say it is not public and give only its hash. -->

@@ -1,7 +1,7 @@
 # Contributing
 
 Status: active — how contributions are accepted
-Last updated: 2026-11-06 (where each kind of work belongs, first-hour checks, quoting rule and legacy-header rule stated)
+Last updated: 2026-11-11 (how to compare against this repository's main from a fork; the findings rule stated)
 Summary: where each kind of work belongs, how to propose and check a documentation change, the licence contributions
 come in under, the evidence a finding needs, and the material this repository never accepts.
 
@@ -14,6 +14,8 @@ contributes by fork and pull request; no invitation, collaborator access or priv
 - Playing Onslaught CE, its bugs, Linux and Windows issues, the launcher and updates (Internet multiplayer is planned,
   not in this version yet):
   [onslaught-ce](https://github.com/dlprentice/onslaught-ce) (generated; open issues and pull requests there as usual).
+- The one rule for findings: documentation of behaviour, formats and mechanics lives here; a function's identity, its
+  naming and whether it matches the retail code go to onslaught-decomp.
 - The byte-matching decompilation (functions, tools, matching notes):
   [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp) (generated; matching work needs your own copy of the
   game plus the compiler and SDK inputs its guide names). This repository uses its function names.
@@ -45,8 +47,19 @@ to run and report in the pull request. They need Git and Python 3 (standard libr
 `python3 tools/check_docs.py` checks every relative link and heading anchor in the tracked Markdown files and rejects
 machine-local paths and links to project repositories that are not public. `python3 tools/check_docs.py --self-test` shows that its checks
 catch what they claim to. It does not judge evidence, and it cannot tell whether a quoted byte or code fragment is
-allowed: that is the review of your `git diff` below. `--changed` compares with `origin/main`; add `--base BRANCH` to
-compare with another.
+allowed: that is the review of your `git diff` below.
+
+`--changed` compares your branch with `origin/main`. In a fork, `origin` is your fork, whose `main` may be behind or
+ahead of this repository's. To compare with this repository's `main`, add it as a second remote and name it:
+
+```text
+git remote add upstream https://github.com/dlprentice/onslaught-preservation.git
+git fetch upstream
+python3 tools/check_docs.py --changed --base upstream/main
+```
+
+`--base` takes any Git ref (a remote branch, a local branch or a commit). If the ref does not exist the script says so
+and exits with status 2; it never falls back to `origin/main`.
 
 Steps:
 
@@ -56,7 +69,7 @@ Steps:
    or [`QUICK-REFERENCE.md`](QUICK-REFERENCE.md) if needed. Keep existing heading text stable when possible, because other
    documents link to its anchors.
 3. Make one focused edit, following the header and evidence rules below.
-4. Run `git diff --check` and `python3 tools/check_docs.py --changed`, and read `git diff`. Check that external source
+4. Run `git diff --check` and `python3 tools/check_docs.py --changed` (from a fork, add `--base upstream/main` as above), and read `git diff`. Check that external source
    links identify the intended file and revision, and that nothing in the diff is excluded under "Never commit".
 5. Commit the scoped files, push the branch to your fork and open a pull request against `main`. The
    [pull request form](.github/pull_request_template.md) asks for what changed, the evidence and the checks you ran or

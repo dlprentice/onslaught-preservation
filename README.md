@@ -1,7 +1,7 @@
 # Onslaught preservation
 
 Status: active — the repository's front page
-Last updated: 2026-11-11 (headers described as present on every document; the check command named on the front page)
+Last updated: 2026-11-11 (headers described as present on every document; the check command named on the front page; the findings rule stated)
 Summary: what this repository documents about *Battle Engine Aquila*, where to start in each section, how to read a
 finding, the licence, related projects and how to contribute.
 
@@ -9,6 +9,9 @@ This repository documents how *Battle Engine Aquila* (Lost Toys, 2003) works: it
 options, gameplay mechanics, levels and mission scripts, engine systems, and the PC, demo and console builds. The
 findings are measured from the retail game, from Stuart Gillam's published GPL source and from controlled runtime
 evidence.
+
+The one rule for findings: documentation of behaviour, formats and mechanics lives here; a function's identity, naming
+and matching go to [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp).
 
 It is Markdown, TSV and JSON tables, plus one small check script ([`tools/check_docs.py`](tools/check_docs.py)). It contains no game executables, no copies of the game's data files and no
 decompiler output. Short quoted strings appear where a finding needs them, for example in the comparison tables under

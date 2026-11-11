@@ -1,14 +1,15 @@
 # Onslaught preservation: agent guide
 
 Status: active — the single instruction file for this repository; `CLAUDE.md` only points here
-Last updated: 2026-11-06 (the references folder's absence and the maintainer named; contributors pointed to CONTRIBUTING.md; earlier: commit messages: keep Co-Authored-By, no Claude-Session line, name no agent or role)
+Last updated: 2026-11-11 (the findings rule stated)
 Summary: what this repository is, the document header convention, and the evidence and content rules for edits.
 
 ## What this is
 
 Documentation of how *Battle Engine Aquila* (2003) works: formats, saves, mechanics, levels, engine and platforms.
-Markdown and small TSV/JSON tables only; no app, no build. The one script is `tools/check_docs.py`, a standard-library
-link, anchor, header and content check (`python3 tools/check_docs.py --self-test`, then `python3 tools/check_docs.py --changed`). [`README.md`](README.md) is the front page,
+Behaviour, format and mechanics documentation lives here; function identity, naming and matching go to
+[onslaught-decomp](https://github.com/dlprentice/onslaught-decomp). Markdown and small TSV/JSON tables only; no app, no
+build. The one script is `tools/check_docs.py`, a standard-library link, anchor, header and content check (`python3 tools/check_docs.py --self-test`, then `python3 tools/check_docs.py --changed`). [`README.md`](README.md) is the front page,
 [`INDEX.md`](INDEX.md) the front door to the findings, and each folder's `README.md` lists what it holds.
 
 People contributing by pull request start with [`CONTRIBUTING.md`](CONTRIBUTING.md#where-to-contribute), which also

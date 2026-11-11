@@ -4,6 +4,7 @@
 
     python3 tools/check_docs.py              # links, anchors, content rules over every tracked Markdown file
     python3 tools/check_docs.py --changed    # also require headers on documents your branch adds or edits
+    python3 tools/check_docs.py --changed --base upstream/main   # compare with another Git ref (default: origin/main)
     python3 tools/check_docs.py --self-test  # prove the checks catch what they claim to catch
 
 What it checks, from CONTRIBUTING.md:
@@ -143,7 +144,8 @@ def check_headers(root: Path, base: str, texts: dict[str, str]) -> list[str]:
         added = set(git(root, "diff", "--name-only", "--diff-filter=A", f"{base}...HEAD").split())
         touched = set(git(root, "diff", "--name-only", "--diff-filter=AM", f"{base}...HEAD").split())
     except subprocess.CalledProcessError:
-        raise SystemExit("cannot compare with " + base + " (fetch it, or pass --base BRANCH)")
+        print(f"check_docs: cannot compare with {base} (fetch it, or pass --base REF)", file=sys.stderr)
+        raise SystemExit(2)
     for line in git(root, "status", "--porcelain").split("\n"):
         if line.strip():
             path = line[3:].strip()
@@ -200,16 +202,53 @@ def self_test() -> int:
         if failures or extra or header_fields(texts["a.md"]) != {"Status"}:
             print("SELF-TEST FAIL", failures, extra)
             return 1
+        # --base: the ref is read from the command line, and --changed compares with exactly that ref.
+        parsed = [parse_base([]), parse_base(["--changed", "--base", "upstream/main"]), parse_base(["--base=fork/x"])]
+        if parsed != ["origin/main", "upstream/main", "fork/x"]:
+            print("SELF-TEST FAIL --base parsing", parsed)
+            return 1
+        git_env = ["git", "-C", str(root), "-c", "user.name=t", "-c", "user.email=t@example.org"]
+        subprocess.run(git_env + ["commit", "-q", "-m", "base"], check=True)
+        subprocess.run(git_env + ["branch", "upstream-main"], check=True)
+        (root / "c.md").write_text("# C\n\nno header here\n", encoding="utf-8")
+        subprocess.run(["git", "-C", str(root), "add", "c.md"], check=True)
+        subprocess.run(git_env + ["commit", "-q", "-m", "add c"], check=True)
+        texts["c.md"] = (root / "c.md").read_text(encoding="utf-8")
+        flagged = check_headers(root, "upstream-main", texts)
+        if "c.md: header lacks Status, Last updated, Summary" not in flagged:
+            print("SELF-TEST FAIL --changed against another ref", flagged)
+            return 1
+        if any(f.startswith("c.md") for f in check_headers(root, "HEAD", texts)):
+            print("SELF-TEST FAIL --changed against HEAD should see nothing new", check_headers(root, "HEAD", texts))
+            return 1
     print("SELF-TEST PASS")
     return 0
+
+
+def fail_base() -> None:
+    print("check_docs: --base needs a Git ref, for example --base upstream/main", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def parse_base(argv: list[str]) -> str:
+    """The ref --changed compares with: `--base REF` or `--base=REF`; origin/main when absent."""
+    base = "origin/main"
+    for i, arg in enumerate(argv):
+        if arg.startswith("--base="):
+            base = arg[len("--base="):]
+        elif arg == "--base":
+            if i + 1 >= len(argv) or argv[i + 1].startswith("--"):
+                fail_base()
+            base = argv[i + 1]
+    if not base:
+        fail_base()
+    return base
 
 
 def main(argv: list[str]) -> int:
     if "--self-test" in argv:
         return self_test()
-    base = "origin/main"
-    if "--base" in argv:
-        base = argv[argv.index("--base") + 1]
+    base = parse_base(argv)
     root = Path(__file__).resolve().parent.parent
     return run(root, "--changed" in argv, base)
 

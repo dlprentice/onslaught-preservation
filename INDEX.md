@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-06 (real-time dependence under replay linked; earlier: evidence labels defined; retail addresses and patch bytes moved out of the summary rows; the Toolkit's phase-out plan for the companion stated; the no-game-data sentence states the short quoted strings; patch notes marked historical; related projects linked)
+Last updated: 2026-11-11 (the findings rule stated)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
@@ -11,7 +11,8 @@ patches, and notes on Stuart Gillam's published source (GitHub `stuart73/Onslaug
 byte-matching decompilation of the retail executable, [onslaught-decomp](https://github.com/dlprentice/onslaught-decomp), which is the
 naming authority; its per-function notes are not published. A document that cites one says "(in the decompilation notes, not yet published)", and a citation
 of the project's private research history says "(archived research record, not published)". Dated notes quote the
-counts and names of their own time; read them as history.
+counts and names of their own time; read them as history. Behaviour, format and mechanics documentation lives here;
+function identity, naming and matching go to onslaught-decomp.
 
 ## Evidence rules
 
