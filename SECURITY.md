@@ -1,6 +1,6 @@
 # Security
 
-Status: active
+Status: active — how to report sensitive content in this repository
 Last updated: 2026-11-06
 Summary: how to report leaked private material or other sensitive content in this documentation repository, and what it contains.
 
