@@ -1,7 +1,7 @@
 # Game mechanics
 
 Status: active — index of accepted mechanics measurements and contracts
-Last updated: 2026-11-06 (the folder indexes and the top-level static contracts routed, cheat codes marked not yet published, shorthand glossary added; earlier: links updated for the onslaught-preservation layout)
+Last updated: 2026-11-11 (cheat codes added; earlier: 2026-11-06 (the folder indexes and the top-level static contracts routed, shorthand glossary added; earlier: links updated for the onslaught-preservation layout))
 Summary: routes to each accepted game-mechanics owner; every owner states its own
 specimen, procedure and limits.
 
@@ -27,6 +27,7 @@ rebuild and the native port.
 
 ### Combat, units and the world
 
+- [Cheat codes](cheats/cheat-codes.md)
 - [God mode](cheats/god-mode.md)
 - [Released spawner squad-cycle contract](spawner-squad-cycle.md)
 - [Named waypoint paths: loading, start node and following](waypoint-paths.md)
@@ -49,7 +50,7 @@ The level documents live in [`levels/`](../levels/README.md).
 
 ### Not published
 
-These records are kept privately: cheat codes (not yet published); campaign scalar status, jet forward response and jet
+These records are kept privately: campaign scalar status, jet forward response and jet
 energy response (archived research records, not published).
 
 Each measurement is limited to its stated specimen and procedure and claims no broader parity. Superseded measurements and plans live in Git

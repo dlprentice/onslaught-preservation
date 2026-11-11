@@ -1,7 +1,7 @@
 # Cheat codes
 
 Status: active — the retail cheat table and what each cheat does
-Last updated: 2026-11-11 (migrated from the Toolkit's frozen cheat note and rewritten as a subsystem page; every effect re-read against the decompilation)
+Last updated: 2026-11-11 (autosave and screen-dump effects and the index 2 search corrected; migrated from the Toolkit's frozen cheat note and rewritten as a subsystem page; every effect re-read against the decompilation)
 Summary: the retail PC build has six cheats, each switched on by a code word inside the name of the save that is loaded;
 this page says what each one changes, how far the evidence for each goes, and how they differ from the four names in
 the internal source.
@@ -44,9 +44,10 @@ behaviour, read from the decompilation's matching copy and, for the internal bui
   a code word presents that name when it is loaded.
 - **The call sites are few and fixed.** In the decompilation's source every call passes a constant index, and the callers
   are `CFEPGoodies::Process` (indices 0 and 5), `CFEPLevelSelect::IsWorldUnlocked` (1), the pause-menu constructor (3)
-  and `CGame::ReceiveButtonAction` (4). No call passes index 2. That is a reading of the decompilation's source, which
-  leaves out five of the retail sources ([its README](https://github.com/dlprentice/onslaught-decomp#readme)); a caller in
-  those sources would not show.
+  and `CGame::ReceiveButtonAction` (4). No call passes index 2. The decompilation's tree holds 5,449 of the retail
+  executable's 5,482 functions, all matching; the other 33 are in four files of Microsoft's DirectX SDK sample code and
+  one data file ([its README](https://github.com/dlprentice/onslaught-decomp#readme)). So no matched function passes
+  index 2, and a caller would have to be in that sample code, which is not where a save-name check would be expected.
 
 ## The retail table
 
@@ -144,9 +145,11 @@ flag. The second is a runtime flag that `CGame::Update` sets when an `-autoconfi
 sequence (the sequence and its other effects are in [command-line parameters](../../platforms/command-line/cli-parameters.md)).
 A player cannot set it from a save name.
 
-The same state changes other parts of the game that have nothing to do with cheat words: no autosave after a race level
-(`CFrontEnd`), the front end's F8 screen-dump key, the game's frame-rate line going to the setup-history file, and the
-music (`CMusic::Play`) always starting track 8. They read the flag themselves rather than asking `IsCheatActive`. In the
+The same state changes other parts of the game that have nothing to do with cheat words: no autosave after a level, race or campaign
+(`CFrontEnd::Init`), the front end's F8 screen-dump key, in a level the B key asking for a screen dump (`CGame::DrawGameStuff`;
+without the flag, B grabs a single frame to a file only under `-testeur`), the game's frame-rate line going to the
+setup-history file, and the music (`CMusic::Play`) always starting track 8. The list is of the effects read here and may
+not be complete. They read the flag themselves rather than asking `IsCheatActive`. In the
 decompilation's source, the Goodies page, the God item and the free-camera case all go through `IsCheatActive`, not the
 flag; an earlier note that said several of them read the flag directly is not borne out there.
 
@@ -181,7 +184,7 @@ build: no retail row decodes to them.
 
 | Question | Cheapest falsifier |
 | --- | --- |
-| Does `V3R5IOF` do anything in retail? | Search the decompilation's unmatched sources for index 2, or run a copied profile with a save named with it and watch the front end and a level for any version text |
+| Does `V3R5IOF` do anything in retail? | Run a copied profile with a save named with it and watch the front end and a level for any version text (a static caller search is already done: none in the matched tree) |
 | Does `Aurore` in a save name switch the free camera on from the toggle key? | Copied profile, save named with it, load a level, press the toggle key, read the player's camera state |
 | Does `latête` show unlock conditions on the wall as read here? | Copied profile, save named with it, open the Goodies wall and read the heading and text for a cell that is locked in the save |
 | Does opening a Goodie under `MALLOY` change the saved file? | Open one cell with the name set, save the career, compare the file with its previous copy |

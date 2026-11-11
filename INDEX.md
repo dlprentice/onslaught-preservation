@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-11 (the findings rule stated)
+Last updated: 2026-11-11 (cheat codes and known bugs routed; earlier: the findings rule stated)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
@@ -51,7 +51,9 @@ shipped strings or tables; the grade is defined in the source synthesis's [evide
 | Retail binary findings | [Static findings index](engine/static-findings-index.md) and the [retail specimen baseline](platforms/pc/retail-specimen-baseline.md) |
 | PC demo versus retail | [Build comparison](platforms/demo/demo-vs-retail.md) |
 | Stuart's source | [Source-code index](engine/source/README.md) and the [source synthesis](engine/source/stuart-source-synthesis.md) |
+| Cheat codes | [Cheat codes](mechanics/cheats/cheat-codes.md) and [God mode](mechanics/cheats/god-mode.md) |
 | Development history and credits | [History](history/README.md) and the [development source index](history/development-sources.md) |
+| Reported bugs in the original game | [Known bugs and reports](history/known-bugs.md) |
 | Compact lookups | [Quick reference](QUICK-REFERENCE.md) |
 
 ## Patch analyses — not write authorisation
