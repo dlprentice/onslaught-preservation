@@ -8,14 +8,14 @@ These are compact lookup tables. When a table is corrected, update the detailed 
 
 For format facts use [formats/aya-tags.md](formats/aya-tags.md) and [formats/aya-resource-chunks.md](formats/aya-resource-chunks.md); for static anchors use [formats/game-assets-index.md](formats/game-assets-index.md) and [engine/mapped-systems.md](engine/mapped-systems.md).
 
-## AYA / Resources
+## AYA and resources
 
 | File | Use |
 | --- | --- |
 | [formats/aya-tags.md](formats/aya-tags.md) | AYA file tag IDs, mesh/texture marker tags, and format markers |
 | [formats/aya-resource-chunks.md](formats/aya-resource-chunks.md) | Resource archive chunk IDs, top-level chunk table, and hex IDs |
 
-## Save / Career
+## Saves and career
 
 | File | Use |
 | --- | --- |
@@ -24,7 +24,7 @@ For format facts use [formats/aya-tags.md](formats/aya-tags.md) and [formats/aya
 | [saves/save-goodies.md](saves/save-goodies.md) | Goodie/unlockable IDs and state handling |
 | [saves/save-kills.md](saves/save-kills.md) | Kill counter categories, offsets, and packed metadata |
 
-## Engine / Source
+## Engine and source
 
 | File | Use |
 | --- | --- |
@@ -34,14 +34,14 @@ For format facts use [formats/aya-tags.md](formats/aya-tags.md) and [formats/aya
 | [engine/source/source-key-functions.md](engine/source/source-key-functions.md) | Important source function signatures |
 | [engine/source/source-hierarchy.md](engine/source/source-hierarchy.md) | Class hierarchy and thing-type flags |
 
-## Command Line and Mission Scripts
+## Command line and mission scripts
 
 | File | Use |
 | --- | --- |
 | [platforms/command-line/cli-parameters.md](platforms/command-line/cli-parameters.md) | Retail/source command-line parameter quick reference |
 | [levels/scripting/msl-commands.md](levels/scripting/msl-commands.md) | MSL command reference and mission scripting verbs |
 
-## Canonical Detailed Docs
+## Detailed documents
 
 Use these quick tables for lookup speed, then verify or expand findings in the detailed docs:
 

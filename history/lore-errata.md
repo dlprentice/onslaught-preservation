@@ -1,12 +1,11 @@
 # Lore errata
 
-- **Status:** live. The record of what lore documents used to say wrongly, why it was
-  wrong, and what settled it. Moved out of the articles themselves on 2026-08-01.
-- **Evidence:** SOURCE — each entry cites the evidence that corrected it. The
-  superseded text is quoted here verbatim; it is not quoted anywhere a reader goes.
-- **Last updated:** 2026-10-22 (links updated for the onslaught-preservation layout)
-- **Summary:** corrections lifted out of the shipped lore corpus, plus the questions
-  they left open.
+Status: active — the record of what lore documents used to say wrongly, why it was wrong, and what settled it. Moved
+out of the articles themselves on 2026-08-01.
+Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Summary: corrections lifted out of the shipped lore corpus, plus the questions they left open.
+Evidence: SOURCE — each entry cites the evidence that corrected it. The superseded text is quoted here verbatim; it is
+not quoted anywhere a reader goes.
 
 ## Why this file exists
 
