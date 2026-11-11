@@ -1,7 +1,7 @@
 # Community Resources
 
 Status: active — speedrun, community and tool links, with their sources
-Last updated: 2026-11-06 (private conversation partners and unsourced quotations removed; dated record and reference links corrected)
+Last updated: 2026-11-11 (the extractor's author is credited by name only; earlier: private conversation partners and unsourced quotations removed; dated record and reference links corrected)
 Summary: speedrun records and techniques, community research, similar games, external archives and tools, and the sources this page draws on.
 
 ## Speedrun Resources
@@ -70,7 +70,7 @@ Summary: speedrun records and techniques, community research, similar games, ext
 
 ### AYAResourceExtractor
 - **Repo**: https://github.com/stuart73/AYAResourceExtractor
-- **Author**: Stuart Gillam (desimbr)
+- **Author**: Stuart Gillam
 - **Purpose**: Extract 3D models, textures from .aya files
 - **Output**: FBX (binary and ASCII)
 - **Note**: Animations not yet extractable

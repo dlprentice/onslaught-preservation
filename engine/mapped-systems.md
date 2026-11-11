@@ -11,7 +11,8 @@ analysis to runtime proof.
 Related code lives in the [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) companion
 (`companion/`), the [onslaught-godot](https://github.com/dlprentice/onslaught-godot) rebuild (`OnslaughtRebuild.Parity` is
 its simulation, `OnslaughtRebuild.Host` its presentation) and the [onslaught-ce](https://github.com/dlprentice/onslaught-ce)
-native port (`port/`). A name in the last column is where to look, not a statement that the code cites the page.
+native port (`port/`). A name in the last column is where to look, not a statement that the code cites the page; "none" means
+the named repository has no such code. `tools/` means the Toolkit's top-level `tools/` folder, not a folder inside `companion/`.
 
 ## Canonical system owners
 
@@ -26,10 +27,10 @@ native port (`port/`). A name in the last column is where to look, not a stateme
 | MissionScript / IScript | [`../levels/scripting/missionscript-iscript-static-contract.md`](../levels/scripting/missionscript-iscript-static-contract.md) | onslaught-godot `OnslaughtRebuild.Parity` (`Script`) |
 | Frontend, input, HUD | [`frontend/hud-frontend-overlay-static-contract.md`](frontend/hud-frontend-overlay-static-contract.md) | onslaught-godot `OnslaughtRebuild.Host` (`HudView`, `FrontEndView`) |
 | Meshes, resources, render bridge | [`render/mesh-resource-render-static-contract.md`](render/mesh-resource-render-static-contract.md) and [`render/render-resource-bridge-static-contract.md`](render/render-resource-bridge-static-contract.md) | onslaught-godot `OnslaughtRebuild.Parity` (`Mesh`, `Render`) and `OnslaughtRebuild.Host` (`MeshView`) |
-| Texture/resource decode | [`../formats/texture-resource-decode-static-contract.md`](../formats/texture-resource-decode-static-contract.md) | asset inspection/export tooling |
-| Audio, media, cutscenes, camera | `audio-media-cutscene-static-review-2026-05-26.md` (archived research record, not published) | media browser and research |
-| Assets, AYA chunks, mission text | [`../formats/game-assets-index.md`](../formats/game-assets-index.md) | guarded exporters (`tools/`) |
-| Local multiplayer evidence | [`../platforms/local-multiplayer-static-runtime-contract.md`](../platforms/local-multiplayer-static-runtime-contract.md) | copied-profile split-screen preset only |
+| Texture/resource decode | [`../formats/texture-resource-decode-static-contract.md`](../formats/texture-resource-decode-static-contract.md) | companion `Assets/DdsTexture.cs`, and the Toolkit's top-level `tools/` (`dds_census.py`, `export_game_assets.py`) |
+| Audio, media, cutscenes, camera | `audio-media-cutscene-static-review-2026-05-26.md` (archived research record, not published) | companion `Media/GameAudio.cs` and the Music page (`Ui/Pages/MusicPage.cs`); the Toolkit's top-level `tools/export_video_manifest.py` lists the video files. Nothing here for the camera |
+| Assets, AYA chunks, mission text | [`../formats/game-assets-index.md`](../formats/game-assets-index.md) | the Toolkit's top-level `tools/` (not `companion/`): `export_game_assets.py`, `export_asset_catalog.py`, `export_language_corpus.py` and `BeaAssetExportHarness`; and companion `Assets/` (`AyaContainer.cs`) |
+| Local multiplayer evidence | [`../platforms/local-multiplayer-static-runtime-contract.md`](../platforms/local-multiplayer-static-runtime-contract.md) | none in the companion. onslaught-ce handles two-player split-screen pads and menus in `port/game/ce_gamepad.cpp` and `port/game/ce_frontend.cpp` (see `port/controller-input.md`) |
 | Replay determinism and real-time dependence | [`runtime-time-dependence.md`](runtime-time-dependence.md) | none cites it yet. The measurements came from the contributor's own test harness (linked on that page); onslaught-ce's present clock (`port/platform/common/clock.cpp`) is related work in the same area |
 | Function-level identities | `_index.md` (in the decompilation notes, not yet published) | source/evidence lookup |
 

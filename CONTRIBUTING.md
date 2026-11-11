@@ -1,7 +1,7 @@
 # Contributing
 
 Status: active — how contributions are accepted
-Last updated: 2026-11-11 (how to compare against this repository's main from a fork; the findings rule stated)
+Last updated: 2026-11-11 (how to compare against this repository's main from a fork; the findings rule stated; code of conduct linked)
 Summary: where each kind of work belongs, how to propose and check a documentation change, the licence contributions
 come in under, the evidence a finding needs, and the material this repository never accepts.
 
@@ -30,6 +30,7 @@ contributes by fork and pull request; no invitation, collaborator access or priv
 The full map, with how each repository takes pull requests, is
 [Where to contribute](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/CONTRIBUTING.md#where-to-contribute).
 Security problems and leaked private material go through [SECURITY.md](SECURITY.md).
+Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md).
 Questions and ideas: https://github.com/dlprentice/onslaught-ce/discussions.
 
 ## Your first hour

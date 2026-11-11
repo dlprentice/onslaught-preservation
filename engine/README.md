@@ -47,7 +47,7 @@ Retained PowerPoint (private copy: `<maintainer evidence>/…`; file name `20030
 | Slides | 47 |
 | PPT bytes | 195,072 |
 | PPT SHA-256 | `3b2e08607fd881dfefb31395b49de91a68ec02dee9554714f6a97d029165713e` |
-| Historical extracted presentation directory | 77 files / 751,853 bytes, recorded August 11; not remeasured since |
+| Historical extracted presentation directory | 77 files / 751,853 bytes, recorded August 11; not remeasured in the 2026-10-12 reread |
 | Historical sorted directory-manifest SHA-256 | `1254ffd317766b395eef9d61473db8ce274868032eb5c663099c49df36abc0e0` |
 
 All 47 archived slide pages were recoverable. The local ordered transcript and
@@ -62,7 +62,7 @@ pseudocode, and independently recovered production identities.
 
 ### Slide-by-slide reading of the deck
 
-The retained PPT matches the identity above. An isolated,
+On 2026-10-12 the retained PPT was hashed to the identity above. An isolated,
 headless LibreOffice conversion of a private copy produced 47 PDF pages;
 all 47 pages' text and rendered images were inspected, and the original was
 left unchanged. Conversion, text and images are private evidence under
