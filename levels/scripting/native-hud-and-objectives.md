@@ -3,7 +3,7 @@
 Status: active — static behaviour of nine natives that drive the HUD; no runtime capture
 Last updated: 2026-11-11 (new document)
 Evidence: MEASURED — the handlers and the HUD, world and thing code they call are functions of onslaught-decomp that the decompilation lists as matching the retail bytes, read statically; the six `HUD_*` and six `VARIABLE_*` constant values are read from the retail script header `onsldef.msl`; SOURCE — the pinned Onslaught source for the base thing class; INFERRED — what appears on screen; UNKNOWN — the open questions at the end.
-Summary: what `SetObjective`, `UnsetObjective`, `IsObjective`, `HighlightHudPart`, `UnHighlightHudPart`, `InitVariable`, `SetVariable`, `GetVariable` and `ShutdownVariable` change, and which part of the HUD reads the change: objective markers on the compass and the battle-line map, a two-state blink on six HUD parts, and four text rows in the objective panel whose six display styles are the `VARIABLE_*` constants.
+Summary: what `SetObjective`, `UnsetObjective`, `IsObjective`, `HighlightHudPart`, `UnHighlightHudPart`, `InitVariable`, `SetVariable`, `GetVariable` and `ShutdownVariable` change, and which part of the HUD reads the change: objective markers on the compass and the battle-line map, a stored flash state for six HUD parts, and four text rows in the objective panel whose six display styles are the `VARIABLE_*` constants.
 Specimen: pristine Steam `BEA.exe`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750` (the file onslaught-decomp matches).
 
 These nine natives are part of [the natives overview](native-behaviour.md), which explains how a native is called, how the
@@ -57,7 +57,7 @@ follows:
 | `HUD_HEALTH_BAR` | 0 | `CDXCompass`, which draws the health and energy bars |
 | `HUD_ENERGY_BAR` | 1 | `CDXCompass` |
 | `HUD_COMPASS` | 2 | `CDXCompass::Render`: the compass ring |
-| `HUD_BATTLE_LINE_MAP` | 3 | `CHud::Render` (see below) |
+| `HUD_BATTLE_LINE_MAP` | 3 | written by `CHud::Render` (see below); no function in the decompilation reads it for drawing |
 | `HUD_RADAR` | 4 | `CHud::RenderWeaponPanel`: the radar outline |
 | `HUD_CURRENT_WEAPON` | 5 | `CHud::RenderWeaponPanel`: the weapon charge display |
 
@@ -71,9 +71,10 @@ follows:
   ([L2063](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/Hud.cpp#L2063)),
   so a flashing part is drawn for a quarter of a second and hidden for the next, twice a second.
 - `CHud::Render` also writes the battle-line map's state itself every frame, to on while the message box has no current
-  message and to off while one is shown, except when the state is already flashing, which it leaves alone. A script that
-  highlights the battle-line map therefore keeps it visible through messages, until it un-highlights it, and the next
-  frame's write then follows the message box again.
+  message and to off while one is shown, except when the state is already flashing, which it leaves alone; it skips even
+  that write when the cockpit draw flag is off. A script that highlights the battle-line map therefore stops that write
+  until it un-highlights the part, and the next frame's write then follows the message box again. What this does on
+  screen is open question 6: a search of the decompilation finds `IsComponentVisible` called only for parts 0, 1, 2, 4 and 5.
 - `CHud::Reset` sets all six parts to on, so a flash does not survive a HUD reset
   ([L102](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/Hud.cpp#L102)).
   Within the decompilation the only writers of the array are the HUD's constructor, `Reset` and `Render`, and these two
@@ -91,7 +92,7 @@ not one. The world object holds four text slots, and the four natives are thin w
 [`world.cpp` L967](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/world.cpp#L967)).
 The rows they feed are drawn by the HUD in its objective panel at the right edge of the screen.
 
-Each slot holds a style (0 means the slot is free), a text id, the localised string for that id, a time, a goal and the
+Each slot holds a style (0 means the slot is free), a text id, the localised string for that id, a time, a goal (the decompilation's `mTextDuration`) and the
 game time at which the slot was claimed (`CWorld::mTextState` and its neighbours,
 [`world.h` L216](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/world.h#L216)).
 The slots start free, and both the world's constructor and `CWorld::Clear` free them.
@@ -148,3 +149,7 @@ Shipped use: `InitVariable` 77 sites in 41 files across 32 levels, `SetVariable`
 5. **Who else writes the world text slots.** Within the decompilation the only callers of the slot-writing functions are
    the three natives that write, and only the world's constructor and `CWorld::Clear` free slots otherwise; the five
    left-out source files have not been checked.
+6. **Does anything draw the battle-line map from the part state?** `CHud::Render` writes part 3, but `IsComponentVisible`
+   is called only for parts 0, 1, 2, 4 and 5 at commit `9759593`, so highlighting the battle-line map may have no visible
+   effect at all, or a reader may be in one of the five left-out sources. Falsifier: search the left-out sources, or run
+   `HighlightHudPart(HUD_BATTLE_LINE_MAP)` in a copy of a level and record the frames.

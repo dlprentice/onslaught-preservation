@@ -48,7 +48,14 @@ and from the native table `gScriptFunctions`
   call the function on a null object, pushes the integer 0 as the result and carries on.
 - **Arguments.** Each table record declares a name, an argument count, whether the native returns a value, up to seven
   argument types and a return type. The handler reads its arguments with the conversions the datatype classes provide:
-  an integer widens to a float, and any nonzero integer is true. The interpreter checks the return flag: a native that
+  an integer widens to a float. A handler asks an argument whether it is true with `IsTrue`, and the datatype classes
+  answer differently ([`DataType.h`](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/DataType.h)): an integer is true when it is nonzero, a bool is its own value, and the
+  base class, which the float, string, thing and position classes do not override, always answers true. So `SetVisible(0.0)`
+  with a float zero would show the thing. The shipped scripts pass only integer or bool literals to these natives, so
+  no shipped call is affected (checked: `SetVisible` only with `0` and `1`, the vulnerability natives only with `TRUE` and
+  `FALSE`); whether the compiler converts a literal to the declared bool type is open question 9. The
+  interpreter checks the call instruction's return flag (which the compiler is expected to take from the table record,
+  open question 9): a native that
   returns a value must set one, and a native that does not must not, or the interpreter logs an error. A native that
   returns nothing leaves the integer 1 on the stack.
 - **Gates.** Many natives test the receiver's thing type first and do nothing when it does not match. A setter then
@@ -66,7 +73,7 @@ Argument names are descriptive; the registry gives only types. "Any" means no ga
 | `SetObjective()` ([L1231][d-obj]) | any thing | Marks the receiver as an objective: adds it to the world's objective set and sets its marked flag. Marking twice changes nothing. The compass and the battle-line map draw one marker per member of that set. A complex thing's shutdown unmarks it. See [the HUD natives](native-hud-and-objectives.md#objective-markers). | 298 sites, 221 files, 68 levels |
 | `UnsetObjective()` ([L1237][d-unobj]) | any | The reverse: removes the receiver from the set and clears the flag; unmarking an unmarked thing changes nothing. | 250 sites, 217 files, 59 levels |
 | `IsObjective()` → bool ([L1243][d-isobj]) | any | True when the receiver's marked flag is set. A complex thing answers from the flag; the base thing class always answers false (`references/Onslaught/thing.h:139` and `:274`). | 9 sites, 9 files, levels 22 and 100 |
-| `SetVisible(flag)` ([L1222][d-vis]) | any | Nonzero calls the receiver's `MakeVisible`; zero calls `MakeInvisible`. For ordinary things these clear and set the invisible flag (`references/Onslaught/thing.h:157-158`); squads override both. | 62 sites, 8 files, levels 621, 622, 731, 732, 741, 742; only the literals `0` (hide) and `1` (show again), often on `GetComponent(n)` receivers |
+| `SetVisible(flag)` ([L1222][d-vis]) | any | A true argument (for an integer, nonzero) calls the receiver's `MakeVisible`; a false one (integer zero) calls `MakeInvisible`. For ordinary things these clear and set the invisible flag (`references/Onslaught/thing.h:157-158`); squads override both. | 62 sites, 8 files, levels 621, 622, 731, 732, 741, 742; only the literals `0` (hide) and `1` (show again), often on `GetComponent(n)` receivers |
 
 ### Health, velocity and position
 
@@ -86,7 +93,7 @@ with no clamp and no gate, and need no receiver. The cells are cleared each time
 
 | Native | What it does | Who reads the cell | Shipped use |
 | --- | --- | --- | --- |
-| `SetSnowDensity(d)` ([L1987][d-snow]) | Sets the snow density. | `CSnow::Render` draws `d × 1000` falling flakes, limited to the range 0 to 1000, and skips snow entirely when `d` is 0 (`DXSnow.cpp`, [L324][d-snowcount]). | 10 sites in 4 files: level 22 (a stepped sequence from 0.1 to 0.7), levels 100 and 512 (a weather script that starts at 0.1 and raises it by 0.1 every 10 seconds while it is below 0.9) and level 110 (sets 1) |
+| `SetSnowDensity(d)` ([L1987][d-snow]) | Sets the snow density. | `CSnow::Render` skips snow when `d` is 0; `CSnow::RenderFlakes` draws `d × 1000` falling flakes, limited to the range 0 to 1000 (`DXSnow.cpp`, [L324][d-snowcount]). | 10 sites in 4 files: level 22 (a stepped sequence from 0.1 to 0.7), levels 100 and 512 (a weather script that starts at 0.1 and raises it by 0.1 every 10 seconds while it is below 0.9) and level 110 (sets 1) |
 | `SetWindVector(x, y, z)` ([L1975][d-wind]) | Sets the wind vector from three floats. | Snow only: `CSnow::Render` takes the wind's X and Y as the sideways drift of the falling flakes, with a fixed fall speed (`DXSnow.cpp`), and the snow-settling shader constant uses the wind's direction with Z replaced by 1 (`VertexShader.cpp`, [L836][d-vs]). | none |
 | `SetRainDensity(d)` ([L1981][d-rain]) | Sets the rain density. | No function in the decompilation reads it; only the console variable exposes it. | none |
 | `SetLightningDensity(d)` ([L1993][d-light]) | Sets the lightning density. | No function in the decompilation reads it; only the console variable exposes it. | none |
@@ -96,15 +103,15 @@ The wind vector is the engine's `FVector`, which is three floats and a fourth pa
 `SetWindVector` builds the vector from its three arguments and the three-float constructor does not set the padding
 word, so the word stored with the wind is whatever the compiled function leaves in the temporary. Nothing cited above
 reads it. The weather statics' only readers in the decompilation are the snow code, which makes "no reader" for rain and
-lightning a finding about the 99.4 % of the game's functions that onslaught-decomp reproduces, not about the five
+lightning a finding about every function that onslaught-decomp reproduces at commit `9759593`, not about the five
 sources it leaves out (see open question 5).
 
 ### Time, waiting and spawning
 
 | Native | Receiver | What it does | Shipped use |
 | --- | --- | --- | --- |
-| `SetTimer(seconds)` ([L1036][d-timer]) | none (acts for the script) | Schedules one event, number 2002, for the script after `seconds`, on the global event manager (`CEventManager::AddEvent`, the time-from-now overload, `references/Onslaught/eventmanager.cpp:143-146`). When it is delivered, `IScript::HandleEvent` starts the script's `timer` event handler with no argument, but only if the interpreter is not already running a script: a timer that fires while the interpreter is busy is dropped, not queued. There is no way to cancel it, and each call schedules another. It does not touch the HUD timers (`VARIABLE_TIMER` is a text-slot style: see [the HUD natives](native-hud-and-objectives.md#the-four-text-slots)). | none |
-| `PlayAnimationWait(name, resetFrame, forceLooped)` ([L851][d-anim]) | thing with a mesh | Starts the named animation on the receiver and suspends the script until it finishes; see below. | 24 sites, 9 files: `"opening"` or `"closing"` with `TRUE, FALSE` in the hive-boss and gun scripts, two `"Hit"` calls with `FALSE, FALSE` |
+| `SetTimer(seconds)` ([L1036][d-timer]) | none (acts for the script) | Schedules one event, number 2002, for the script after `seconds`, on the global event manager (`CEventManager::AddEvent`, the time-from-now overload, `references/Onslaught/eventmanager.cpp:143-146`). When it is delivered, `IScript::HandleEvent` starts the script's `timer` event handler with no argument (or cleans the interpreter if the level has been lost), but only if the interpreter is not already running a script: a timer that fires while the interpreter is busy is dropped, not queued. There is no way to cancel it, and each call schedules another. It does not touch the HUD timers (`VARIABLE_TIMER` is a text-slot style: see [the HUD natives](native-hud-and-objectives.md#the-four-text-slots)). | none |
+| `PlayAnimationWait(name, resetFrame, forceLooped)` ([L851][d-anim]) | thing with a mesh | Starts the named animation on the receiver and suspends the script until it finishes; see below. | 24 sites, 9 files: `"opening"` or `"closing"` (`TRUE, FALSE`) in the gun scripts of levels 331 and 332, the hive scripts of levels 521, 522 and 530 and, as `"Opening"`, the level 800 vent; `"Activate"` (`TRUE, FALSE`) in the level 500 rocket base; `"Hit"` (`FALSE, FALSE`) in the level 523 and 524 arm scripts |
 | `SpawnParticle(name, position)` ([L1486][d-part]) | none (not used) | Looks the name up in the particle-effect set and starts that effect at the position with no owner. An unknown name logs "Can't find particle effect" and does nothing else. | 6 sites in 3 files: two effects in each of the level 521, 522 and 530 hive-boss scripts |
 | `SpawnEscapePod()` ([L1629][d-pod]) | thing with a render thing | Creates a `CEscapePod`: a small rocket with an engine trail, neutral allegiance, zero initial velocity, and a start delay of 1.5 seconds in its init data (the field that delays when a persistent collision-seeking thing starts colliding; the pod's use of it is not traced). It appears at the position of the receiver's mesh emitter named `SpawnerF` (index 1), with yaw and pitch taken from that emitter's +Y axis; if that position is exactly the origin it appears at the receiver's own position instead. Each move the pod adds a small thrust along its nose to its velocity (`CEscapePod::Move`). A receiver with no render thing spawns nothing. | 4 sites in 4 files: `Cutscene_Lost` and `camera` in levels 741 and 742 |
 
@@ -165,7 +172,7 @@ Shipped use: 56 sites in 8 files, all in the level 521, 522 and 530 hive-boss sc
 | `HighlightHudPart` changes a colour | It makes the part blink; `UnHighlightHudPart` returns it to normal, not to hidden. ([HUD natives](native-hud-and-objectives.md#hud-part-flashing)) |
 | `SetHealth(x)` sets health to `x` | It sets life to `x` times the unit's starting life, and `GetHealth` ignores it for units with segments. |
 | `ResetSegmentHealth` and `SetSegmentHealth` differ only in name | `ResetSegmentHealth` also sets the segment's maximum health and refreshes the controller's remembered total. ([segment natives](native-segment-health.md)) |
-| `SetVisible` only shows | Zero hides and nonzero shows. |
+| `SetVisible` only shows | An integer zero hides and a nonzero integer shows; other argument types count as true (see How a call runs). |
 | `SetPos` is a smooth move | It is `Teleport` to a position: an instant move that also resets the actor's previous position. |
 | `InJetMode` is true only in jet mode | It is true for any Battle Engine that is not walking, including while morphing. |
 | `GetWeaponAmmo` is a count | It is a fraction of the configuration's capacity (speed for the Racer). |
@@ -201,6 +208,9 @@ document did not do.
    `IScript::FinishedPlayingAnim` is not traced.
 8. **A native called on a thing of the wrong type.** The gates make the call silent; whether any shipped script relies on
    that is not checked.
+9. **Declared types against the compiler.** Whether the script compiler takes each call's return flag, and the conversion
+   of a literal to the declared bool type, from the native table record is not established here. Falsifier: compile a
+   one-line script that passes `0.0` to `SetVisible` in a copy of a level and see whether the thing is shown.
 
 [d-obj]: https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/IScript.cpp#L1231
 [d-unobj]: https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/IScript.cpp#L1237

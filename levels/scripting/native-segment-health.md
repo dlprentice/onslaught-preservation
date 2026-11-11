@@ -24,8 +24,10 @@ a maximum health, a vulnerable flag and a list of child segments
 ([`DestroyableSegment.h` L58](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/DestroyableSegment.h#L58)).
 
 All five natives start with the same gate: the script's current target must be a unit (`THING_TYPE_UNIT`) and must have a
-controller. Otherwise they do nothing and say nothing
-([`IScript.cpp` L911](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/IScript.cpp#L911)).
+controller. Otherwise they do nothing and say nothing (the handlers are at
+[`IScript.cpp` L511](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/IScript.cpp#L511),
+[L537](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/IScript.cpp#L537)
+and [L911](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/MissionScript/IScript.cpp#L911) to L940).
 The three natives that take a name pass it to the controller, which looks it up as a **mesh part name**: the unit's render
 thing, its mesh, `CMesh::GetMeshSubpart(name)`, the part's number, and the controller's pointer for that number. If the
 unit has no render thing or no mesh, the call returns without a message. If the name is not a part of the mesh, or the
@@ -38,14 +40,14 @@ returns; the message is not fatal and the script goes on.
 | --- | --- | --- | --- |
 | `SetSegmentHealth(name, health)` ([`DestructableSegmentsController.cpp` L172][d-set]) | the named segment's current health | no | 27 sites in one file, the level 530 hive-boss script |
 | `ResetSegmentHealth(name, health)` ([L194][d-reset]) | the named segment's current health and its maximum health, both to `health` | yes, if the unit has a core | 54 sites in 2 files, the level 521 and 522 hive-boss scripts |
-| `SetAllSegmentsHealth(health)` ([L236][d-setall]) | the current health of every segment that exists | no | 3 sites in the level 530 hive-boss script; two more in levels 521 and 522 are commented out |
+| `SetAllSegmentsHealth(health)` ([L236][d-setall]) | the current health of every segment that exists | no | 3 sites in the level 530 hive-boss script; four more, two in each of the level 521 and 522 scripts, are commented out |
 | `SetSegmentVulnerable(name, flag)` ([L246][d-vuln]) | the named segment's vulnerable flag | yes, if the unit has a core | 54 sites in 2 files, levels 521 and 522 |
 | `SetAllSegmentsVulnerable(flag)` ([L270][d-vulnall]) | the vulnerable flag of every segment that exists | yes, if the unit has a core | 2 sites, one each in levels 521 and 522 |
 
 "Refreshes the remembered total" means that the controller sets its remembered total health to its core segment's
 active health (below). The health natives store the value as given, with no clamp: a script can set a current health above the
-maximum, and the level 530 script does (see below). The flags are read as booleans, so any
-nonzero value is true.
+maximum, and the level 530 script does (see below). The flags are read with `IsTrue`: an integer is true when nonzero and a bool is its own value, while a float, string,
+thing or position argument would count as true whatever its value (see [how a call runs](native-behaviour.md#how-a-call-runs)). The shipped scripts pass integer or bool literals.
 
 `ResetSegmentHealth` and `SetSegmentHealth` are the same call with one difference: the reset also sets the maximum, and
 refreshes the total. Because `SetSegmentVulnerable` also refreshes the total, a script that wants the total to reflect a
