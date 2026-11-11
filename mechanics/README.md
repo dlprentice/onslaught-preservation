@@ -1,7 +1,7 @@
 # Game mechanics
 
 Status: active — index of accepted mechanics measurements and contracts
-Last updated: 2026-11-11 (cheat codes added; earlier: 2026-11-06 (the folder indexes and the top-level static contracts routed, shorthand glossary added; earlier: links updated for the onslaught-preservation layout))
+Last updated: 2026-11-11 (cheat codes, unit damage and contact, unit destruction and destroyable-segment damage added; earlier: 2026-11-06 (the folder indexes and the top-level static contracts routed, shorthand glossary added; earlier: links updated for the onslaught-preservation layout))
 Summary: routes to each accepted game-mechanics owner; every owner states its own
 specimen, procedure and limits.
 
@@ -34,6 +34,9 @@ rebuild and the native port.
 - [Dropships: flight](dropship-flight.md)
 - [Dropships: landing, unloading and leaving](dropship-landing.md)
 - [Destroyable segments static contract](destroyable-segments-static-contract.md)
+- [Destroyable segments: damage, thresholds and the core cascade](destroyable-segments-damage-and-thresholds.md)
+- [Unit and Battle Engine damage and contact](unit-damage-and-contact.md): the order of damage, repair, shields and invulnerability for the Battle Engine and every other unit, contact admission and unit events
+- [Unit destruction: the death sequence](unit-destruction.md)
 - [`CWorldPhysicsManager::CreateExplosion` caller family](cexplosion-factory-callers.md)
 - [`CRound::Hit`, configured explosion creation and `CExplosion::Hit`](cround-hit-damage-path.md)
 - [`CController` shared mapping and dispatch](controller-shared-semantics.md)

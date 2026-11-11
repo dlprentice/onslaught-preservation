@@ -2,7 +2,7 @@
 
 Status: active bounded animation, position-skinning, and authored-usage contract
 Date: 2026-08-23
-Last updated: 2026-11-06 (names checked against onslaught-decomp; commands, flags and test counts checked against the Toolkit at commit 843c86e; earlier: the seven other `MESH` rows are in the base and front-end archives; the WRES join counts only records with no `dies_on` world)
+Last updated: 2026-11-11 (the unpublished handler-note citation replaced by a link to the natives overview; earlier, 2026-11-06: names checked against onslaught-decomp; commands, flags and test counts checked against the Toolkit at commit 843c86e; earlier: the seven other `MESH` rows are in the base and front-end archives; the WRES join counts only records with no `dies_on` world)
 Verdict: the loose CMSH meshes store part tracks with pose tables, frame maps, bone arrays and camera field-of-view values, as the sections below measure. Most numeric LVLR `MESH` rows join by authored name to loose meshes, and the rest each own an anonymous embedded CMSH. The WRES/physics join connects each definition-bearing placement it covers to exactly one named level row and one loose CMSH. The loose MSL files contain active `PlayAnimation*` calls, and the calls that join to placements through script strings are described below. The focused matrix-palette pass additionally closes the released position blend. These remain storage and authored-reference contracts, not proof that every named track is scheduled or rendered.
 Evidence: MEASURED — `tools/cmsh_animation_usage_census.py` parsed and
 hash-verified 213 meshes, 66 numeric LVLR archives, 733 MSL files, and
@@ -196,7 +196,7 @@ The two argument-word combinations are `(FALSE,FALSE)` 2, `(FALSE,TRUE)` 8,
 `IScript__PlayAnimationWait @ 0x005351D0` proves only that both are byte-masked,
 that the name is resolved through `CMesh__GetAnimModeByName`, and that
 completion resumes a saved VM snapshot. See
-`IScript__PlayAnimationWait.md` (in the decompilation notes, not yet published).
+[the natives overview](../levels/scripting/native-behaviour.md), which says what the handler does.
 
 The WRES pass joins **22 sites in three files** directly to three placements:
 Level 500 Rocket Base and Level 521/522 Hive Boss. The other 34 sites in 12

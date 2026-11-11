@@ -1,7 +1,7 @@
 # Static findings index
 
 Status: living index of the static and byte-level findings
-Last updated: 2026-11-06 (unpublished index entries marked not yet published; earlier: historical debugger runbook availability clarified)
+Last updated: 2026-11-11 (script-native, script-runtime, damage, destruction and cheat pages added; earlier, 2026-11-06: unpublished index entries marked not yet published; earlier: historical debugger runbook availability clarified)
 Summary: front door to the static and byte-level findings about the Steam `BEA.exe`: specimen baseline, dated
 analyses, per-system contracts and per-function notes. Makes no claim of its own — every claim below belongs to the
 document it links.
@@ -72,6 +72,10 @@ names quoted in the documents below are dated snapshots.
 - [Widescreen patch](../platforms/patches/widescreen-patch-analysis.md)
 - [Career progression bridge](../saves/career-progression-static-bridge-contract.md)
 - [Mission script contract](../levels/scripting/missionscript-iscript-static-contract.md)
+- [Mission script runtime: native calls, events and waits](../levels/scripting/script-runtime-events-and-waits.md)
+- [Mission-script natives: what each one does](../levels/scripting/native-behaviour.md), with [the HUD natives](../levels/scripting/native-hud-and-objectives.md) and [the segment-health natives](../levels/scripting/native-segment-health.md)
+- [`FollowWaypoint` and `FollowWaypointWait`](../levels/scripting/follow-waypoint-commands.md)
+- [Mission script commands: declared signatures and the behaviour of selected commands](../levels/scripting/mission-script-registry-corrections.md), with [the signatures table](../levels/scripting/mission-script-command-signatures.tsv)
 - [Physics script contract](../formats/physics-script-static-contract.md)
 - [Texture resource decoding](../formats/texture-resource-decode-static-contract.md)
 - [Terrain shade plane origin and axis order](render/terrain/terrain-shade-plane-origin.md)
@@ -87,6 +91,10 @@ names quoted in the documents below are dated snapshots.
 - Half-pixel pixel-centre offset corrected in the projection (archived research record, not published)
 - [CMSH `CPOS`/`CORI` identity](../formats/cmsh-cpos-cori-identity.md)
 - [`CRound::Hit`, `CExplosion::Hit`, and their separate damage paths](../mechanics/cround-hit-damage-path.md)
+- [Unit and Battle Engine damage and contact](../mechanics/unit-damage-and-contact.md)
+- [Unit destruction: the death sequence](../mechanics/unit-destruction.md)
+- [Destroyable segments: damage, thresholds and the core cascade](../mechanics/destroyable-segments-damage-and-thresholds.md)
+- [Cheat codes](../mechanics/cheats/cheat-codes.md)
 - `CRound` event-2000 two-position runtime addendum (archived research record, not published)
   — bounds two exact receiver-matched `CALL_ENTRY` paths, explicitly retaining
   the 167/10/2 selection limit and leaving allocator return/effects open

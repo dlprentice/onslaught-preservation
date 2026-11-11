@@ -1,7 +1,7 @@
 # Named waypoint paths: loading, start node and following
 
 Status: active static contract for the rebuild's Level 100 and World 110
-Last updated: 2026-11-06 (landing craft rows corrected, test and seeds sources stated, sampler wording without a public commit, unpublished function name marked; earlier: private evidence paths generalised for the onslaught-preservation layout)
+Last updated: 2026-11-11 (pointer to the path-following commands page; earlier: landing craft rows corrected, test and seeds sources stated, sampler wording without a public commit, unpublished function name marked; earlier: private evidence paths generalised for the onslaught-preservation layout)
 Summary: how the loader builds each named waypoint path, which node `FollowWaypointWait`
 starts from, and how following advances and ends. It also gives the resulting routes
 for the units that follow paths from their authored positions.
@@ -12,6 +12,8 @@ Specimen: pristine `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.origina
 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`; interpreted
 `100_RLWD` JSON SHA-256 prefix `41f33fb6d14201b0` and `110_RLWD` prefix
 `495511efc7a8d412`.
+
+What `FollowWaypoint` and `FollowWaypointWait` check, order and log, and what ends a followed path, is in [the path-following commands page](../levels/scripting/follow-waypoint-commands.md).
 
 ## Loading
 

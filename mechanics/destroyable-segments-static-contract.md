@@ -1,8 +1,10 @@
 # Destroyable Segments Static Contract
 
 Status: active — static contract with a dated inherited subsystem map
-Last updated: 2026-11-06 (name and spelling corrections; unpublished sources named neutrally; earlier: neutral evidence wording)
+Last updated: 2026-11-11 (pointers to the damage and segment-health pages; earlier: name and spelling corrections; unpublished sources named neutrally; earlier: neutral evidence wording)
 Summary: retail segment-break ordering and complete Break/SpawnRubble code matches; the broader June 7 map retains its earlier limits.
+
+How a segmented unit divides its life, what a hit does and when its death starts is in [damage, thresholds and the core cascade](destroyable-segments-damage-and-thresholds.md); what the script natives change is in [the segment-health natives](../levels/scripting/native-segment-health.md).
 
 The 2026-10-01 section below is a fresh instruction read and bounded original-code
 comparison. The broader map retains its 2026-06-07 evidence and labels; it has not been

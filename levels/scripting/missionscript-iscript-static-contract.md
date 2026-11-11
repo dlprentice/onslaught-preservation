@@ -1,10 +1,12 @@
 # MissionScript / IScript static contract
 
 Status: active — bounded static contract; not runtime script proof
-Last updated: 2026-11-06 (Summary, Evidence and Specimen lines added; function-level note labels aligned)
+Last updated: 2026-11-11 (pointers to the script-native and runtime pages; earlier: Summary, Evidence and Specimen lines added; function-level note labels aligned)
 Summary: The implementation-facing static contract for the retail MissionScript and IScript interpreter, and what that evidence does not prove.
 Evidence: MEASURED for the registry table layout and names, graded in [mission-script-command-registry.md](mission-script-command-registry.md); the Goodie save offsets are graded in [goodies-system.md](../../saves/goodies-system.md); UNKNOWN for handler signatures, argument contracts and runtime command effects.
 Specimen: pristine PC retail `BEA.exe`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
+
+What the natives do and how a script runs are described in [the natives overview](native-behaviour.md) and [the runtime page](script-runtime-events-and-waits.md); this contract keeps the interpreter's static evidence.
 
 This document is the implementation-facing owner for retail MissionScript and
 IScript static evidence. Historical fixture plans and command-effect rollups are

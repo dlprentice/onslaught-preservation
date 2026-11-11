@@ -1,10 +1,12 @@
 # HUD / frontend overlay static contract
 
 Status: bounded — static contract for the frontend HUD overlay; not visual proof
-Last updated: 2026-11-06 (process terms defined; private-correction and public-export status stated; earlier: neutral evidence wording)
+Last updated: 2026-11-11 (pointer to the HUD natives page; earlier: process terms defined; private-correction and public-export status stated; earlier: neutral evidence wording)
 Summary: specimen-bound frontend input, color and coordinate corrections; complete function matches and isolated calculations remain distinct from player acceptance.
 Evidence: MEASURED — October 1 native compass and font fragments, isolated menu runs and full-section/relocation matches, plus September 30 font and scale-menu readback; August HUD claims were not reverified in this pass.
 Specimen: `<maintainer evidence>/safe-copy-bea-pristine/BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
+
+What the script natives change in the HUD (objective markers, part flashing and the four text rows) is in [the HUD natives page](../../levels/scripting/native-hud-and-objectives.md).
 
 ## Terms used here
 

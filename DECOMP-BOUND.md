@@ -1,7 +1,7 @@
 # Removed per-function notes
 
 Status: active — list of removed documents
-Last updated: 2026-11-06 (heading no longer says the notes are unpublished: earlier copies of most remain in the Toolkit's frozen reverse-engineering tree; earlier: decompilation linked)
+Last updated: 2026-11-11 (one subject that has come back as a subsystem page noted; earlier, 2026-11-06: heading no longer says the notes are unpublished: earlier copies of most remain in the Toolkit's frozen reverse-engineering tree; earlier: decompilation linked)
 Summary: per-function notes that were removed from this repository because they were mostly records of the
 research process (per-function packets, digests, grades, coverage tables and promotion verdicts) rather than
 findings about the game. Their subject matter belongs to the function notes of the byte-matching decompilation
@@ -15,6 +15,15 @@ areas is described in the subsystem documents that remain, such as
 [weapon stores](mechanics/battleengine/battle-engine-weapon-stores.md),
 [the level lifecycle](engine/cgame-level-lifecycle-semantics.md) and
 [the event scheduler](engine/world/event-manager-scheduler-semantics.md).
+
+Subjects on this list that have since come back as a subsystem page (the removed file stays removed; no per-function
+entry is restored):
+
+- `CBattleEngine::Damage` (the `CBattleEngine__Damage` line under `mechanics/battleengine/contracts/`): the order of
+  damage, repair, shields and invulnerability for the Battle Engine and every other unit is in
+  [unit and Battle Engine damage and contact](mechanics/unit-damage-and-contact.md); the death sequence it hands off to
+  is in [unit destruction](mechanics/unit-destruction.md), which does not cover the Battle Engine's own
+  `StartDieProcess`.
 
 ## engine/render/contracts/
 

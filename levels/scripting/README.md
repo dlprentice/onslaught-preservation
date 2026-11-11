@@ -1,7 +1,7 @@
 # Mission scripting
 
 Status: active — folder index
-Last updated: 2026-11-11 (rows added for the three script-native pages; earlier: 2026-11-06 registry summary cell completed)
+Last updated: 2026-11-11 (rows added for the script-native, runtime, path-following and command-signature pages; earlier: 2026-11-06 registry summary cell completed)
 Summary: The MSL language, its command registry, the IScript interface and the script VM's data types.
 
 ## Documents
@@ -18,3 +18,7 @@ Summary: The MSL language, its command registry, the IScript interface and the s
 | [Mission-script natives: what each one does](native-behaviour.md) | How a native is called, and what 33 of them do: marking, health and position, weather, time and spawning, and queries; the names that mislead and the open questions. |
 | [Script-driven HUD: objective markers, part flashing and the text slots](native-hud-and-objectives.md) | What nine natives change in the HUD: objective markers, the flash state of six HUD parts and the four text slots behind the variable natives, with the six display styles. |
 | [Script natives for segment health](native-segment-health.md) | What the five segment natives write to a unit's destroyable segments, and what the stored values mean. |
+| [Mission script runtime: native calls, events and waits](script-runtime-events-and-waits.md) | How a thing's script runs: the one shared interpreter, how a native is called, the built-in events a script can handle and what raises each, and how `Pause`, the message waits and the animation wait suspend a script and bring it back. |
+| [FollowWaypoint and FollowWaypointWait](follow-waypoint-commands.md) | What the two path-following commands check, log and order, what ends a followed path, and what is the same on the PS2 and Xbox builds. |
+| [Mission script commands: declared signatures and the behaviour of selected commands](mission-script-registry-corrections.md) | What each registry record declares beyond its name and handler, a check of the registry against the decompilation, and what 34 of the commands do, including where one does less or more than its name suggests. |
+| [mission-script-command-signatures.tsv](mission-script-command-signatures.tsv) | Declared argument count and types, and return flag and type, for each registry command. |

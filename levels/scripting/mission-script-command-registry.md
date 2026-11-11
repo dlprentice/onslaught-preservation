@@ -1,7 +1,7 @@
 # The Mission script-command registry, recovered from shipped data
 
 Status: active, bounded static registry recovery; boundary and metadata disposition updated
-Last updated: 2026-11-06 (retraction history removed, Git keeps it; renaming state stated once; tiers defined)
+Last updated: 2026-11-11 (pointers to the signatures table, the corrections page and the natives overview; earlier, 2026-11-06: retraction history removed, Git keeps it; renaming state stated once; tiers defined)
 Evidence: MEASURED — abstract interpretation of the stores in
 `ScriptCommandRegistry__InitBuiltins` against the pristine specimen,
 reconstructing the record array at `0x0064CE20` and reading its name/handler
@@ -13,6 +13,10 @@ addresses by the game's own data, and every handler resolves to a known function
 This proves registry vocabulary only, not C++ symbols, signatures or semantics.
 Specimen: pristine PC retail `BEA.exe`, SHA-256
 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`
+
+What the registry leaves open is partly answered elsewhere: [the declared signatures table](mission-script-command-signatures.tsv) and
+[the corrections page](mission-script-registry-corrections.md) give each command's declared arguments and what 34 of them
+do, and [the natives overview](native-behaviour.md) describes what 33 natives do.
 
 ## Prior art — corrected 2026-08-12, this recovery was less novel than first written
 

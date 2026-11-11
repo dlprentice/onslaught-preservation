@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-11 (cheat codes and known bugs routed; earlier: the findings rule stated)
+Last updated: 2026-11-11 (script-native, script-runtime, damage, destruction and segment pages routed; earlier: cheat codes and known bugs routed; earlier: the findings rule stated)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
@@ -100,13 +100,20 @@ explained in the [render glossary](engine/render/README.md#glossary).
 | Subsystem | Contract |
 | --- | --- |
 | MissionScript / IScript | [missionscript-iscript-static-contract.md](levels/scripting/missionscript-iscript-static-contract.md) |
+| Mission script runtime: native calls, events and waits | [script-runtime-events-and-waits.md](levels/scripting/script-runtime-events-and-waits.md) |
+| Mission-script natives: what each one does | [native-behaviour.md](levels/scripting/native-behaviour.md), with [the HUD natives](levels/scripting/native-hud-and-objectives.md) and [the segment-health natives](levels/scripting/native-segment-health.md) |
+| Path-following commands | [follow-waypoint-commands.md](levels/scripting/follow-waypoint-commands.md) |
+| Mission script commands: declared signatures and the behaviour of selected commands | [mission-script-registry-corrections.md](levels/scripting/mission-script-registry-corrections.md) |
 | PhysicsScript | [physics-script-static-contract.md](formats/physics-script-static-contract.md) |
 | Meshes and resources | [mesh-resource-render-static-contract.md](engine/render/mesh-resource-render-static-contract.md) |
 | Render/resource bridge | [render-resource-bridge-static-contract.md](engine/render/render-resource-bridge-static-contract.md) |
 | Texture decode | [texture-resource-decode-static-contract.md](formats/texture-resource-decode-static-contract.md) |
 | HUD and frontend overlay | [hud-frontend-overlay-static-contract.md](engine/frontend/hud-frontend-overlay-static-contract.md) |
 | Destroyable segments | [destroyable-segments-static-contract.md](mechanics/destroyable-segments-static-contract.md) |
+| Destroyable segments: damage, thresholds and the core cascade | [destroyable-segments-damage-and-thresholds.md](mechanics/destroyable-segments-damage-and-thresholds.md) |
 | Units, movement, weapons | [unit-battleengine-gameplay-static-contract.md](mechanics/unit-battleengine-gameplay-static-contract.md) |
+| Unit and Battle Engine damage, repair, shields, invulnerability and contact | [unit-damage-and-contact.md](mechanics/unit-damage-and-contact.md) |
+| Unit destruction: the death sequence and removal | [unit-destruction.md](mechanics/unit-destruction.md) |
 | Local multiplayer | [local-multiplayer-static-runtime-contract.md](platforms/local-multiplayer-static-runtime-contract.md) |
 | Career progression bridge | [career-progression-static-bridge-contract.md](saves/career-progression-static-bridge-contract.md) |
 | Level 100 final wave: turrets, Missile Pod locks, crosshair refresh, seeking rounds and RNG-drawing owners | [level100-final-drone-wave.md](levels/level100-final-drone-wave.md) |
@@ -129,6 +136,7 @@ Machine-readable tables:
 
 - [MissionScript VM datatype/opcode schema](levels/scripting/missionscript-vm-datatype-opcode-schema.v1.json)
 - [Mission script-command registry](levels/scripting/mission-script-command-registry.tsv)
+- [Mission script-command declared signatures](levels/scripting/mission-script-command-signatures.tsv)
 - [Battle Engine target-acquisition contract](mechanics/battleengine/battleengine-target-acquisition-static-contract-v1.json)
 - [Walker transform/morph timing](mechanics/battleengine/walker-transform-morph-timing-v1.json)
 
