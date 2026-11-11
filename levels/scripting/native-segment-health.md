@@ -61,7 +61,12 @@ All of this is read from `CDestroyableSegment` and `CDestructableSegmentsControl
 - **Damage lowers current health only.** `CDestroyableSegment::Damage` subtracts the amount from the current health of a
   vulnerable segment, clamps it at zero and does nothing to a segment that is not vulnerable
   ([`DestroyableSegment.cpp` L117](https://github.com/dlprentice/onslaught-decomp/blob/9759593ee6f6103f936080ac0435275e6ce9e06a/src/DestroyableSegment.cpp#L117)).
-  A segment that is not vulnerable is therefore immune to the damage path, whatever its health.
+  A segment that is not vulnerable keeps its health whatever hits it. It is not immune to breaking, though: the core and
+  extra segment types test the health again after the base step and break a segment that is not yet destroyed when its
+  health is at or below zero, and the swap type breaks a segment whose health is exactly zero, whether or not it is
+  vulnerable (a core segment numbered 1 returns before any of this). So a segment whose health a script has set to zero
+  breaks on its next hit even while it is not vulnerable (`CDestroyableCoreSegment::Damage`,
+  `CDestroyableExtraSegment::Damage`, `CDestroyableSwapSegment::Damage`).
 - **Active health.** `CDestroyableSegment::GetActiveHealth` adds, over a segment and all of its descendants, the
   *maximum* health of each segment that is vulnerable, has a nonzero current health and does not lie under a core segment
   that is already cascading (`CanBreak` false). `GetTotalHealth` adds the *current* health of each vulnerable segment not

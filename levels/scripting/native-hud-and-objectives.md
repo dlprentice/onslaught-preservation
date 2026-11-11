@@ -54,8 +54,8 @@ follows:
 
 | Constant | Value | Read by |
 | --- | ---: | --- |
-| `HUD_HEALTH_BAR` | 0 | `CDXCompass`, which draws the health and energy bars |
-| `HUD_ENERGY_BAR` | 1 | `CDXCompass` |
+| `HUD_HEALTH_BAR` | 0 | `CCompass::Render` and `CDXCompass`, which draw the health and energy bars |
+| `HUD_ENERGY_BAR` | 1 | `CCompass::Render`, `CDXCompass` |
 | `HUD_COMPASS` | 2 | `CDXCompass::Render`: the compass ring |
 | `HUD_BATTLE_LINE_MAP` | 3 | written by `CHud::Render` (see below); no function in the decompilation reads it for drawing |
 | `HUD_RADAR` | 4 | `CHud::RenderWeaponPanel`: the radar outline |
@@ -147,9 +147,9 @@ Shipped use: `InitVariable` 77 sites in 41 files across 32 levels, `SetVariable`
 4. **The panel routine's name.** The decompilation keeps an address-based placeholder name for the routine that draws the
    rows; earlier documents in this repository use other descriptive names for it. This page does not settle the name.
 5. **Who else writes the world text slots.** Within the decompilation the only callers of the slot-writing functions are
-   the three natives that write, and only the world's constructor and `CWorld::Clear` free slots otherwise; the five
-   left-out source files have not been checked.
+   the three natives that write, and only the world's constructor and `CWorld::Clear` free slots otherwise; the only sources the
+   decompilation leaves out are DirectX SDK sample code and a spline file.
 6. **Does anything draw the battle-line map from the part state?** `CHud::Render` writes part 3, but `IsComponentVisible`
    is called only for parts 0, 1, 2, 4 and 5 at commit `9759593`, so highlighting the battle-line map may have no visible
-   effect at all, or a reader may be in one of the five left-out sources. Falsifier: search the left-out sources, or run
+   effect at all, and the five sources the decompilation leaves out are Microsoft DirectX SDK sample code and a spline file, not HUD code. Falsifier: run
    `HighlightHudPart(HUD_BATTLE_LINE_MAP)` in a copy of a level and record the frames.

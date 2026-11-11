@@ -103,8 +103,8 @@ The wind vector is the engine's `FVector`, which is three floats and a fourth pa
 `SetWindVector` builds the vector from its three arguments and the three-float constructor does not set the padding
 word, so the word stored with the wind is whatever the compiled function leaves in the temporary. Nothing cited above
 reads it. The weather statics' only readers in the decompilation are the snow code, which makes "no reader" for rain and
-lightning a finding about every function that onslaught-decomp reproduces at commit `9759593`, not about the five
-sources it leaves out (see open question 5).
+lightning a finding about every function that onslaught-decomp reproduces at commit `9759593`, not about the sample
+code and spline file it leaves out (see open question 5).
 
 ### Time, waiting and spawning
 
@@ -197,15 +197,12 @@ document did not do.
    compiler consumes the declared types is not established here. No shipped script calls `GetVariable`.
 4. **Whether `SetHealth` matters for segmented units.** `SetHealth` and `GetHealth` use different values when a unit has
    a segments controller; whether the damage code reads the written life for such a unit is not traced here.
-5. **Readers of rain and lightning density.** onslaught-decomp leaves out five of the game's source files and the
-   functions they define; the claim that nothing reads those two cells holds for the rest of the game. Falsifier: search
-   the left-out functions listed in the decompilation's `docs/SCORE.md` for the two cells.
+5. **Readers of rain and lightning density.** onslaught-decomp leaves out five sources: four files of Microsoft DirectX SDK sample code and a spline file ([its README](https://github.com/dlprentice/onslaught-decomp#readme)); the claim that nothing reads those two cells holds for every game function it reproduces. Falsifier: watch the
+   two cells for reads while a level that sets them runs.
 6. **`SetHealth(500)` in level 500.** One script passes 500 where the other two pass 0.001. As a fraction of starting
    life that is five hundred times the starting life; what the target's starting life is, and whether the value is
    intended, is not established.
-7. **Which `PlayAnimationWait` uses resume.** `CBuilding`'s `FinishedPlayingCurrentAnimation` answers for four named
-   animations itself and passes the rest to the base class; whether each animation the shipped scripts wait for reaches
-   `IScript::FinishedPlayingAnim` is not traced.
+7. **Which `PlayAnimationWait` uses resume.** Every animation name the shipped scripts wait on is one that some class consumes without telling the script: `CBuilding::FinishedPlayingCurrentAnimation` consumes "opening" and "closing" (the name lookup ignores case, so "Opening" too), and `CComponent::FinishedPlayingCurrentAnimation` consumes "Activate" and "hit". A wait resumes only when the receiver's class passes that name on to `CComplexThing::FinishedPlayingCurrentAnimation` (see [the animation wait](script-runtime-events-and-waits.md#the-animation-wait)). The class of each shipped receiver has not been read, so whether any shipped wait resumes is not established.
 8. **A native called on a thing of the wrong type.** The gates make the call silent; whether any shipped script relies on
    that is not checked.
 9. **Declared types against the compiler.** Whether the script compiler takes each call's return flag, and the conversion

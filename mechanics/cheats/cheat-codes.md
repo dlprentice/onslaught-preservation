@@ -45,8 +45,8 @@ behaviour, read from the decompilation's matching copy and, for the internal bui
 - **The call sites are few and fixed.** In the decompilation's source every call passes a constant index, and the callers
   are `CFEPGoodies::Process` (indices 0 and 5), `CFEPLevelSelect::IsWorldUnlocked` (1), the pause-menu constructor (3)
   and `CGame::ReceiveButtonAction` (4). No call passes index 2. The decompilation's tree holds 5,449 of the retail
-  executable's 5,482 functions, all matching; the other 33 are in four files of Microsoft's DirectX SDK sample code and
-  one data file ([its README](https://github.com/dlprentice/onslaught-decomp#readme)). So no matched function passes
+  executable's 5,482 functions, all matching; the other 33 are in four files of Microsoft's DirectX SDK sample code that the tree leaves out
+  (a fifth left-out source is a data block with no functions; [its README](https://github.com/dlprentice/onslaught-decomp#readme)). So no matched function passes
   index 2, and a caller would have to be in that sample code, which is not where a save-name check would be expected.
 
 ## The retail table

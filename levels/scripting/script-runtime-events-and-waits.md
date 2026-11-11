@@ -257,7 +257,7 @@ loop, so `forceLooped` true, or a looping animation, never resumes the script. M
 
 - Four classes pass the notification on for animations they do not handle, and consume the ones they do: `CUnit` for
   deploying, undeploying, pre-fire, firing and post-fire; `CBuilding` for opening, closing, shutting and unshutting;
-  `CComponent` for hit, retract, activate and deactivate; and `CBoat` for deploying and undeploying.
+  `CComponent` for hit, retract, Activate and Deactivated (the names it compares, ignoring case; a plain "deactivate" is not one of them); and `CBoat` for deploying and undeploying.
 - Eleven classes never call the base function at all, for any animation, so a `PlayAnimationWait` on a thing of one of them
   never resumes: `CBattleEngine`, `CCarver`, `CCannon`, `CFenrir`, `CDiveBomber`, `CGroundAttackAircraft`, `CDropship`,
   `CGillMHead`, `CInfantryUnit`, `CPlane` and `CSentinel`. Each override handles its own animation chain (for example `CFenrir` starts its shutdown
