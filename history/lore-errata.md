@@ -2,7 +2,7 @@
 
 Status: active — the record of what lore documents used to say wrongly, why it was wrong, and what settled it. Moved
 out of the articles themselves on 2026-08-01.
-Last updated: 2026-10-22 (links updated for the onslaught-preservation layout)
+Last updated: 2026-11-11 (cheat-codes link points at the published page; earlier: 2026-10-22 links updated for the onslaught-preservation layout)
 Summary: corrections lifted out of the shipped lore corpus, plus the questions they left open.
 Evidence: SOURCE — each entry cites the evidence that corrected it. The superseded text is quoted here verbatim; it is
 not quoted anywhere a reader goes.
@@ -53,7 +53,7 @@ visible gameplay effect is inconsistent in testing"*. Live-confirmed since: with
 `Maladim` in the save name, the cheat-gated line appears in Controller Options as
 `God OFF` / `God ON`, and while on, normal combat damage stops sticking. Already-lost
 hull is not restored by toggling it back on —
-`cheat-codes.md` (to be published here after review).
+[`mechanics/cheats/cheat-codes.md`](../mechanics/cheats/cheat-codes.md).
 
 ### `technical-deep-dive.md` — the display resolution
 
