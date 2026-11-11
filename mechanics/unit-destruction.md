@@ -20,13 +20,20 @@ of unit does in between, the delays before removal, the order of the script noti
 - Death has two phases. The start phase (`StartDieProcess`) sets the dying flag, adjusts the game's counters and tells
   the unit's mission script. The removal phase is a `SHUTDOWN` event that ends in the object being deleted. For a unit,
   the start phase does **not** schedule the removal phase; each kind of unit decides how and when that happens.
-- Four removal routes exist in the units covered here: the shared `CUnit::Remove` (pods, cannons, ground vehicles and
-  some components), a delayed event that explodes the unit and then shuts it down (Mechs without the shatter property,
-  and some components), an immediate explosion and shutdown (Mechs with the shatter property, crashing aircraft), and
-  a per-class countdown (tentacles). The start functions of buildings, the Hive Boss and air units queue no removal.
+- Six removal routes exist in the units covered here: the shared `CUnit::Remove` (pods, cannons, ground vehicles and
+  some components); a delayed event that explodes the unit and then shuts it down (Mechs without the shatter property,
+  and some components); an explosion and shutdown inside the dying call itself (Mechs with the shatter property); an
+  explosion and shutdown triggered later by movement or contact (aircraft, simple buildings when they reach the ground,
+  and components that have fallen away from their parent); a per-class countdown (tentacles); and a shutdown declared
+  with no explosion (the Fenrir when its "die" animation ends, and a dying component that touches water or ground).
+  The start functions of buildings, the Hive Boss and air units queue no removal; a simple building and an aircraft are
+  removed later, by movement or contact. `CBoat`, `CSentinel` and `CSubmarine` do not override the start step at all:
+  the first two inherit only `CGroundUnit`'s and `CSubmarine` only `CUnit`'s, so no route is described for them here.
 - The delays before removal are fixed in the code: 0.05 s for pods, cannons and most components, 0.5 s for ground
   vehicles, 3.5 s for a Mech without the shatter property, 7 s for a component that has the Big property set but not
-  Detach. A tentacle blows off one bone every tenth of a second, highest-numbered first, and is shut down with the last.
+  Detach, and, for the Fenrir, a default of 2 s (a mission script can change it) before it even starts dying. A tentacle
+  blows off one bone every tenth of a second, highest-numbered first, starting on its first move after it starts dying,
+  and is shut down with the last.
 - The call that older notes in the Toolkit's frozen `reverse-engineering/` tree describe as a "profile drop" pickup is
   `CUnit::SpawnExplosion` in the decompilation, which creates the unit's own configured explosion (the same definition
   field the building and tentacle paths use); the function itself creates no pickup.
@@ -147,12 +154,26 @@ script-shutdown call is skipped.
 
 Evidence: the decompiled `CUnit::Shutdown`, plus `thing.cpp:102-111, 633-647` for the base versions.
 
-`CUnit::Shutdown` stops the unit's sounds, deletes its weapons, shuts down each spawner, applies the child rule from
-`ReleaseChildren` again (children of a dying parent get `StartDieProcess`, others `Shutdown`), stops and discards the
-unit's thruster and effect links, removes the unit from the world's unit lists, and calls the base `Shutdown`.
-`CComplexThing::Shutdown` removes the name-registry entry and clears the unit's objective status, and `CThing::Shutdown`
-removes the object from the world and deletes it. None of these functions (nor `Unit.cpp`'s) mentions
-`TF_DECLARED_SHUTDOWN`, so a unit queued by `Remove`, which does not set the flag, is deleted the same way.
+`CUnit::Shutdown` stops the unit's sounds, deletes its weapons, removes each spawner from the unit's list and deletes
+it, applies the child rule from `ReleaseChildren` again (children of a dying parent get `StartDieProcess`, others
+`Shutdown`), stops and discards the unit's thruster and effect links, removes the unit from the world's unit lists,
+deletes the segments controller and the guide if it has them, and then, for a unit with a definition record whose
+`TF_REMOVED_UNIT_TYPE` flag is still clear, decrements the world's counter for its behaviour type (allegiance 0 or 1
+only) and sets the flag, before calling the base `Shutdown`. That last step is the catch-up for a unit shut down without
+dying, such as a child released by a parent that is not dying; a unit that went through the start step has already done
+it (step 3 above). `CComplexThing::Shutdown` removes the name-registry entry and clears the unit's objective status, and
+`CThing::Shutdown` removes the object from the world and deletes it.
+
+**What the declared flag changes.** None of these functions (nor `Unit.cpp`'s) tests `TF_DECLARED_SHUTDOWN`, so a unit
+queued by `Remove`, which does not set the flag, is deleted the same way. The flag matters in one place:
+`CActor::AddMoveEvent`, which re-queues the unit's next move after each one, queues nothing once the flag is set
+(`references/Onslaught/actor.cpp:213-226`; the decompilation's `actor.cpp` has the same body). A unit sent through
+`AddShutdownEvent` therefore gets no further move events after the declaration (one already queued may still run),
+while a unit sent through `Remove` keeps being moved on every update until its `SHUTDOWN` arrives: nominally 10 updates
+for a ground vehicle and 1 for a pod or cannon, by the delay arithmetic below. The loop is
+`CActor::HandleEvent` in the same file, which calls `Move` and then `AddMoveEvent`; that the unit is in fact moved on
+those updates is read from the source, and no run observed it. A port or rebuild that models only "dying, then deleted"
+would miss the difference.
 
 ## What each kind of unit does
 
@@ -166,12 +187,17 @@ below first calls the shared start step and returns false if that returned false
 | `CCannon` (fixed emplacements) | Calls `Remove` | `SHUTDOWN` 0.05 s later |
 | `CPod` (pods a script launches) | Calls `Remove` | `SHUTDOWN` 0.05 s later |
 | `CMech` (and `CWarspite`, `CGillM`, `CThunderHead`) | Depends on the unit definition's Shatter property: see below | Immediately, or event 4004 after 3.5 s |
-| `CComponent` (and `CGillMHead`) | Depends on the Big and Detach properties: see below | `SHUTDOWN` 0.05 s later, a move away from the parent with no removal queued here, or event 4004 after 7 s |
+| `CComponent` (and `CGillMHead`) | Depends on the Big and Detach properties: see below | `SHUTDOWN` 0.05 s later; or, with Detach, a fall away from the parent that ends in `CComponent::Move` (explosion and shutdown), `DeclareInWater` or `DeclareOnGround` (shutdown only); or event 4004 after 7 s |
 | `CTentacle` (a component) | Starts a bone countdown: see below | `AddShutdownEvent` when the last bone is gone |
 | `CBuilding` | Releases children and, if it has no segments controller, explodes and scatters debris: see below | Not by this function |
-| `CSimpleBuilding` | Removes the building's static shadow | Not by this function; see below |
+| `CSimpleBuilding` | Removes the building's static shadow | Not by this function; its `Move` and `DeclareOnGround` finish it, see below |
 | `CHiveBoss` | If it has a script, queues event 5000 for the next frame | Not by this function |
 | Air units (`CAirUnit` and subclasses) | Releases children, stops and deletes its particle links | Not by this function; see [Aircraft](#aircraft) |
+| `CFenrir` | Sets the dying flag and queues its own event after `fenrir_diedelay` (default 2 s); the shared start step runs only when that event arrives | `AddShutdownEvent` when its "die" animation has played, see below |
+
+`CBoat`, `CSentinel` and `CSubmarine` appear nowhere in this table: they add no start-step override (`CBoat` and
+`CSentinel` derive from `CGroundUnit`, `CSubmarine` from `CUnit`, in `unit.h` of the decompilation), so the shared start
+step and the class above them are all they have, and which route removes them is not described here.
 
 **Mechs.** `CMech::StartDieProcess` reads the Shatter property of the unit definition (the physics-script statement
 `CUnitShatter`; its stored value is a boolean, because `CUnitShatter::Apply` writes true for any non-zero payload and
@@ -191,42 +217,64 @@ statement `CComponentBig` sets it; `CUnitBig` sets the same field for units); th
 velocity of its parent's velocity plus 0.4 times the horizontal unit vector from the parent to the component plus the
 parent's orientation applied to the vector (0, 0.4, 0), which the decompilation's comment describes as the component
 falling away from its parent; with Detach
-clear (so Big set) it queues event 4004 for 7 s ahead. The detach arm queues no removal at all in this function; the
-decompilation's own comment says such components clip to the ground, and what removes them is not established here.
+clear (so Big set) it queues event 4004 for 7 s ahead. The detach arm queues no removal in this function. Three other
+functions of the decompiled `Component.cpp` finish a detached or dying component, all matched to retail:
+
+- `CComponent::Move`, while the component is dying with Detach set, applies gravity and drag (more drag in water),
+  spawns two small explosions per call and, once the component's life is below minus its definition's life value
+  (`CComponentLife`), calls `SpawnExplosion` and `AddShutdownEvent`. The life only falls further if the component takes
+  more damage while falling.
+- `CComponent::DeclareInWater` declares shutdown (no explosion) if the component is dying, after the base handling.
+- `CComponent::DeclareOnGround` does the same on ground contact. The decompilation's function table lists it under the
+  name `CBoat__DeclareOnGround`, because the linker folded the identical bodies of `CBoat`, `CComponent` and `CFeature`
+  into one function; the matched address is the same.
+
+Detach is also what `CComponent::ClipToGround` returns. Whether any of the three is reached in play for a given
+component is not observed.
 
 **Tentacles.** `CTentacle::StartDieProcess` calls the start step of `CUnit` directly (the decompilation notes that
 retail skips `CComponent`'s version), stores the number of bones its motion controller has in `mBonesLeft`, spawns the
 unit's explosion at the head position and releases children. While dying, `CTentacle::Move` blows off the bone named
 after the current bone number each time the event-manager time passes the next-bone time, with a small explosion at that
 bone's part, sets the next time 0.1 s ahead and decrements the count; when the count reaches zero it calls
-`SpawnExplosion` and `AddShutdownEvent`. So the shutdown is declared at the last bone's blow-off: a tentacle with N bones takes at least (N-1) times 0.1 s from its
-first blow-off (decompiled constants; the time of the first blow-off depends on the initial next-bone time, which this
-page did not trace).
+`SpawnExplosion` and `AddShutdownEvent`. So the shutdown is declared at the last bone's blow-off. `CTentacle::Init`
+sets the next-bone time to zero and only `CTentacle::Move` writes it again, so the first bone goes on the first
+`Move` after dying (the test is that the event-manager time exceeds the stored time). A tentacle with N bones therefore
+shuts down at least (N-1) times 0.1 s after that first blow-off (decompiled constants; the scheduler's update grid can
+stretch each step; nothing was observed running).
 
 **Buildings.** `CBuilding::StartDieProcess` releases children. If the building has a destroyable-segments controller it does nothing more
 there, and its normal rendering continues (`CBuilding::Render` only returns early for a dying building that has no
 controller). Without a controller it creates the definition's explosion at the building's position, sets its life to
 -1, creates the explosion's named particle effect when the definition's explosion index is not -1, and then creates 40
-"Generic Mesh" particle effects around the building (each from three random bytes minus 128 scaled by 0.0003125,
-displaced 20 times that and from one unit below the building's position) and hands each live one to the building-debris
-initialiser. Either way, if the building has a mission script it queues event 5000 for the next frame, and
+"Generic Mesh" particle effects around the building (each given a small random velocity and started a short distance out
+along it, from a point one unit above the building's position, the engine's Z axis pointing down) and hands each live
+one to the building-debris initialiser. Either way, if the building has a mission script it queues event 5000 for the next frame, and
 `CBuilding::HandleEvent` answers 5000 by calling the script's `Died`, deleting the script and clearing the pointer
 (`CHiveBoss` queues the same event and has the same handler body, which the linker merged with `CBuilding`'s). No function of
 `Building.cpp` declares a shutdown; see the open questions.
 
 **Simple buildings.** `CSimpleBuilding::StartDieProcess` calls the static-shadow manager's `UpdateVisibility` for the
 building with its second parameter true. That parameter is named `remove` in the decompilation, and with it set the
-function marks every shadowed part of the building not visible and, when nothing changed, detaches the shadow from the
-building, so a dying simple building loses its static shadow at once. Removal is by `CSimpleBuilding::Move`, which runs only
+function marks every shadowed part of the building not visible, redraws the shadow grid over the building's area and
+updates the landscape if any part's visibility changed, and detaches the shadow from the building in either case, so a
+dying simple building loses its static shadow at once (a building with no static shadow does nothing). Removal is by `CSimpleBuilding::Move`, which runs only
 while dying: the building sinks under gravity, bursts one small explosion on its surface per `Move` call, and when
-it has sunk to the ground (the test compares the map's ground height plus 0.5 with the building's Z) it calls
-`DeclareOnGround`, which for a dying building calls `SpawnExplosion` and `AddShutdownEvent` (the decompilation's file
-comment says the same in words).
+it has sunk half a unit below the ground surface (the test compares the map's ground height plus 0.5 with the
+building's Z, which increases downward) it calls
+`DeclareOnGround`, which for a dying building calls `SpawnExplosion` and `AddShutdownEvent` and then zeroes the
+building's velocity (the decompilation's file comment says the same in words).
 
 **The Fenrir** replaces the air-unit start step: its `StartDieProcess` sets `TF_DYING` and queues its own die event after
-a delay set by the script variable `fenrir_diedelay`; the handler then plays the "die" animation, spawns 50 surface
+a delay held in a field that `CFenrir::Init` sets to 2 s and that the mission-script variable `fenrir_diedelay` can
+change (`CFenrir::SetVar`). The shared start step has not run at that point, so the script's `StartedDying`, the counter
+changes and the spawner clearing all wait for the event. The handler then plays the "die" animation, spawns 50 surface
 explosions, posts the script event "fenrir blowing up", clears `TF_DYING` and calls `CAirUnit::StartDieProcess`, which now
-runs the shared step and the air-unit cleanup. This is why its dying flag is cleared before the call.
+runs the shared step and the air-unit cleanup. This is why its dying flag is cleared before the call. The removal route is
+`CFenrir::FinishedPlayingCurrentAnimation`: once the current animation is the "die" one, it calls `AddShutdownEvent`
+(no explosion; the explosions were the 50 above). `CFenrir::Move` also clamps the life to no lower than -0.01, so the
+aircraft fatal-damage route below cannot fire for a Fenrir whose definition's life is 0.01 or more. All of these
+functions are matched to retail; how long the animation lasts was not measured.
 
 ## When the object goes away
 
@@ -241,7 +289,8 @@ count). Nothing here was observed running.
 | `Remove` on ground vehicles | 0.5 s | 10 |
 | Mech without Shatter (event 4004, then `SHUTDOWN` the next frame) | 3.5 s | 70, then one more |
 | Component with Big set, Detach clear (event 4004, then `SHUTDOWN` the next frame) | 7 s | 140, then one more |
-| Mech with Shatter, tentacle at its last bone, crashing aircraft | none | the next update |
+| Mech with Shatter, tentacle at its last bone, crashing aircraft, simple building reaching the ground, detached component past its life limit or touching water or ground | none | the next update |
+| Fenrir, start of dying to `StartedDying` | `fenrir_diedelay`, default 2 s | not converted to updates here (the event is queued by a delay-first overload this page did not read); then the die animation plays and `SHUTDOWN` follows when it ends |
 
 Because the scheduler compares floating-point times by bucket rather than by a per-event comparison, a due time can land
 one update either side of these nominal counts; the scheduler page owns that boundary. A unit that is dying but not yet
@@ -252,10 +301,13 @@ interval is in [the round hit path](cround-hit-damage-path.md).
 
 Evidence: the decompiled call order in the functions above and `thing.cpp:711-738`.
 
-- `StartedDying` is always first, from the shared start step, in the same call as the transition.
+- `StartedDying` is first, from the shared start step, in the same call as the transition. The exception is the Fenrir,
+  whose start step runs only when its own die event arrives, `fenrir_diedelay` (default 2 s) after `TF_DYING` is set.
 - `Died` follows in the same update for `Remove` routes (pods, cannons, vehicles, components without the properties) and
   for the Shatter Mech (through `AddShutdownEvent`); at the 4004 event for delayed Mechs and components; with the last
-  bone for a tentacle; and one update later (event 5000) for a building or Hive Boss that has a script.
+  bone for a tentacle; at the call that declares shutdown for an aircraft (fatal damage, plane contact, ground or water
+  contact), for a simple building that reaches the ground, for a detached component, and for a Fenrir whose "die"
+  animation has finished; and one update later (event 5000) for a building or Hive Boss that has a script.
 - `Died` is always followed by deleting the script object, so the `Shutdown` script notification of the later `SHUTDOWN`
   event cannot run for these units, because `CComplexThing::HandleEvent` finds no script.
 - When the level has been lost, the `StartedDying`, `Died` and `Shutdown` calls clean the script machine instead of
@@ -267,15 +319,15 @@ the call times are not established; these are the static call points in the engi
 
 ## Aircraft
 
-Evidence: the decompiled `CAirUnit::StartDieProcess`, `CAirUnit::Move`, `CPlane::Hit`, `CSmallAirUnit::Hit` and
-`CBigAirUnit::Hit`, matched to retail.
+Evidence: the decompiled `CAirUnit::StartDieProcess`, `CAirUnit::Move`, `CAirUnit::DeclareOnGround`,
+`CAirUnit::DeclareInWater`, `CPlane::Hit`, `CSmallAirUnit::Hit` and `CBigAirUnit::Hit`, matched to retail.
 
 The air-unit start step (`CAirUnit::StartDieProcess`, inherited by the air classes that do not override it; the only
 override in the decompilation is `CFenrir`'s, described above) runs the shared step, releases children, and then
 removes, stops and deletes every particle link in its two link lists (trails and engines). It does not schedule removal,
 call `Died` or set the declared flag: a dying aircraft stays in the world, tumbling (`CAirUnit::Move` gives a dying
 aircraft a third of its definition's turn rate on all three Euler axes), until one of the following calls `SpawnExplosion`
-and `AddShutdownEvent`:
+and `AddShutdownEvent` (the Fenrir's route is separate, above):
 
 - **Fatal damage in `CAirUnit::Move`.** After the base movement it tests whether life is below zero and also below
   minus the definition's life value (strictly: life exactly equal to the negative life value survives) and the Retreat
@@ -286,6 +338,10 @@ and `AddShutdownEvent`:
   `ConfirmedKill` on the other unit if it is one (what that does is not described here), then `SpawnExplosion` and
   `AddShutdownEvent`. The test does not look at the plane's own life or dying flag. It then runs the small-air-unit hit
   below.
+- **Ground and water contact in `CAirUnit::DeclareOnGround` and `DeclareInWater`.** After the base handling, a dying
+  aircraft whose definition does not set Retreat explodes and shuts down when it is declared on the ground. In water it
+  does so too unless its definition sets the Big property (both matched to retail). Which of the engine's contact checks
+  call these for an aircraft is not described here.
 - **Dying small aircraft in `CSmallAirUnit::Hit`.** With Retreat clear and `TF_DYING` set, touching a unit, a tree or a
   walkable thing explodes and shuts the aircraft down. `CBigAirUnit::Hit` does the same for a walkable thing only.
 
@@ -298,7 +354,8 @@ described by these functions. The Target Drone of Level 100 is a `CPlane`; its t
 Evidence: the decompiled `IScript::HalfDestroy`, `CUnit::DamageRandomly` and
 `CDestructableSegmentsController::DamageRandomly`, matched to retail.
 
-The mission-script command `HalfDestroy` (in [the command registry](../levels/scripting/mission-script-command-registry.md))
+The mission-script command `HalfDestroy` (listed in the table file of
+[the command registry](../levels/scripting/mission-script-command-registry.md), not named in its prose)
 does nothing unless the script's thing is a unit. For a unit it calls `CUnit::DamageRandomly`, which is not a death call:
 with a segments controller it asks the controller to damage random segments (each distinct segment of a type above the
 swap type is damaged by 100000 with probability one half, then the controller's below-half flag is set if its life is
@@ -316,14 +373,17 @@ death only if a later damage call finds the life below zero.
   stops drawing a dying unsegmented building. This page searched only the building source for the shutdown call. A
   search of the base classes and of level teardown, plus the first two bullets' log, would settle whether a destroyed
   building is ever deleted before the level ends.
-- **What the Retreat, Big and Detach properties mean in play** and which authored units set them (the decompilation
-  names the fields after their offsets and gives only the property classes `CUnitRetreat`, `CUnitBig`,
-  `CComponentBig` and `CComponentDetach`). Reading the unit definitions of the retail game with the decompilation's
-  property list would settle which units set which.
+- **Which authored units set Retreat, Big and Detach, and how that plays.** The decompilation names the fields after
+  their offsets and gives the property classes `CUnitRetreat`, `CUnitBig`, `CComponentBig` and `CComponentDetach`. What
+  the code does with them is static: with Retreat set, `CUnit::Damage` does not start dying on lethal damage and calls
+  a hook the decompilation has not named (which sends the unit toward the nearest safe side), and the aircraft routes
+  above are skipped; a dying unit with Big set ignores explosion damage in `CUnit::Damage`; a Big air unit slows
+  through water (`CAirUnit::Move`); Detach is the component's `ClipToGround`. Reading the unit definitions of the
+  retail game with the decompilation's property list would settle which units set which.
 - **Which units set Shatter**, and whether a second `StartDieProcess` ever reaches a Shatter Mech (the segments
   controller calls without checking the dying flag, but a Mech with a segments controller was not shown): a second call
   would spawn a second explosion.
-- **What removes a detached component** that has queued nothing.
 - **The score adjustment's use.** Step 3 of the start step changes `GAME.IncScore` by the unit type's priority weight;
   where the total is read was not traced.
-- **Dying aircraft motion** and the exact first tick of a tentacle's bone countdown were not traced.
+- **Dying aircraft motion** was not traced, nor was how long the Fenrir's "die" animation lasts, nor which of the three
+  component routes (`Move`, water, ground) ends a detached component in practice; a log of the three would settle it.
