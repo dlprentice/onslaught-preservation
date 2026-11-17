@@ -1,9 +1,9 @@
 # Unit and Battle Engine damage and contact
 
-Status: active — subsystem description of how damage, repair, shields and invulnerability are applied and how unit contact is admitted; no full-game observation
-Last updated: 2026-11-11 (new document, written from the frozen notes formerly in the Toolkit's `reverse-engineering/` folder and checked against the decompilation's source)
+Status: active — subsystem description of how damage, repair, shields and invulnerability are applied and how unit contact is admitted; one full-game observation (the contact rule's unset third normal in recorded play)
+Last updated: 2026-11-17 (the unset third contact normal measured in recorded play of levels 720 and 741; how level 720's value was traced, and the run with the original's values given to CE)
 Summary: the order of operations when something damages or repairs the player's Battle Engine and any other unit (shields, life, augmentation, death, shake, invulnerability, radio warnings), the rules for admitting a unit's contact with the thing it stands on, and the events a unit handles; with the cases that were run on the original function bodies and what remains open.
-Evidence: SOURCE — Stuart's pinned `BattleEngine.cpp` (the Battle Engine's `Damage`), which has no counterpart for `Unit.cpp`; MEASURED — the decompilation's source for these four functions is listed as byte-matched against the retail executable, and the complete original bodies of `CBattleEngine::Damage` and `CUnit::Damage` were run in an isolated harness with authored inputs (41 and 61 cases); INFERRED — the consequences drawn from that order, each marked where it is drawn; UNKNOWN — everything the open questions list, including every question about live play.
+Evidence: SOURCE — Stuart's pinned `BattleEngine.cpp` (the Battle Engine's `Damage`), which has no counterpart for `Unit.cpp`; MEASURED — the decompilation's source for these four functions is listed as byte-matched against the retail executable, and the complete original bodies of `CBattleEngine::Damage` and `CUnit::Damage` were run in an isolated harness with authored inputs (41 and 61 cases), and in replays of recorded play of levels 720 and 741, the third normal `CUnit::Hit` reads with two contacts, what the original finds there, whether repeated runs agree, and what a different value does to the standing decision; INFERRED — the consequences drawn from that order, each marked where it is drawn; UNKNOWN — everything the open questions list, including every question about live play.
 Specimen: pristine Steam `BEA.exe`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750` (see the [retail specimen baseline](../platforms/pc/retail-specimen-baseline.md)).
 
 Two virtual methods decide what a hit or a repair does to a unit: `CBattleEngine::Damage` for the player's Battle Engine and
@@ -248,6 +248,35 @@ Two details matter to a reimplementation.
   successful contacts followed by a miss left the third slot unchanged (two different initial contents survived), and a
   third blocking contact wrote the slot while the count stayed two. The dispatcher initialises the scalar fields of the
   report but not the normal array. Whether real triangle geometry produces these sequences was not measured.
+- **It happens in real play, and it decides the outcome.** Replaying two recordings in the original with a trace on
+  `CUnit::Hit` showed a report with two contacts, neither steep enough on its own, so the three-normal sum decided. The
+  [Onslaught CE](https://github.com/dlprentice/onslaught-ce) port (version 0.1.13), built with a different compiler and
+  replaying the same input, read different leftover bytes there, and the decision went the other way:
+  - **Level 741, 42.65 s, the player's Battle Engine.** Both contacts are about 51 degrees from level (`-Z` 0.63). The
+    original's third slot held (0.89, -0.46, 0), and with it the sum passes the 0.69 test (`-Z` about 0.88). The
+    Battle Engine is declared standing, called from `CUnit::Hit` at `0x004fcd9f` and `0x004fcda9`. In CE 0.1.13 the
+    slot held values near zero, the sum stayed at 0.63, and the engine was not declared standing.
+  - **Level 720, 0.05 s, a unit at the start of the level.** The original's third slot held (-0.78, -0.63, -0.04),
+    left there by `CUnit::GetEmitter` copying a particle emitter's matrix: a write watch on that stack slot logged it
+    as the last write before the hit (MEASURED). The sum fails the test, so the unit does not stand. In CE 0.1.13 the
+    slot held (5, 0, -20), which passes the test (`-Z` about 0.95), so in CE the unit stands.
+
+  Repeat runs: the third value was traced in one run of each level. In that run of level 741, the same two units (one of
+  them the Battle Engine) touched with two contacts nine times between 30.35 s and 42.65 s, and the third value was
+  the same each time; other two-contact reports in the run held other values. Two further full runs of each level, made days
+  apart, matched each other at every 50-frame checkpoint (the player's position, the random state, life and the event
+  count), on level 741 through the end of the level at 196 s. A flipped decision moves the unit, so both runs made the
+  same decision there (INFERRED). When CE was given the original's third values for level 720 (written into the slot
+  at each two-contact hit, in order), its first difference from the original moved from frame 3 to frame 3,200, where a
+  separate rounding difference took over. That shows this read caused the earlier split. The replays ran on the
+  fixed-step clock described in [where the retail game depends on real time](../engine/runtime-time-dependence.md).
+  The input tapes, the repeat runs, the traces, the values given to CE and that run's probes are public, with a README
+  and SHA-256 sums:
+  [battle-engine-aquila-rebuild, `evidence/unit-hit-third-normal/`](https://github.com/deten/battle-engine-aquila-rebuild/tree/c2e507ecdd0ffdcae6886f9e0dd3d8c805f0e1b1/evidence/unit-hit-third-normal).
+
+  INFERRED: the original's value is the same on every run because the same calls run before `CUnit::Hit`, not because
+  anything sets it. A rebuild that wants the original's outcomes has to reproduce that leftover. A rebuild that sets
+  the slot (or sums only the reported contacts) will make different standing decisions in cases like these two.
 - **The threshold decision depends on single-precision rounding.** The retail code stores the summed Y component as a
   single-precision value before using it and keeps the other two components at register precision; a plain normalise
   differs. Over 13,839 authored sets of normals, the earlier plain-normalise rewrite disagreed with the retail block in
@@ -285,7 +314,7 @@ follows; an earlier note called it a pickup spawner. All of this is static: no f
 
 ## Open questions
 
-- **Live play.** None of the above was observed in a full game. The cheapest falsifier for the Battle Engine's order is a
+- **Live play.** Apart from the two contacts under [Contact](#contact-cunithit), none of the above was observed in a full game. The cheapest falsifier for the Battle Engine's order is a
   controlled run of a copied game with a debugger watching life, shields and energy across one hit of known size, with
   the efficiency read from the running configuration.
 - **A non-null attacker.** The damage-flash path (allocation, list and lifetime) was not executed; the isolated cases used
@@ -296,6 +325,8 @@ follows; an earlier note called it a pickup spawner. All of this is static: no f
   and add to the units-destroyed statistic. Whether something else marks such a unit dying first is not established. The
   falsifier is two damaging hits on a negative-life `Retreat` unit counting the statistic.
 - **Which units carry a `nexus` or `weakpoint` part**, and so whether the multiplier and the restriction matter in shipped levels.
-- **Contact from real geometry.** Captured contact reports from the collision query, with the live floating-point
-  setting, replayed through the threshold block.
+- **Contact from real geometry.** Two cases are measured (levels 720 and 741, under
+  [Contact](#contact-cunithit)). How often two-contact reports reach the three-normal sum across the shipped levels,
+  and what fills the third slot in each, is not known. The cheapest check is a trace on `CUnit::Hit` over a set of
+  recorded playthroughs, counting two-contact reports that reach the sum and logging the third slot's contents.
 - **Event names.** The authored names of 4001, 4003, 4004 and 4005, and what exactly the near-camera flag changes in the first branch of `CUnit::GetEmitter`.
