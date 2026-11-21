@@ -1,7 +1,7 @@
 # Index
 
 Status: active — the front door to this repository's findings
-Last updated: 2026-11-11 (script-native, script-runtime, damage, destruction and segment pages routed; earlier: cheat codes and known bugs routed; earlier: the findings rule stated)
+Last updated: 2026-11-21 (removed stale Companion rename wording)
 Summary: where each kind of finding about *Battle Engine Aquila* lives in this repository, the evidence rules
 every claim meets, and the patch analyses, per-subsystem contracts and machine-readable tables.
 
@@ -154,6 +154,5 @@ Machine-readable tables:
 - [Save/options boundary](saves/public-save-options.md)
 - [Assets and modding boundary](formats/public-assets-and-modding.md)
 
-The companion app for careers, saves, settings and lore is [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) (to be renamed
-onslaught-companion); it does not patch executables. Its player capabilities are to move into Onslaught CE, and the separate app is to be phased out after verified replacement; it has no published release yet ([the Toolkit's PROGRAM.md](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/PROGRAM.md), Companion row). To play the game, see [onslaught-ce](https://github.com/dlprentice/onslaught-ce); the
+The companion app for careers, saves, settings and lore is [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor); it does not patch executables. Its player capabilities are moving into Onslaught CE, and the separate app is to be phased out after verified replacement; it has no published release yet ([the Toolkit's PROGRAM.md](https://github.com/dlprentice/Onslaught-Career-Editor/blob/main/PROGRAM.md), Companion row). To play the game, see [onslaught-ce](https://github.com/dlprentice/onslaught-ce); the
 rebuild is [onslaught-godot](https://github.com/dlprentice/onslaught-godot).

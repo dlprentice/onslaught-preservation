@@ -1,7 +1,7 @@
 # Onslaught preservation
 
 Status: active — the repository's front page
-Last updated: 2026-11-11 (headers described as present on every document; the check command named on the front page; the findings rule stated; code of conduct linked)
+Last updated: 2026-11-21 (front-page Discussions link; removed stale Companion rename wording)
 Summary: what this repository documents about *Battle Engine Aquila*, where to start in each section, how to read a
 finding, the licence, related projects and how to contribute.
 
@@ -114,7 +114,7 @@ Credits are in [`history/attribution.md`](history/attribution.md).
   describes the measured routes and their limits.
 - [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) (also called the Toolkit): Onslaught
   Companion, the app for careers, saves, settings and backups, with the game's lore and lore book, and the project's
-  goal and plan (to be renamed onslaught-companion). Its player capabilities are to move into Onslaught CE, and the separate app is to be phased out after verified replacement; it has no published release yet.
+  goal and plan. Its player capabilities are moving into Onslaught CE, and the separate app is to be phased out after verified replacement; it has no published release yet.
 - [stuart73/Onslaught](https://github.com/stuart73/Onslaught): Stuart Gillam's published Onslaught source, which
   many findings here cite.
 
@@ -125,4 +125,5 @@ Corrections and new findings are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.
 every claim needs evidence, and game files, decompiler output and disassembly listings with raw bytes are never
 accepted. Before a pull request, run `python3 tools/check_docs.py --changed` (Python 3, standard library only); it checks
 links, anchors, headers and machine paths. Security problems and leaked private material go through
-[`SECURITY.md`](SECURITY.md). Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md).
+[`SECURITY.md`](SECURITY.md). Everyone taking part follows the [code of conduct](CODE_OF_CONDUCT.md). Questions and
+ideas across the project go to [Onslaught CE Discussions](https://github.com/dlprentice/onslaught-ce/discussions).

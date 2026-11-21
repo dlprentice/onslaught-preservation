@@ -1,7 +1,7 @@
 # Local multiplayer evidence boundary
 
 Status: retail local split-screen path evidenced; original-binary online play not established by this contract
-Last updated: 2026-11-06 (function names taken from the public naming table; Evidence and Specimen lines added; retired WinUI app named consistently; earlier: retail multiplayer scope and CE release navigation clarified)
+Last updated: 2026-11-21 (removed #readme fragment from CE repository link)
 Summary: what supports the retail local split-screen path, and the limits of original-binary evidence for online play.
 Evidence: SOURCE — pinned Onslaught source, named by file, as a naming and control-flow reference; MEASURED — retail addresses read from the pristine specimen (bounded corroboration only) and the controlled copied-target observations under Retired toolkit behavior.
 Specimen: pristine `BEA.exe.original.backup`, SHA-256 `74154bfae14ddc8ecb87a0766f5bc381c7b7f1ab334ed7a753040eda1e1e7750`.
@@ -10,7 +10,7 @@ This contract describes the retail game's bounded local multiplayer path and
 the limits of the original-binary evidence. It does not add netcode, patch
 networking into the retail executable, or prove online play.
 
-Onslaught CE is a separate native-source port. Its [README](https://github.com/dlprentice/onslaught-ce#readme)
+Onslaught CE is a separate native-source port. Its [README](https://github.com/dlprentice/onslaught-ce)
 describes what is currently available to players; experimental network work
 alone does not establish a released online feature.
 

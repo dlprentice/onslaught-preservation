@@ -2,7 +2,7 @@
 
 Status: active bounded retail contract — typed palette construction and linked-shader normal dataflow closed
 Date: 2026-08-23
-Last updated: 2026-11-06 (the routine named as the decompilation names it; the Reproduce inputs defined and the capture logs written as maintainer evidence; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-11-21 (replaced private output path wording with generic ignored output placeholder)
 Verdict: **For each BONE entry, `CMeshRenderer__RenderMeshCore` samples the
 part at frame zero and at the current interpolated pose, stages row-major
 row-vector affine matrices, and constructs the unscaled bind-to-current palette
@@ -235,7 +235,7 @@ Two independent runs were byte-identical. JSON SHA-256 was
 `578990300592d974a59cf3d3c28a6ed993164a451792c59f38a18071b0d07a54`;
 TSV SHA-256 was
 `26bf50cf1ea64e50548d07c52a8d9633b82cdaa133b5d2d7e27d569b615e923f`.
-Generated reports stay under ignored `.artifacts` or `local-lab`; the tracked
+Generated reports stay under an ignored local output folder (such as `<out-dir>/` or `.artifacts/`); the tracked
 TSV is the exact generated public-safe receipt.
 
 ## Remaining unknowns and cheapest falsifiers

@@ -5,7 +5,7 @@ palette roles, and the executed position blend are closed; typed matrix order
 and normal dataflow are closed by the focused
 [P2 successor](cmsh-matrix-normal-deformation.md)
 Date: 2026-08-23
-Last updated: 2026-11-06 (predecessor and Toolkit tool pins name the commit they were recorded at; reproduce block names the Toolkit commit and placeholders; runtime FVF stated; public names for the same addresses; earlier: research-campaign records and decompiler-style code removed)
+Last updated: 2026-11-21 (replaced private output path wording with generic ignored output placeholder)
 Verdict: **The shipped `BONE` carriers use one static 48-byte vertex form
 and GPU-side `vs_1_1` skinning. Each vertex stores three floating-point palette
 offsets, each exactly `3 * BONE-array index`; no per-vertex scalar weight is
@@ -264,7 +264,7 @@ Two independent runs produced byte-identical JSON and TSV. JSON was 18,011 bytes
 SHA-256 `e6f70ecf12add31d7e5d6a5508cec4d93c4fa9c69de68d889d07e4bebcef54dd`;
 TSV was 12,827 bytes, SHA-256
 `f98b2c7e501cf90702aba65481f3e879eadcc30a51f40dfa2d08c74b8b76a3af`.
-Generated reports are restricted to ignored `local-lab` or `.artifacts` paths.
+Generated reports are restricted to ignored local output paths (such as `<out-dir>/` or `.artifacts/`).
 The tracked TSV is the exact generated public-safe receipt.
 
 ## Remaining unknowns and focused falsifiers

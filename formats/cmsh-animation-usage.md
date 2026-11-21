@@ -2,7 +2,7 @@
 
 Status: active bounded animation, position-skinning, and authored-usage contract
 Date: 2026-08-23
-Last updated: 2026-11-11 (the unpublished handler-note citation replaced by a link to the natives overview; earlier, 2026-11-06: names checked against onslaught-decomp; commands, flags and test counts checked against the Toolkit at commit 843c86e; earlier: the seven other `MESH` rows are in the base and front-end archives; the WRES join counts only records with no `dies_on` world)
+Last updated: 2026-11-21 (replaced private example output path with generic placeholder)
 Verdict: the loose CMSH meshes store part tracks with pose tables, frame maps, bone arrays and camera field-of-view values, as the sections below measure. Most numeric LVLR `MESH` rows join by authored name to loose meshes, and the rest each own an anonymous embedded CMSH. The WRES/physics join connects each definition-bearing placement it covers to exactly one named level row and one loose CMSH. The loose MSL files contain active `PlayAnimation*` calls, and the calls that join to placements through script strings are described below. The focused matrix-palette pass additionally closes the released position blend. These remain storage and authored-reference contracts, not proof that every named track is scheduled or rendered.
 Evidence: MEASURED — `tools/cmsh_animation_usage_census.py` parsed and
 hash-verified 213 meshes, 66 numeric LVLR archives, 733 MSL files, and
@@ -228,7 +228,7 @@ found no bounded named-clip field in `VHFM`/`HORI`/`HPOS`. The 36-byte `CAMD` re
 
 ## Reproduce
 
-The scanner and its focused test are in [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) at commit [843c86e](https://github.com/dlprentice/Onslaught-Career-Editor/tree/843c86e06810c8fce953226ccebd41bf2cf74473): `tools/cmsh_animation_usage_census.py` and `tools/cmsh_animation_usage_census_tests.py`. Run the commands below from that checkout. The scanner takes an explicit data root, checks every selected file against the mirror index when one is given, and refuses to write its report outside the checkout's ignored `local-lab/` or `.artifacts/` folder.
+The scanner and its focused test are in [Onslaught-Career-Editor](https://github.com/dlprentice/Onslaught-Career-Editor) at commit [843c86e](https://github.com/dlprentice/Onslaught-Career-Editor/tree/843c86e06810c8fce953226ccebd41bf2cf74473): `tools/cmsh_animation_usage_census.py` and `tools/cmsh_animation_usage_census_tests.py`. Run the commands below from that checkout. The scanner takes an explicit data root, checks every selected file against the mirror index when one is given, and refuses to write its report outside the checkout's ignored output directories (such as `.artifacts/`).
 
 - `<safe-copy>/data` is the `data` folder of your own copy of the game. The run needs it, and the shipped-data tests cannot run without it.
 - `<asset-mirror>/INDEX.jsonl` is the maintainer's private mirror index. Without it, leave out `--mirror-index`: the scan still runs, but it checks no file against an index.
@@ -237,7 +237,7 @@ The scanner and its focused test are in [Onslaught-Career-Editor](https://github
 python ./tools/cmsh_animation_usage_census.py \
   --data-root "<safe-copy>/data" \
   --mirror-index "<asset-mirror>/INDEX.jsonl" \
-  --json-out "local-lab/cmsh-animation-usage/census.json"
+  --json-out "<out-dir>/cmsh-animation-usage/census.json"
 ```
 
 Focused gate with the local corpus enabled:
